@@ -1,0 +1,12 @@
+bonus : up, down, letf, right, tab ...
+CTRL-D : when there is command not enter : do nothing, otherwise exit
+
+\' \ ... things after \
+will it show special character normally ? like french character
+
+
+./file_name : execute
+/bin/... : command
+repository_name : cd repository
+
+how does it work exactly ?
