@@ -10,11 +10,11 @@
 2. tester/*
 
 ### 工作分配
-1. libft (make a tester and check norm)
+1. libft (test it and check norm) xli
 2. Makefile
 3. main.c, minishell.h (這兩個檔案以整合parse, execute為目標，並且只將共用prototype放入minishell.h)
-4. parse (xli)
-5. execute (yfu)
+4. parse (yfu)
+5. execute (xli)
 
 ### 注意事項
 1. 每次進行修改時另開branch，等到所有人+tester都驗證完功能以後再進行merge，詳見參考資料1
