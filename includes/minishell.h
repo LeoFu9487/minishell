@@ -17,5 +17,16 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 
+/*
+** builtin
+*/
+
+void	builtin_echo(char **args, t_deque *env);
+void	builtin_cd(char **args, t_deque *env);
+void	builtin_pwd(char **args, t_deque *env);
+void	builtin_export(char **args, t_deque *env);
+void	builtin_unset(char **args, t_deque *env);
+void	builtin_env(char **args, t_deque *env);
+void	builtin_exit(char **args, t_deque *env);
 
 #endif
