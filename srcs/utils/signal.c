@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   yfu.h                                              :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/01 16:38:28 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/01 17:34:57 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef YFU_H
-# define YFU_H
+#include "minishell.h"
 
-typedef struct s_termcap
+static void	handle_signal(int signal)
 {
-	struct termios	original;
-	struct termios	raw;
-}t_termcap;
+	if (signal == SIGINT) /* ctrl + C */
+	{
+		ft_putstr_fd("SIGINT\n", 1);
+		exit(1);
+	}
+	if (signal == SIGQUIT) /* ctrl + \ */
+		ft_putstr_fd("SIGQUIT\n", 1);
+}
 
-typedef enum e_switch
+void	catch_signal(void)
 {
-	on = 0,
-	off
-}t_switch;
-
-void	raw_mode_switch(t_switch e);
-t_deque	*init_env(char **env);
-
-#endif
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, handle_signal);
+}

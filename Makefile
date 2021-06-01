@@ -4,12 +4,18 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 CC = gcc
 
-UTILS_FILE = exit.c
+UTILS_FILE = exit.c	init.c	signal.c
 
 UTILS_PATH = utils/
 
+TERMCAP_FILE = termcap.c
+
+TERMCAP_PATH = termcap/
+
 #PUT FILES HERE
 SRCS_FILE += $(addprefix $(UTILS_PATH), $(UTILS_FILE))
+
+SRCS_FILE += $(addprefix $(TERMCAP_PATH), $(TERMCAP_FILE))
 
 SRCS_FILE += main.c
 
