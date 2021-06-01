@@ -18,7 +18,7 @@ LIBFT = libft/libft.a
 LIBFLAGS = -L ./libft -lft -lncurses
 
 #PUT HEADERS HERE
-HEADER_FILE = minishell.h
+HEADER_FILE = minishell.h	xli.h yfu.h
 
 HEADER_PATH = includes/
 
