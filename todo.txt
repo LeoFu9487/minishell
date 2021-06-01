@@ -4,14 +4,7 @@ CTRL-D : when there is command not enter : do nothing, otherwise exit
 \' \ ... things after \
 will it show special character normally ? like french character
 
-
-./file_name : execute
-/bin/... : command
-repository_name : cd repository
-
-how does it work exactly ?
-
-put -lncurses in the flag
+message_exit : need to change anything for global ?
 
 termcap : 
 https://zestedesavoir.com/tutoriels/1733/termcap-et-terminfo/#2-termcap-et-terminfo

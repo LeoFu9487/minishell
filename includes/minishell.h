@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/01 13:53:12 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 14:10:23 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,13 @@ void	builtin_export(char **args, t_deque *env);
 void	builtin_unset(char **args, t_deque *env);
 void	builtin_env(char **args, t_deque *env);
 void	builtin_exit(char **args, t_deque *env);
+
+/*
+** utils :
+** message_exit(int exit_code, char *message, int fd)
+** : free everything, put message in fd and exit(exit_code)
+*/
+
+void	message_exit(int exit_code, char *message, int fd);
 
 #endif

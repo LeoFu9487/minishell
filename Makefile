@@ -4,8 +4,14 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 CC = gcc
 
+UTILS_FILE = exit.c
+
+UTILS_PATH = utils/
+
 #PUT FILES HERE
-SRCS_FILE = main.c
+SRCS_FILE += $(addprefix $(UTILS_PATH), $(UTILS_FILE))
+
+SRCS_FILE += main.c
 
 SRCS_PATH = srcs/
 
@@ -53,4 +59,4 @@ re : fclean all
 
 .PHONY: all clean fclean re bonus
 
-.SILENT : 
+#.SILENT : 
