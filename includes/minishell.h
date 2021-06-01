@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/01 13:53:12 by yfu              ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../libft/libft.h"
@@ -16,6 +28,8 @@
 # include <errno.h>
 # include <sys/ioctl.h>
 # include <termios.h>
+# include "xli.h"
+# include "yfu.h"
 
 /*
 ** builtin
