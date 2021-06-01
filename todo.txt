@@ -15,3 +15,6 @@ put -lncurses in the flag
 
 termcap : 
 https://zestedesavoir.com/tutoriels/1733/termcap-et-terminfo/#2-termcap-et-terminfo
+
+exit code :
+https://tldp.org/LDP/abs/html/exitcodes.html#EXITCODESREF
