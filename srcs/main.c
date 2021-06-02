@@ -1,46 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/03 00:24:34 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/03 00:29:23 by yfu              ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	init_all(t_deque **env_list, char **env) //todo
+static void	init_all(char **env) //todo
 {
-	*env_list = init_env(env); //todo
+	//init g_data
 	g_data.exit_status = 0;
+	g_data.empty_buffer = 1;
+	g_data.history = deque_init();
+	init_env(env);
+	//put env_list
 	//change SHLVL and other variables ?
-}
-
-static void	main_loop(char **env)
-{
-	while (1)
-	{
-		raw_mode_switch(on);
-		catch_signal();//todo
-		ft_putstr_fd(PROMPT_MESSAGE, 1);
-		
-		/*get_input(st, input);
-		if (!is_empty(input))
-		{
-			hist_update(&st->history, input);
-			env = concat_env(env_lst);
-			st->envp = ft_split(env, '\n');
-			free(env);
-			disacatble_raw_mode(st);
-			parse_cmdline(st, &env_lst, cmd_lst, input);
-			free_2darray(st->envp);
-			g_sig.sigint = 0;
-			g_sig.sigquit = 0;
-			g_sig.pid = 0;
-		}*/
-	}
 	(void)env;
 }
 
-int main(int argc, char **argv, char **env)
+static void	main_loop(void)
 {
-	t_deque	*env_list;
+	char	*input_string;
+	t_deque	*tokens;
 
+	while (1)
+	{
+		raw_mode_switch(on);
+		ft_putstr_fd(PROMPT_MESSAGE, 2);
+		input_string = get_input();
+		tokens = lexer(input_string);
+		if (tokens->size > 0)
+		{
+			deque_push_back(g_data.history, input_string);
+			raw_mode_switch(off);
+			parse_and_execute(tokens);
+		}
+		ft_free(input_string);
+		deque_clear(tokens, ft_free);
+	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
 	(void)argv;
 	if (argc > 1)
 		message_exit(1, "minishell doesn't allow any argument", 2);
-	init_all(&env_list, env);
-	main_loop(env);
-	return (0);
+	init_all(env);
+	catch_signal();
+	main_loop();
+	message_exit(0, "", -1);
 }

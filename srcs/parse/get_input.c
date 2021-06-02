@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   yfu.h                                              :+:      :+:    :+:   */
+/*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 00:27:06 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/02 23:42:12 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/03 00:28:03 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef YFU_H
-# define YFU_H
+#include "minishell.h"
 
-typedef struct s_termcap
+char	*get_input(void)
 {
-	struct termios	original;
-	struct termios	raw;
-}t_termcap;
-
-typedef enum e_switch
-{
-	on = 0,
-	off
-}t_switch;
-
-void	raw_mode_switch(t_switch e);
-t_deque	*init_env(char **env);
-char	*get_input(void);
-t_deque	*lexer(char *input_string);
-void	parse_and_execute(t_deque *tokens);
-
-#endif
+	while (1)
+	{
+		char buffer[1];
+		read(0, buffer, 1);
+		if (buffer[0] == '\n')
+		{
+			ft_putstr_fd("\n", 1);
+			break ;
+		}
+	}
+	//remember to keep track of g_data.empty_buffer
+	return ("");
+}

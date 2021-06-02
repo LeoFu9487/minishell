@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/01 17:27:51 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 00:03:21 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@
 
 struct s_data
 {
-	int	exit_status;	
+	t_deque	*env_list;
+	t_deque	*history;
+	int		exit_status;
+	int		empty_buffer;
 }g_data;
 
 /*

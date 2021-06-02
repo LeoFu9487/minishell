@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/01 17:34:57 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 23:36:02 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static void	handle_signal(int signal)
 		exit(1);
 	}
 	if (signal == SIGQUIT) /* ctrl + \ */
+	{
 		ft_putstr_fd("SIGQUIT\n", 1);
+		exit(2);
+	}
 }
 
 void	catch_signal(void)

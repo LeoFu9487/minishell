@@ -12,10 +12,16 @@ TERMCAP_FILE = termcap.c
 
 TERMCAP_PATH = termcap/
 
+PARSE_FILE = get_input.c	lexer.c	parse.c
+
+PARSE_PATH = parse/
+
 #PUT FILES HERE
 SRCS_FILE += $(addprefix $(UTILS_PATH), $(UTILS_FILE))
 
 SRCS_FILE += $(addprefix $(TERMCAP_PATH), $(TERMCAP_FILE))
+
+SRCS_FILE += $(addprefix $(PARSE_PATH), $(PARSE_FILE))
 
 SRCS_FILE += main.c
 
