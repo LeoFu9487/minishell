@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 08:19:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/05/17 01:48:08 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 02:55:10 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ size_t elem_size, void *del, t_memory type)
 	{
 		new_mem = ft_calloc_2(elem_cnt, elem_size);
 		if (!new_mem)
-			ft_putstr_fd("ERROR_IN_FT_MEMORY_0\n", 1);
+			ft_putstr_fd("ERROR_IN_FT_MEMORY_0\n", 2);
 		else if (!(ft_lstadd_front(&head, ft_lstnew_2(new_mem))))
-			ft_putstr_fd("ERROR_IN_FT_MEMORY_1\n", 1);
+			ft_putstr_fd("ERROR_IN_FT_MEMORY_1\n", 2);
 		return (new_mem);
 	}
 	if (type == pop)

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 00:27:06 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 02:53:11 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef enum e_switch
 }t_switch;
 
 void	raw_mode_switch(t_switch e);
-t_deque	*init_env(char **env);
+void	init_env(char **env);
 char	*get_input(void);
 t_deque	*lexer(char *input_string);
 void	parse_and_execute(t_deque *tokens);
