@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 02:48:05 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 16:10:05 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ struct s_data
 ** simulates execve (args[0] will be ignored)
 */
 
-void	builtin_echo(char **args);//todo
 void	builtin_cd(char **args);//todo
 void	builtin_pwd(char **args);//todo
 void	builtin_export(char **args);//todo
