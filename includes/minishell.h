@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 00:03:21 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 02:48:05 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ struct s_data
 ** simulates execve (args[0] will be ignored)
 */
 
-void	builtin_echo(char **args, t_deque *env);//todo
-void	builtin_cd(char **args, t_deque *env);//todo
-void	builtin_pwd(char **args, t_deque *env);//todo
-void	builtin_export(char **args, t_deque *env);//todo
-void	builtin_unset(char **args, t_deque *env);//todo
-void	builtin_env(char **args, t_deque *env);//todo
-void	builtin_exit(char **args, t_deque *env);//todo
+void	builtin_echo(char **args);//todo
+void	builtin_cd(char **args);//todo
+void	builtin_pwd(char **args);//todo
+void	builtin_export(char **args);//todo
+void	builtin_unset(char **args);//todo
+void	builtin_env(char **args);//todo
+void	builtin_exit(char **args);//todo
 
 /*
 ** utils :

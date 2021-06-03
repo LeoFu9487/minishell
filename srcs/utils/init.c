@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/01 16:42:53 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 02:49:01 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_deque	*init_env(char **env) //todo
 {
+	//change SHLVL and other variables ?
 	(void)env;
 	return (NULL);
 }

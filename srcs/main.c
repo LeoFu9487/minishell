@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 00:24:34 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 00:29:23 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 02:49:05 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ static void	init_all(char **env) //todo
 	g_data.empty_buffer = 1;
 	g_data.history = deque_init();
 	init_env(env);
-	//put env_list
-	//change SHLVL and other variables ?
-	(void)env;
 }
 
 static void	main_loop(void)
