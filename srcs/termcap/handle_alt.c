@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_arrow.c                                     :+:      :+:    :+:   */
+/*   handle_alt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 23:57:57 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 01:37:44 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/05 01:02:25 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/05 01:37:21 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_up(void)
+void	handle_alt_a(void)
 {
-	ft_putendl_fd("up", 2);
+	ft_putendl_fd("alt-a", 2);
 }
 
-void	handle_down(void)
+void	handle_alt_b(void)
 {
-	ft_putendl_fd("down", 2);
+	ft_putendl_fd("alt-b", 2);
 }
 
-void	handle_left(void)
+void	handle_alt_l(void)
 {
-	ft_putendl_fd("left", 2);
-}
-
-void	handle_right(void)
-{
-	ft_putendl_fd("right", 2);
+	ft_putendl_fd("alt-l", 2);
 }

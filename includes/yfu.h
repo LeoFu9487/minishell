@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 00:14:10 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 01:12:48 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ typedef enum e_switch
 	on = 0,
 	off
 }t_switch;
-
-void		raw_mode_switch(t_switch e);//ok
-
+/*____ok_____*/
+void		raw_mode_switch(t_switch e);
+/*____todo____*/
 void		init_env(char **env);//todo
 char		*get_input(void);//todo
 t_deque		*lexer(char *input_string);//todo
@@ -71,6 +71,14 @@ void		handle_ctrl_up(void);//todo
 void		handle_ctrl_down(void);//todo
 void		handle_ctrl_left(void);//todo
 void		handle_ctrl_right(void);//todo
-unsigned	get_key();
+void		handle_backspace(void);//todo
+void		handle_alt_a(void);//todo
+void		handle_alt_b(void);//todo
+void		handle_alt_l(void);//todo
+void		handle_home(void);//todo
+void		handle_end(void);//todo
+void		handle_delete(void);//todo
+
+unsigned	get_key();//todo
 
 #endif
