@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:25:59 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 16:36:32 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 01:50:47 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ static void	here_document(char *eof)
 				ft_putendl_fd(line, pipefd[1]);
 			}
 			else
+			{
+				close(pipefd[1]);
 				message_exit(0, "", -1);
+			}
 		}
 		if (ft_strncmp(line, eof, len) != 0)
 		{
@@ -52,6 +55,7 @@ static void	here_document(char *eof)
 			ft_putstr_fd(eof, 2);
 			ft_putendl_fd("\')", 2);
 		}
+		close(pipefd[1]);
 		message_exit(0, "", -1);
 	}
 }
@@ -66,7 +70,7 @@ static void	check_fd(int fd, char *file_name)
 	}
 }
 
-static void	set_redir(char *redir, char *file_name)
+void	set_redir(char *redir, char *file_name)
 {
 	int	fd;
 

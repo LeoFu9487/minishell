@@ -6,18 +6,43 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 03:53:46 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 01:54:14 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	no_pipe_exit(t_deque *cmd)
+{
+	char	**args;
+	int		cnt;
+
+	args = ft_calloc(cmd->size + 1, sizeof(char *));
+	cnt = 0;
+	while (cmd->size > 0)
+	{
+		if (is_redir(cmd->head->content))
+		{
+			set_redir(cmd->head->content, cmd->head->next->content);
+			deque_pop_front(cmd, NULL);
+		}
+		else
+			args[cnt++] = cmd->head->content;
+		deque_pop_front(cmd, NULL);
+	}
+	//builtin_exit(args);
+	ft_free(args);
+}
+
 void	no_pipe_command(t_deque *cmd) // cmd is a list of tokens
 {
-	int	status;
-/*
-** here is only for the convenience of testing
-*/
+	int		status;
+
+	if (ft_strncmp(cmd->head->content, "exit", 5) == 0)
+	{
+		no_pipe_exit(cmd);
+		return ;
+	}
 	g_data.pid = fork();
 	if (g_data.pid) // parent process
 	{
@@ -29,7 +54,4 @@ void	no_pipe_command(t_deque *cmd) // cmd is a list of tokens
 	{
 		run_command(cmd);
 	}
-/*____________________________________________*/
-	// didn't open any fork yet
-	//don't open a fork if the command is exit	
 }

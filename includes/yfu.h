@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 01:45:15 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 01:51:15 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void		create_cmd(t_deque *tokens);
 int			is_redir(char *str);
 void		run_command(t_deque *cmd);
 void		execute(char **args);
+void		set_redir(char *redir, char *file_name);
 
 /*____todo____*/
 void		init_env(char **env);//todo

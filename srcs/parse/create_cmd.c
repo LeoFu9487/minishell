@@ -6,47 +6,12 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 23:50:50 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 01:07:21 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-void	recursive_pipe(t_deque *cmd_list, t_double_list *iterator, int fd)
-{
-	int	pipefd[2];
-	int	status;
 
-	if (iterator == cmd_list->head)
-	{
-		dup2(g_data.stdin_fd, STDIN_FILENO);
-		dup2(fd, STDOUT_FILENO);
-		run_command(iterator->content);
-	}
-	if (pipe(pipefd) < 0)
-		message_exit(87, strerror(errno), 2);
-	g_data.pid = fork();
-	if (g_data.pid < 0)
-		message_exit(87, strerror(errno), 2);
-	if (g_data.pid > 0) // parent process
-	{
-		close(pipefd[1]);
-		waitpid(g_data.pid, &status, 0);
-		dup2(pipefd[0], STDIN_FILENO); // read(0, ...) will read from pipe
-		close(pipefd[0]);
-		dup2(fd, STDOUT_FILENO); // write(1, ...) will write to pipe
-		close(fd);
-		run_command(iterator->content);
-		if (WIFEXITED(status))
-			g_data.exit_status = WEXITSTATUS(status);
-	}
-	else // child process
-	{
-		close(pipefd[0]);
-		recursive_pipe(cmd_list, iterator->last, pipefd[1]);
-	}
-}
-*/
 void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free), but don't free cmd_list (only pop_front to make it empty)
 {
 	int				status;
