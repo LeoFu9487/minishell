@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/04 17:55:59 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 18:25:09 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	init_env(char **env) //todo
 		
 	}
 	//change SHLVL and other variables ?
-	t_double_list	*it = g_data.env_list->head;
+/*	t_double_list	*it = g_data.env_list->head;
 	while (it)
 	{
 		ft_putendl_fd(it->content, 2);
 		it = it->next;
 	}
-	//problem : what if atoi bigger than int
+*/	//problem : what if atoi bigger than int
 }

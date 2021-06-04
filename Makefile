@@ -18,6 +18,10 @@ PARSE_FILE = get_input.c	lexer.c	parse.c
 
 PARSE_PATH = parse/
 
+BULDIN_FILE = echo.c
+
+BUILDIN_PATH = buildin/
+
 #PUT FILES HERE
 SRCS_FILE += $(addprefix $(UTILS_PATH), $(UTILS_FILE))
 
@@ -26,6 +30,8 @@ SRCS_FILE += $(addprefix $(TERMCAP_PATH), $(TERMCAP_FILE))
 SRCS_FILE += $(addprefix $(PARSE_PATH), $(PARSE_FILE))
 
 SRCS_FILE += main_loop.c
+
+SRCS_FILE += $(addprefix $(BUILDIN_PATH), $(BULDIN_FILE))
 
 SRCS_PATH = srcs/
 
@@ -57,7 +63,7 @@ $(LIBSH) : $(HEADER) $(LIBFT) $(OBJS)
 	ranlib $(LIBSH)
 	echo "msh.a OK"
 
-$(LIBFT) : 
+$(LIBFT) :
 	$(MAKE) -C ./libft/
 
 %.o : %.c $(HEADER)
@@ -68,7 +74,7 @@ test : $(LIBSH)
 bonus : $(NAME)
 	echo "Compile Bonus OK"
 
-clean : 
+clean :
 	rm -rf $(OBJS)
 	$(MAKE) clean -C ./libft/
 	echo "clean OK"
@@ -82,4 +88,4 @@ re : fclean all
 
 .PHONY: all clean fclean re bonus test
 
-#.SILENT : 
+#.SILENT :
