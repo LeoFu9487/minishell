@@ -6,11 +6,20 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 04:11:29 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 17:55:59 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	init_all(char **env) //todo
+{
+	//init g_data
+	g_data.exit_status = 0;
+	g_data.empty_buffer = 1;
+	g_data.history = deque_init();
+	init_env(env);
+}
 
 void	init_env(char **env) //todo
 {

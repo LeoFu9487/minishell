@@ -1,5 +1,7 @@
 NAME = minishell
 
+LIBSH = libmsh.a
+
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 CC = gcc
@@ -23,7 +25,7 @@ SRCS_FILE += $(addprefix $(TERMCAP_PATH), $(TERMCAP_FILE))
 
 SRCS_FILE += $(addprefix $(PARSE_PATH), $(PARSE_FILE))
 
-SRCS_FILE += main.c
+SRCS_FILE += main_loop.c
 
 SRCS_PATH = srcs/
 
@@ -31,9 +33,11 @@ SRCS = $(addprefix $(SRCS_PATH), $(SRCS_FILE))
 
 OBJS = $(SRCS:.c=.o)
 
+MAIN = srcs/main.c
+
 LIBFT = libft/libft.a
 
-LIBFLAGS = -L ./libft -lft -lncurses
+LIBFLAGS = -L. -lmsh -L ./libft -lft 
 
 #PUT HEADERS HERE
 HEADER_FILE = minishell.h	xli.h yfu.h
@@ -45,14 +49,21 @@ HEADER = $(addprefix $(HEADER_PATH), $(HEADER_FILE))
 all : $(NAME)
 	echo "Compile OK"
 
-$(NAME) : $(HEADER) $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -I $(HEADER_PATH) $(OBJS) $(LIBFLAGS) -o $(NAME)
+$(NAME) : $(LIBSH) $(MAIN)
+	$(CC) $(CFLAGS) -I $(HEADER_PATH)  $(MAIN) $(LIBFLAGS) -o $(NAME)
+
+$(LIBSH) : $(HEADER) $(LIBFT) $(OBJS)
+	ar rcs $(LIBSH) $(OBJS)
+	ranlib $(LIBSH)
+	echo "msh.a OK"
 
 $(LIBFT) : 
 	$(MAKE) -C ./libft/
 
 %.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) -I $(HEADER_PATH) -c $< -o $@
+
+test : $(LIBSH)
 
 bonus : $(NAME)
 	echo "Compile Bonus OK"
@@ -63,12 +74,12 @@ clean :
 	echo "clean OK"
 
 fclean :
-	rm -rf $(OBJS) $(NAME)
+	rm -rf $(OBJS) $(NAME) $(LIBSH)
 	$(MAKE) fclean -C ./libft/
 	echo "fclean OK"
 
 re : fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus test
 
 #.SILENT : 
