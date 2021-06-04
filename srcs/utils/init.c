@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/04 18:25:09 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 22:12:48 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void	init_all(char **env) //todo
 {
-	//init g_data
 	g_data.exit_status = 0;
-	g_data.empty_buffer = 1;
+	g_data.buffer_list = deque_init();
 	g_data.history = deque_init();
 	init_env(env);
 }
 
-void	init_env(char **env) //todo
+void	init_env(char **env) //todo : not found SHLVL or SHLVL not valid (too big, non-numerical, negative ...)
 {
 	int		idx[2];
 	int		shlvl;

@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_input.c                                        :+:      :+:    :+:   */
+/*   handle_ctrl_arrow.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/02 23:42:12 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 00:06:07 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/04 23:57:57 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/04 23:58:37 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *get_input(void)
-{
-	char *str = NULL;
-	unsigned key;
-	int cnt = 0;
-	while (1)
-	{
-		key = get_key();
-		if (ft_isprint(key) || key == '\n')
-		{
-		}
-		if (++cnt >= 10)
-			break;
-	}
-	//remember to keep track of g_data.empty_buffer
-	return (str);
-}
+void	handle_ctrl_up(void)
+{}
+
+void	handle_ctrl_down(void)
+{}
+
+void	handle_ctrl_left(void)
+{}
+
+void	handle_ctrl_right(void)
+{}

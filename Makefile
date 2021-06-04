@@ -10,11 +10,11 @@ UTILS_FILE = exit.c	init.c	signal.c
 
 UTILS_PATH = utils/
 
-TERMCAP_FILE = termcap.c
+TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c
 
 TERMCAP_PATH = termcap/
 
-PARSE_FILE = get_input.c	lexer.c	parse.c
+PARSE_FILE = get_input.c	lexer.c	parse.c	get_key.c
 
 PARSE_PATH = parse/
 
