@@ -6,19 +6,55 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 02:47:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 03:24:42 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 04:42:00 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//add a thing from cursor (cursor NULL means beginning)
-//print from that thing to the end
-//move cursor
-void	insert_in_buffer(char c) //todo
+void	print_the_rest_of_buffer()
 {
-	deque_push_back(g_data.buffer_list, ft_strdup(&c));
-	ft_putchar_fd(c, 2);
+	t_double_list	*iterator;
+	int				cnt;
+
+	iterator = g_data.cursor;
+	cnt = 0;
+	while (iterator)
+	{
+		ft_putchar_fd(*((char *)iterator->content), 2);
+		iterator = iterator->next;
+		++cnt;
+	}
+	while (--cnt)
+		ft_putchar_fd('\b', 2);
+}
+
+void	insert_in_buffer(char c)
+{
+	t_double_list	*new;
+
+	if (g_data.cursor == NULL)
+	{
+		deque_push_front(g_data.buffer_list, ft_strdup(&c));
+		g_data.cursor = g_data.buffer_list->head;
+		print_the_rest_of_buffer();
+		return ;
+	}
+	if (g_data.cursor == g_data.buffer_list->tail)
+	{
+		deque_push_back(g_data.buffer_list, ft_strdup(&c));
+		g_data.cursor = g_data.cursor->next;
+		print_the_rest_of_buffer();
+		return ;
+	}
+	new = double_list_init(ft_strdup(&c));
+	new->last = g_data.cursor;
+	new->next = g_data.cursor->next;
+	++(g_data.buffer_list->size);
+	g_data.cursor->next->last = new;
+	g_data.cursor->next = new;
+	g_data.cursor = new;
+	print_the_rest_of_buffer();
 }
 
 char	*buffer_to_string(void)

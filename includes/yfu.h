@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 03:37:30 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 05:19:06 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,15 @@ typedef enum e_switch
 void		raw_mode_switch(t_switch e);
 char		*buffer_to_string(void);
 unsigned	get_key();
+void		print_the_rest_of_buffer();
 void		handle_up(void);
 void		handle_down(void);
+void		insert_in_buffer(char c);
+void		handle_backspace(void);
+void		handle_left(void);
+void		handle_right(void);
+void		handle_home(void);
+void		handle_end(void);
 
 /*____todo____*/
 void		init_env(char **env);//todo
@@ -69,20 +76,13 @@ void		handle_ctrl_b(void);//todo
 void		handle_ctrl_d(void);//todo
 void		handle_ctrl_l(void);//todo
 void		handle_ctrl_v(void);//todo
-void		handle_left(void);//todo
-void		handle_right(void);//todo
 void		handle_ctrl_up(void);//todo
 void		handle_ctrl_down(void);//todo
 void		handle_ctrl_left(void);//todo
 void		handle_ctrl_right(void);//todo
-void		handle_backspace(void);//todo
 void		handle_alt_a(void);//todo
 void		handle_alt_b(void);//todo
 void		handle_alt_l(void);//todo
-void		handle_home(void);//todo
-void		handle_end(void);//todo
 void		handle_delete(void);//todo
-
-void		insert_in_buffer(char c);//todo
 
 #endif
