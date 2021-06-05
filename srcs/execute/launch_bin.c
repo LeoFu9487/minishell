@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 01:31:35 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 02:23:58 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 02:25:02 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,17 @@ static void	run_path(char *path, char **args, char **env)
 {
 	execve(path, args, env);
 	ft_putstr_fd("minishell: ", 2);
-	perror(args[0]);
+	ft_putstr_fd(path, 2);
+	ft_putstr_fd(": ", 2);
 	if (errno == 13)
+	{
+		if (is_dir(args[0]))
+			ft_putendl_fd("Is a directory", 2);
+		else
+			ft_putendl_fd(strerror(errno), 2);
 		message_exit(126, "", -1);
+	}
+	ft_putendl_fd(strerror(errno), 2);;
 	message_exit(127, "", -1);
 }
 
@@ -46,7 +54,10 @@ static void	multiple_path(char *path, int ct[3], char **args, char **env)
 	ft_strcat(path, args[0]);
 	execve(path, args, env);
 	if (errno == 13)
-		ct[2] = 1;
+	{
+		if (is_dir(path) == 0)
+			ct[2] = 1;
+	}
 	ct[1] = 0;
 }
 

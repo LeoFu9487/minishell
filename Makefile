@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 CC = gcc
 
 UTILS_FILE = exit.c	init.c	signal.c	find_env_var.c\
-prompt.c	is_redir.c
+prompt.c	is_redir.c	is_dir.c
 
 UTILS_PATH = utils/
 
