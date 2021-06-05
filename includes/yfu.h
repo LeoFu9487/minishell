@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 05:19:06 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 19:34:44 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		handle_left(void);
 void		handle_right(void);
 void		handle_home(void);
 void		handle_end(void);
+void		handle_delete(void);
 
 /*____todo____*/
 void		init_env(char **env);//todo
@@ -83,6 +84,5 @@ void		handle_ctrl_right(void);//todo
 void		handle_alt_a(void);//todo
 void		handle_alt_b(void);//todo
 void		handle_alt_l(void);//todo
-void		handle_delete(void);//todo
 
 #endif

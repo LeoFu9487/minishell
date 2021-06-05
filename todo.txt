@@ -9,5 +9,7 @@ message_exit : need to change anything for global ?
 termcap : 
 https://zestedesavoir.com/tutoriels/1733/termcap-et-terminfo/#2-termcap-et-terminfo
 
+deal with termcap (when input change line)
+
 exit code :
 https://tldp.org/LDP/abs/html/exitcodes.html#EXITCODESREF

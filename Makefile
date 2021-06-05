@@ -44,7 +44,7 @@ MAIN = srcs/main.c
 
 LIBFT = libft/libft.a
 
-LIBFLAGS = -L. -lmsh -L ./libft -lft 
+LIBFLAGS = -L. -lmsh -L ./libft -lft -lncurses
 
 #PUT HEADERS HERE
 HEADER_FILE = minishell.h	xli.h yfu.h

@@ -6,19 +6,31 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 02:47:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 04:42:00 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 19:45:07 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** g_data.cursor's position won't be modified
+** print the element since g_data.cursor's position
+*/
 void	print_the_rest_of_buffer()
 {
 	t_double_list	*iterator;
 	int				cnt;
 
-	iterator = g_data.cursor;
-	cnt = 0;
+	if (g_data.cursor == NULL)
+	{
+		iterator = g_data.buffer_list->head;
+		cnt = 1;
+	}
+	else
+	{
+		iterator = g_data.cursor;
+		cnt = 0;
+	}
 	while (iterator)
 	{
 		ft_putchar_fd(*((char *)iterator->content), 2);
