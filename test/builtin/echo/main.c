@@ -66,4 +66,7 @@ int	main(int ac, char **av, char **env)
 
 	char *arg9[] = {"echo", "-nnnn", "haha", 0};
 	run_test(9, arg9);
+
+	char *arg10[] = {"echo", 0};
+	run_test(10, arg10);
 }

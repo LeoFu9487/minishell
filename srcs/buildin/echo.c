@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 16:22:00 by xli               #+#    #+#             */
-/*   Updated: 2021/06/03 16:22:03 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 16:29:17 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	builtin_echo(char **args)
 	ct = 1;
 	if (argc(args) > 1)
 	{
-		while (args[ct] && !ft_strncmp(args[ct], "-n", 3))
+		if (args[ct] && !ft_strncmp(args[ct], "-n", 3))
 		{
 			option_n = 1;
 			ct++;
