@@ -11,7 +11,7 @@ UTILS_FILE = exit.c	init.c	signal.c
 UTILS_PATH = utils/
 
 TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c\
-	get_key.c	handle_alt.c	handle_others.c
+	get_key.c	handle_alt.c	handle_others.c	display_terminal.c
 
 TERMCAP_PATH = termcap/
 

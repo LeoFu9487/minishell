@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/04 22:12:22 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 03:17:03 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@
 
 struct s_data
 {
-	t_deque	*env_list;
-	t_deque	*history;
-	int		exit_status;
-	t_deque	*buffer_list;
+	int				exit_status;
+	t_deque			*env_list;
+	t_deque			*history;
+	t_deque			*buffer_list;
+	char			*clip_board;
+	t_double_list	*cursor;
+	t_double_list	*history_iterator;
 }g_data;
 
 /*

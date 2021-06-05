@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 01:12:48 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 03:37:30 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef enum e_keys
 {
-	UP=9487,
+	UP = 9487,
 	DOWN,
 	LEFT,
 	RIGHT,
@@ -50,7 +50,13 @@ typedef enum e_switch
 	off
 }t_switch;
 /*____ok_____*/
+
 void		raw_mode_switch(t_switch e);
+char		*buffer_to_string(void);
+unsigned	get_key();
+void		handle_up(void);
+void		handle_down(void);
+
 /*____todo____*/
 void		init_env(char **env);//todo
 char		*get_input(void);//todo
@@ -63,8 +69,6 @@ void		handle_ctrl_b(void);//todo
 void		handle_ctrl_d(void);//todo
 void		handle_ctrl_l(void);//todo
 void		handle_ctrl_v(void);//todo
-void		handle_up(void);//todo
-void		handle_down(void);//todo
 void		handle_left(void);//todo
 void		handle_right(void);//todo
 void		handle_ctrl_up(void);//todo
@@ -79,6 +83,6 @@ void		handle_home(void);//todo
 void		handle_end(void);//todo
 void		handle_delete(void);//todo
 
-unsigned	get_key();//todo
+void		insert_in_buffer(char c);//todo
 
 #endif

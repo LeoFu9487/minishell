@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/04 22:12:32 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 02:55:58 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 			raw_mode_switch(off);
 			parse_and_execute(tokens);
 		}
-		ft_free(input_string);
+		//don't free input_string because it's in history
 		deque_clear(tokens, ft_free);
 	}
 }
