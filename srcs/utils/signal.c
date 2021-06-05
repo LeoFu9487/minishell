@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 04:41:34 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 20:17:10 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ static void	handle_signal(int signal)
 		{
 			ft_putendl_fd("", 2);
 			print_prompt();
-		}
-		else
-			ft_putendl_fd("", 2);
-	}
-	if (signal == SIGQUIT) /* ctrl + \ */
-	{
-		if (g_data.pid != 0)
-		{
-			g_data.exit_status = 131;
-			ft_putendl_fd("Quit", 2);
 		}
 	}
 }

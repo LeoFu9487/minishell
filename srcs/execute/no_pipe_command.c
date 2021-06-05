@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 01:54:14 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 20:17:17 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ void	no_pipe_command(t_deque *cmd) // cmd is a list of tokens
 		waitpid(g_data.pid, &status, 0);
 		if (WIFEXITED(status))
 			g_data.exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGQUIT)
+			{
+				g_data.exit_status = 131;
+				ft_putendl_fd("Quit", 2);
+			}
+			if (WTERMSIG(status) == SIGINT)
+			{
+				g_data.exit_status = 130;
+				ft_putendl_fd("", 2);
+			}
+		}
 	}
 	else
 	{
