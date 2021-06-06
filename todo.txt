@@ -13,3 +13,4 @@ deal with termcap (when input change line)
 
 exit code :
 https://tldp.org/LDP/abs/html/exitcodes.html#EXITCODESREF
+need to turn off raw mode while exit ? (ctrl-D)
