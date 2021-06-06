@@ -6,43 +6,60 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 16:22:00 by xli               #+#    #+#             */
-/*   Updated: 2021/06/05 16:29:17 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/06 16:16:46 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	argc(char **args)
-{
-	int	argc;
+/*
+** Check if echo command is followed by one or more "-n" option.
+** "-n -nnnnn -n -nn" is valid for exemple.
+*/
 
-	argc = 0;
-	while (args[argc])
-		argc++;
-	return (argc);
+static char	**check_n(char **args, int *option_n)
+{
+	int	i;
+
+	while (*args && !ft_strncmp((*args), "-n", 2)) //check all the '-n'
+	{
+		i = 2; //first two char are '-n'
+		while ((*args)[i] == 'n')
+			i++;
+		if ((*args)[i] == '\0') //if '\0' means only 'n' in the string >> n option = 1
+			*option_n = 1;
+		else //otherwise n option = 0 >> print out the string
+			return (args);
+		args++;
+	}
+	return (args);
 }
+
+/*
+** Prints the args on stdoud, separated by one space, and end the line by '\n'.
+** If n option is present, doesn't print the last '\n'.
+*/
 
 void	builtin_echo(char **args)
 {
+	int	i;
 	int	option_n;
-	int	ct;
 
+	i = 0;
 	option_n = 0;
-	ct = 1;
-	if (argc(args) > 1)
+	args++; //args[0] == echo "string"
+	if (!(*args))
 	{
-		if (args[ct] && !ft_strncmp(args[ct], "-n", 3))
-		{
-			option_n = 1;
-			ct++;
-		}
-		while (args[ct])
-		{
-			ft_putstr_fd(args[ct], 1);
-			if (args[ct + 1])
-				ft_putchar_fd(' ', 1);
-			ct++;
-		}
+		ft_putchar_fd('\n', 1);
+		return ;
+	}
+	args = check_n(args, &option_n); //search for a n option
+	while (args[i])
+	{
+		ft_putstr_fd(args[i], 1);
+		if (args[i + 1])
+			ft_putchar_fd(' ', 1);
+		i++;
 	}
 	if (option_n == 0)
 		ft_putchar_fd('\n', 1);
