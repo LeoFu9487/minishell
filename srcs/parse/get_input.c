@@ -6,24 +6,33 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:42:12 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 00:28:03 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 04:38:56 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_input(void)
+char *get_input(void)
 {
+	char		*str;
+	unsigned	key;
+
+	g_data.buffer_list = deque_init();
+	g_data.cursor = NULL;
+	g_data.history_iterator = NULL;
 	while (1)
 	{
-		char buffer[1];
-		read(0, buffer, 1);
-		if (buffer[0] == '\n')
+		key = get_key();
+		if (ft_isprint(key))
+			insert_in_buffer((char)key);
+		else if (key == '\n') //need to change in the future if we want multilines
 		{
-			ft_putstr_fd("\n", 1);
+			str = buffer_to_string();
+			deque_push_back(g_data.history, str); // shouldn't put this line if str is all isspace
+			deque_clear(g_data.buffer_list, ft_free);
+			ft_putchar_fd('\n', 2);
 			break ;
 		}
 	}
-	//remember to keep track of g_data.empty_buffer
-	return ("");
+	return (str);
 }

@@ -1,0 +1,30 @@
+/*
+** UP : 27 91 65
+** DOWN : 27 91 66
+** RIGHT : 27 91 67
+** LEFT : 27 91 68
+** CTRL-D : 4
+** CTRL-LEFT : 27 91 49 59 53 68 
+** CTRL-RIGHT : 27 91 49 59 53 67
+** CTRL-UP : 27 91 49 59 53 65 
+** CTRL-DOWN : 27 91 49 59 53 66
+** HOME : 27 91 53 126 !
+** END : 27 91 54 126 !
+** Ctrl-L : 12
+** Alt-L : 27 108
+** Ctrl-B : 2
+** Alt-B : 27 98
+** Ctrl-A : 1
+** Alt-A : 27 97
+** Ctrl-V : 22
+** Delete : 27 91 51 126 !
+** Backspace : 127 !
+** 
+** Ctrl-L : copy a whole line
+** Alt-L : cut a whole line
+** Ctrl-B : copy the line before the cursor
+** Alt-B : cut the line before the cursor
+** Ctrl-A : copy the line after the cursor
+** Alt-A : cut the line after the cursor
+** Ctrl-V : paste
+*/

@@ -10,7 +10,8 @@ UTILS_FILE = exit.c	init.c	signal.c
 
 UTILS_PATH = utils/
 
-TERMCAP_FILE = termcap.c
+TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c\
+	get_key.c	handle_alt.c	handle_others.c	display_terminal.c
 
 TERMCAP_PATH = termcap/
 
@@ -43,7 +44,7 @@ MAIN = srcs/main.c
 
 LIBFT = libft/libft.a
 
-LIBFLAGS = -L. -lmsh -L ./libft -lft 
+LIBFLAGS = -L. -lmsh -L ./libft -lft -lncurses
 
 #PUT HEADERS HERE
 HEADER_FILE = minishell.h	xli.h yfu.h
