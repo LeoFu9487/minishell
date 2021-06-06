@@ -11,3 +11,4 @@ https://zestedesavoir.com/tutoriels/1733/termcap-et-terminfo/#2-termcap-et-termi
 
 exit code :
 https://tldp.org/LDP/abs/html/exitcodes.html#EXITCODESREF
+need to turn off raw mode while exit ? (ctrl-D)
