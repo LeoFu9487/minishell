@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:42:12 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 04:38:56 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 01:55:29 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char *get_input(void)
 		else if (key == '\n') //need to change in the future if we want multilines
 		{
 			str = buffer_to_string();
-			deque_push_back(g_data.history, str); // shouldn't put this line if str is all isspace
 			deque_clear(g_data.buffer_list, ft_free);
 			ft_putchar_fd('\n', 2);
 			break ;
