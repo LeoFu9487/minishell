@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 08:19:27 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 10:45:20 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	builtin_exit(char **args);//todo
 void	message_exit(int exit_code, char *message, int fd);
 void	catch_signal(void);//todo
 
-char	*find_env_var_line(char *key);//return the whole line, don't free after calling this function
-char	*find_env_var(char *key);//return the value that corresponds to the key, ft_free after the use of this function
+t_double_list	*find_env_var_line(char *key);//return the whole line, don't free after calling this function
+char			*find_env_var(char *key);//return the value that corresponds to the key, ft_free after the use of this function
 /*
 ** return NULL if not foudn (for both of them)
 **
