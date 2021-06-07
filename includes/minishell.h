@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 03:17:03 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 07:55:33 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void	builtin_exit(char **args);//todo
 
 void	message_exit(int exit_code, char *message, int fd);
 void	catch_signal(void);//todo
+char	*find_env_var(char *key);
 
 #endif

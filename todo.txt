@@ -14,3 +14,8 @@ deal with termcap (when input change line)
 exit code :
 https://tldp.org/LDP/abs/html/exitcodes.html#EXITCODESREF
 need to turn off raw mode while exit ? (ctrl-D)
+
+
+quote(') and double quote (")
+https://stackoverflow.com/questions/6697753/difference-between-single-and-double-quotes-in-bash#:~:text=Single%20quotes%20won't%20interpolate,%2C%20certain%20%5C%20escapes%2C%20etc.&text=Enclosing%20characters%20in%20single%20quotes,when%20preceded%20by%20a%20backslash.
+
