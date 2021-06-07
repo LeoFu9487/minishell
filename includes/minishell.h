@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 08:19:27 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 10:05:20 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	builtin_cd(char **args);//todo
 void	builtin_pwd(char **args);//todo
 void	builtin_export(char **args);//todo
 void	builtin_unset(char **args);//todo
-void	builtin_env(char **args);//todo
 void	builtin_exit(char **args);//todo
 
 /*
@@ -69,10 +68,10 @@ char	*find_env_var(char *key);//return the value that corresponds to the key, ft
 /*
 ** return NULL if not foudn (for both of them)
 **
-** example : 
+** example :
 ** char *str = find_env_var_line("SHLVL");
 ** ft_putendl_fd(str, 1); //output : SHLVL=2
-** 
+**
 ** char *str2 = find_env_var("SHLVL");
 ** ft_putendl_fd(str2, 1); // output : 2
 ** ft_free(str2); // need to free after used
