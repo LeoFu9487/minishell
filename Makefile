@@ -19,7 +19,7 @@ PARSE_FILE = get_input.c	lexer.c	parse.c
 
 PARSE_PATH = parse/
 
-BULDIN_FILE = echo.c
+BULDIN_FILE = echo.c	env.c
 
 BUILDIN_PATH = buildin/
 

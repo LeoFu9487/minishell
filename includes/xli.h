@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:23 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 16:10:45 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 10:05:24 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define XLI_H
 
 void	builtin_echo(char **args);
+void	builtin_env(char **args);
 
 #endif
