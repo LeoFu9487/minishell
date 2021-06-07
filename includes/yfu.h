@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 19:34:44 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 10:18:15 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,22 @@ typedef enum e_switch
 	off
 }t_switch;
 /*____ok_____*/
+
+typedef enum e_lexer_key
+{
+	others = 0,
+	back_slash,
+	dollar,
+	redir_in,
+	redir_out
+}t_lexer_key;
+
+typedef struct s_lexer
+{
+	int			quote;
+	int			dquote;
+	t_lexer_key	last_key;
+}t_lexer;
 
 void		raw_mode_switch(t_switch e);
 char		*buffer_to_string(void);
