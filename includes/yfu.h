@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 10:18:15 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 12:39:47 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ typedef enum e_lexer_key
 {
 	others = 0,
 	back_slash,
-	dollar,
-	redir_in,
-	redir_out
+	dollar
 }t_lexer_key;
 
 typedef struct s_lexer
