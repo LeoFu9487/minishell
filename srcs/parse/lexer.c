@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 14:03:24 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 14:30:50 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ void	lexer_quote(t_lexer *lexer, t_deque *token_buffer)
 			deque_push_back(token_buffer, ft_strdup("$"));
 		else if (lexer->last_key == back_slash)
 			deque_push_back(token_buffer, ft_strdup("\\"));
-		else
-			deque_push_back(token_buffer, ft_strdup("\'"));
+		deque_push_back(token_buffer, ft_strdup("\'"));
 	}
 	else
 	{
@@ -162,6 +161,14 @@ void	lexer_dollar(t_lexer *lexer, t_deque *token_buffer)
 void	lexer_space(t_lexer *lexer, t_deque *token_buffer, char input_char)
 {(void)lexer;(void)token_buffer;(void)input_char;}
 
+void	lexer_general(t_lexer *lexer, t_deque *token_buffer, char input_char)
+{//need to deal with variable, last_key ..
+	deque_push_back(token_buffer, ft_strdup(&input_char));
+	lexer->last_key = others;
+	(void)lexer;(void)token_buffer;(void)input_char;
+}
+
+
 t_deque	*lexer(char *input_string)
 {
 	t_deque	*tokens;
@@ -183,7 +190,7 @@ t_deque	*lexer(char *input_string)
 			lexer_dquote(lexer, token_buffer);
 		else if (input_string[idx[0]] == ';')
 			lexer_semicolon(lexer, tokens, token_buffer);
-		else if (input_string[idx[0] == '<'])
+		else if (input_string[idx[0]] == '<')
 			lexer_redir_in(lexer, token_buffer);
 		else if (input_string[idx[0]] == '>')
 			lexer_redir_out(lexer, token_buffer);
@@ -194,9 +201,7 @@ t_deque	*lexer(char *input_string)
 		else if (ft_isspace(input_string[idx[0]]))
 			lexer_space(lexer, token_buffer, input_string[idx[0]]);
 		else
-		{
-			//... normal things
-		}
+			lexer_general(lexer, token_buffer, input_string[idx[0]]);
 	}
 	// if ... error ?
 	// clear things ?
