@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 03:19:03 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 16:39:39 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # include "xli.h"
 # include "yfu.h"
 # define PROMPT_MESSAGE "minishell $> "
+# define GREEN "\x1B[32m"
+# define RED "\x1B[31m"
+# define NOCOLOR "\x1B[0m"
 
 struct s_data
 {
@@ -65,6 +68,7 @@ void	builtin_exit(char **args);//todo
 
 void	message_exit(int exit_code, char *message, int fd);
 void	catch_signal(void);//todo
+void	print_prompt(void);
 
 t_double_list	*find_env_var_line(char *key);//return the whole line, don't free after calling this function
 char			*find_env_var(char *key);//return the value that corresponds to the key, ft_free after the use of this function

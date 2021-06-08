@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 03:24:18 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 16:41:39 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	while (1)
 	{
 		raw_mode_switch(on);
-		ft_putstr_fd(PROMPT_MESSAGE, 2);
+		print_prompt();
 		input_string = get_input();
 		raw_mode_switch(off);
 		tokens = lexer(input_string);
