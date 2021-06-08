@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 16:41:39 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 19:34:29 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,24 @@
 		input_string = get_input();
 		raw_mode_switch(off);
 		tokens = lexer(input_string);
-		if (tokens && tokens->size > 0)
+		// will tokens be NULL ?
+		if (tokens->size > 0)
 		{
 			deque_push_back(g_data.history, input_string); // when it's written in history, don't free input_string
-			if (g_data.lexer_error == 0)
-				parse_and_execute(tokens);
+			parse_and_execute(tokens);
 		}
 		else
+		{
 			ft_free(input_string);
+			if (g_data.lexer_error != NoError)
+			{
+				g_data.exit_status = 2;
+				if (g_data.lexer_error == dquote)
+					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\"\'", 2);
+				else
+					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
+			}
+		}
 		deque_clear(tokens, ft_free);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 16:39:39 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 19:16:49 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 struct s_data
 {
-	int				lexer_error;
+	t_lexer_key_2	lexer_error;
 	int				exit_status;
 	pid_t			pid;
 	t_deque			*env_list;

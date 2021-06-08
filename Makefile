@@ -16,7 +16,7 @@ TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c\
 
 TERMCAP_PATH = termcap/
 
-PARSE_FILE = get_input.c	lexer.c	parse.c
+PARSE_FILE = get_input.c	lexer.c	parse.c	parse_error.c
 
 PARSE_PATH = parse/
 

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 12:39:47 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 19:44:01 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ typedef enum e_lexer_key
 	dollar
 }t_lexer_key;
 
+typedef enum e_lexer_key_2
+{
+	NoError = 0,
+	quote,
+	dquote
+}t_lexer_key_2;
+
+typedef enum e_end_of_command
+{
+	NewLine = 0,
+	Semicolon,
+	Pipe
+}t_end_of_command;
+
 typedef struct s_lexer
 {
 	int			quote;
@@ -98,5 +112,7 @@ void		handle_ctrl_right(void);//todo
 void		handle_alt_a(void);//todo
 void		handle_alt_b(void);//todo
 void		handle_alt_l(void);//todo
+int			parse_error(t_deque *tokens);//todo
+
 
 #endif

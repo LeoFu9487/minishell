@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:42:12 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 01:55:29 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 16:55:28 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char *get_input(void)
 	g_data.buffer_list = deque_init();
 	g_data.cursor = NULL;
 	g_data.history_iterator = NULL;
-	while (1)
+	while (1) // while not interrupted
 	{
 		key = get_key();
 		if (ft_isprint(key))

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 03:22:56 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 20:50:13 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	lexer_init(void)
 {
-	g_data.lexer_error = 0;
+	g_data.lexer_error = NoError;
 	g_data.lexer = ft_malloc(1, sizeof(t_lexer));
 	g_data.lexer->dquote = 0;
 	g_data.lexer->quote = 0;
@@ -398,22 +398,15 @@ t_deque	*lexer(char *input_string)
 			break ;
 	}
 	if (g_data.lexer->quote)
-	{
-		ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
-		g_data.exit_status = 2;
-		g_data.lexer_error = 1;
-	}
+		g_data.lexer_error = quote;
 	else if (g_data.lexer->dquote)
-	{
-		ft_putendl_fd("minishell: unexpected EOL while looking for matching `\"\'", 2);
-		g_data.exit_status = 2;
-		g_data.lexer_error = 1;
-	}
+		g_data.lexer_error = dquote;
 	else if (g_data.lexer->last_key == dollar)
 		deque_push_back(token_buffer, ft_strdup("$"));
 	else if (g_data.lexer->last_key == back_slash) // undefined behavior
 		deque_push_back(token_buffer, ft_strdup("\\"));
-	put_buffer_in_tokens(tokens, token_buffer);
+	if (g_data.lexer_error == NoError)
+		put_buffer_in_tokens(tokens, token_buffer);
 	deque_clear(token_buffer, ft_free);
 	ft_free(g_data.lexer);
 	return (tokens);
