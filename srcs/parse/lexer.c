@@ -6,21 +6,19 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 03:00:14 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 03:22:56 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_lexer	*lexer_init(void)
+static void	lexer_init(void)
 {
-	t_lexer	*lexer;
-
-	lexer = ft_malloc(1, sizeof(t_lexer));
-	lexer->dquote = 0;
-	lexer->quote = 0;
-	lexer->last_key = others;
-	return (lexer);
+	g_data.lexer_error = 0;
+	g_data.lexer = ft_malloc(1, sizeof(t_lexer));
+	g_data.lexer->dquote = 0;
+	g_data.lexer->quote = 0;
+	g_data.lexer->last_key = others;
 }
 
 void	put_buffer_in_tokens(t_deque *tokens, t_deque *token_buffer)
@@ -370,7 +368,7 @@ t_deque	*lexer(char *input_string)
 	t_deque	*token_buffer;
 	int		idx[1];
 
-	g_data.lexer = lexer_init();
+	lexer_init();
 	tokens = deque_init();
 	token_buffer = deque_init();
 	idx[0] = -1;
@@ -399,10 +397,24 @@ t_deque	*lexer(char *input_string)
 		if (input_string[idx[0]] == 0) // idx[0] may be modified in some functions so this line is necessary
 			break ;
 	}
-	// if ... error ?
-	// clear things ? (put the last into tokens)
-	// free everything that was malloc / init ?
+	if (g_data.lexer->quote)
+	{
+		ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
+		g_data.exit_status = 2;
+		g_data.lexer_error = 1;
+	}
+	else if (g_data.lexer->dquote)
+	{
+		ft_putendl_fd("minishell: unexpected EOL while looking for matching `\"\'", 2);
+		g_data.exit_status = 2;
+		g_data.lexer_error = 1;
+	}
+	else if (g_data.lexer->last_key == dollar)
+		deque_push_back(token_buffer, ft_strdup("$"));
+	else if (g_data.lexer->last_key == back_slash) // undefined behavior
+		deque_push_back(token_buffer, ft_strdup("\\"));
+	put_buffer_in_tokens(tokens, token_buffer);
+	deque_clear(token_buffer, ft_free);
+	ft_free(g_data.lexer);
 	return (tokens);
 }
-
-// in dquote, \ only got canceled if it's followed by $, ", \.
