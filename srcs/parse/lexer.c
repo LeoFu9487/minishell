@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 15:39:39 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 02:07:50 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,224 +43,279 @@ void	put_buffer_in_tokens(t_deque *tokens, t_deque *token_buffer)
 	deque_push_back(tokens, str);
 }
 
-void	lexer_back_slash(t_lexer *lexer, t_deque *token_buffer)
+void	lexer_back_slash(t_deque *token_buffer)
 {
-	if (lexer->quote)
+	if (g_data.lexer->quote)
 	{
 		deque_push_back(token_buffer, ft_strdup("\\"));
-		lexer->last_key = others;
+		g_data.lexer->last_key = others;
 	}
-	else if (lexer->dquote)
+	else if (g_data.lexer->dquote)
 	{
-		if (lexer->last_key == back_slash)
+		if (g_data.lexer->last_key == back_slash)
 		{
 			deque_push_back(token_buffer, ft_strdup("\\"));
-			lexer->last_key = others;
+			g_data.lexer->last_key = others;
 		}
-		else if (lexer->last_key == dollar)
+		else if (g_data.lexer->last_key == dollar)
 		{
 			deque_push_back(token_buffer, ft_strdup("$"));
-			lexer->last_key = back_slash;
+			g_data.lexer->last_key = back_slash;
 		}
 		else
-			lexer->last_key = back_slash;
+			g_data.lexer->last_key = back_slash;
 	}
 	else
 	{
-		if (lexer->last_key == back_slash)
+		if (g_data.lexer->last_key == back_slash)
 		{
 			deque_push_back(token_buffer, ft_strdup("\\"));
-			lexer->last_key = others;
+			g_data.lexer->last_key = others;
 		}
-		else if (lexer->last_key == dollar)
+		else if (g_data.lexer->last_key == dollar)
 		{
 			deque_push_back(token_buffer, ft_strdup("$"));
-			lexer->last_key = back_slash;
+			g_data.lexer->last_key = back_slash;
 		}
 		else
-			lexer->last_key = back_slash;
+			g_data.lexer->last_key = back_slash;
 	}
 }
 
-void	lexer_quote(t_lexer *lexer, t_deque *token_buffer)
+void	lexer_quote(t_deque *token_buffer)
 {
-	if (lexer->quote)
-		lexer->quote = 0;
-	else if (lexer->dquote)
+	if (g_data.lexer->quote)
+		g_data.lexer->quote = 0;
+	else if (g_data.lexer->dquote)
 	{
-		if (lexer->last_key == dollar)
+		if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
-		else if (lexer->last_key == back_slash)
+		else if (g_data.lexer->last_key == back_slash)
 			deque_push_back(token_buffer, ft_strdup("\\"));
 		deque_push_back(token_buffer, ft_strdup("\'"));
 	}
 	else
 	{
-		if (lexer->last_key == dollar)
+		if (g_data.lexer->last_key == dollar)
 		{
 			deque_push_back(token_buffer, ft_strdup("$"));
-			lexer->quote = 1;
+			g_data.lexer->quote = 1;
 		}
-		else if (lexer->last_key == back_slash)
+		else if (g_data.lexer->last_key == back_slash)
 			deque_push_back(token_buffer, ft_strdup("\'"));
 		else
-			lexer->quote = 1;
+			g_data.lexer->quote = 1;
 	}
-	lexer->last_key = others;
+	g_data.lexer->last_key = others;
 }
 
-void	lexer_dquote(t_lexer *lexer, t_deque *token_buffer)
+void	lexer_dquote(t_deque *token_buffer)
 {
-	if (lexer->last_key == back_slash || lexer->quote)
+	if (g_data.lexer->last_key == back_slash || g_data.lexer->quote)
 		deque_push_back(token_buffer, ft_strdup("\""));
 	else
 	{
-		if (lexer->last_key == dollar)
+		if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
-		lexer->dquote ^= 1;
+		g_data.lexer->dquote ^= 1;
 	}
-	lexer->last_key = others;
+	g_data.lexer->last_key = others;
 }
 
-void	lexer_semicolon(t_lexer *lexer, t_deque *tokens, t_deque *token_buffer)
+void	lexer_semicolon(t_deque *tokens, t_deque *token_buffer)
 {
-	if (lexer->quote)
+	if (g_data.lexer->quote)
 		deque_push_back(token_buffer, ft_strdup(";"));
-	else if (lexer->dquote)
+	else if (g_data.lexer->dquote)
 	{
-		if (lexer->last_key == back_slash)
+		if (g_data.lexer->last_key == back_slash)
 			deque_push_back(token_buffer, ft_strdup("\\"));
-		else if (lexer->last_key == dollar)
+		else if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
 		deque_push_back(token_buffer, ft_strdup(";"));
 	}
-	else if (lexer->last_key == back_slash)
+	else if (g_data.lexer->last_key == back_slash)
 		deque_push_back(token_buffer, ft_strdup(";"));
 	else
 	{
-		if (lexer->last_key == dollar)
+		if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
 		put_buffer_in_tokens(tokens, token_buffer);
 		deque_push_back(tokens, ft_strdup(";"));
 	}
-	lexer->last_key = others;
+	g_data.lexer->last_key = others;
 }
 
-void	lexer_redir_in(t_lexer *lexer, t_deque *token_buffer, char *str, int *idx)//todo
-{(void)lexer;(void)token_buffer;}
-
-void	lexer_redir_out(t_lexer *lexer, t_deque *token_buffer, char *str, int *idx)//todo
-{(void)lexer;(void)token_buffer;}
-
-void	lexer_pipe(t_lexer *lexer, t_deque *tokens, t_deque *token_buffer)
+void	lexer_redir_in(t_deque *tokens, t_deque *token_buffer, char *str, int *idx)
 {
-	if (lexer->quote)
-		deque_push_back(token_buffer, ft_strdup("|"));
-	else if (lexer->dquote)
+	if (g_data.lexer->quote)
+		deque_push_back(token_buffer, ft_strdup("<"));
+	else if (g_data.lexer->dquote)
 	{
-		if (lexer->last_key == back_slash)
+		if (g_data.lexer->last_key == back_slash)
 			deque_push_back(token_buffer, ft_strdup("\\"));
-		else if (lexer->last_key == dollar)
+		else if (g_data.lexer->last_key == dollar)
+			deque_push_back(token_buffer, ft_strdup("$"));
+		deque_push_back(token_buffer, ft_strdup("<"));
+	}
+	else if (g_data.lexer->last_key == back_slash)
+		deque_push_back(token_buffer, ft_strdup("<"));
+	else
+	{
+		if (g_data.lexer->last_key == dollar)
+			deque_push_back(token_buffer, ft_strdup("$"));
+		put_buffer_in_tokens(tokens, token_buffer);
+		deque_push_back(token_buffer, ft_strdup("<"));
+		if (str[(*idx) + 1] == '<')
+		{
+			++(*idx);
+			deque_push_back(token_buffer, ft_strdup("<"));
+		}
+		put_buffer_in_tokens(tokens, token_buffer);
+	}
+	g_data.lexer->last_key = others;
+}
+
+void	lexer_redir_out(t_deque *tokens, t_deque *token_buffer, char *str, int *idx)
+{
+	if (g_data.lexer->quote)
+		deque_push_back(token_buffer, ft_strdup(">"));
+	else if (g_data.lexer->dquote)
+	{
+		if (g_data.lexer->last_key == back_slash)
+			deque_push_back(token_buffer, ft_strdup("\\"));
+		else if (g_data.lexer->last_key == dollar)
+			deque_push_back(token_buffer, ft_strdup("$"));
+		deque_push_back(token_buffer, ft_strdup(">"));
+	}
+	else if (g_data.lexer->last_key == back_slash)
+		deque_push_back(token_buffer, ft_strdup(">"));
+	else
+	{
+		if (g_data.lexer->last_key == dollar)
+			deque_push_back(token_buffer, ft_strdup("$"));
+		put_buffer_in_tokens(tokens, token_buffer);
+		deque_push_back(token_buffer, ft_strdup(">"));
+		if (str[(*idx) + 1] == '>')
+		{
+			++(*idx);
+			deque_push_back(token_buffer, ft_strdup(">"));
+		}
+		put_buffer_in_tokens(tokens, token_buffer);
+	}
+	g_data.lexer->last_key = others;
+}
+
+void	lexer_pipe(t_deque *tokens, t_deque *token_buffer)
+{
+	if (g_data.lexer->quote)
+		deque_push_back(token_buffer, ft_strdup("|"));
+	else if (g_data.lexer->dquote)
+	{
+		if (g_data.lexer->last_key == back_slash)
+			deque_push_back(token_buffer, ft_strdup("\\"));
+		else if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
 		deque_push_back(token_buffer, ft_strdup("|"));
 	}
-	else if (lexer->last_key == back_slash)
+	else if (g_data.lexer->last_key == back_slash)
 		deque_push_back(token_buffer, ft_strdup("|"));
 	else
 	{
-		if (lexer->last_key == dollar)
+		if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
 		put_buffer_in_tokens(tokens, token_buffer);
 		deque_push_back(tokens, ft_strdup("|"));
 	}
-	lexer->last_key = others;
+	g_data.lexer->last_key = others;
 }
 
-void	lexer_dollar(t_lexer *lexer, t_deque *token_buffer)//todo
+void	lexer_dollar(t_deque *token_buffer)//todo
 {
-	
+	(void)token_buffer;
 }
 
-void	lexer_space(t_lexer *lexer, t_deque *tokens, t_deque *token_buffer, char input_char)
+void	lexer_space(t_deque *tokens, t_deque *token_buffer, char input_char)
 {
-	if (lexer->quote)
-		deque_push_back(token_buffer, ft_strdup(&input_char));
-	else if (lexer->dquote)
+	if (g_data.lexer->quote)
+		deque_push_back(token_buffer, ft_substr(&input_char, 0 ,1));
+	else if (g_data.lexer->dquote)
 	{
-		if (lexer->last_key == back_slash)
+		if (g_data.lexer->last_key == back_slash)
 			deque_push_back(token_buffer, ft_strdup("\\"));
-		else if (lexer->last_key == dollar)
+		else if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
-		deque_push_back(token_buffer, ft_strdup(&input_char));
+		deque_push_back(token_buffer, ft_substr(&input_char, 0 ,1));
 	}
-	else if (lexer->last_key == back_slash)
-		deque_push_back(token_buffer, ft_strdup(&input_char));
+	else if (g_data.lexer->last_key == back_slash)
+		deque_push_back(token_buffer, ft_substr(&input_char, 0 ,1));
 	else
 	{
-		if (lexer->last_key == dollar)
+		if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
 		put_buffer_in_tokens(tokens, token_buffer);
 	}
-	lexer->last_key = others;
+	g_data.lexer->last_key = others;
 }
 
-void	lexer_general(t_lexer *lexer, t_deque *token_buffer, char *str, int *idx)//todo
+void	lexer_general(t_deque *token_buffer, char *str, int *idx)//todo
 {//need to especially deal with $?, environment variables
-	//if (lexer->quote)
-	//	deque_push_back(token_buffer, ft_strdup(&input_char));
-	/*else if (lexer->dquote)
+	//if (g_data.lexer->quote)
+	//	deque_push_back(token_buffer, ft_substr(&input_char, 0 ,1));
+	/*else if (g_data.lexer->dquote)
 	{
-		if (lexer->last_key == back_slash)
+		if (g_data.lexer->last_key == back_slash)
 			deque_push_back(token_buffer, ft_strdup("\\"));
-		else if (lexer->last_key == dollar)
+		else if (g_data.lexer->last_key == dollar)
 			deque_push_back(token_buffer, ft_strdup("$"));
-		deque_push_back(token_buffer, ft_strdup(&input_char));
+		deque_push_back(token_buffer, ft_substr(&input_char, 0 ,1));
 	}
 	else
 	{
 		
 	}*/
-	lexer->last_key = others;
+	g_data.lexer->last_key = others;
+	(void)token_buffer;(void)str;(void)idx;
 }
 
 t_deque	*lexer(char *input_string)
 {
 	t_deque	*tokens;
 	t_deque	*token_buffer;
-	t_lexer	*lexer;
 	int		idx[1];
 
-	lexer = lexer_init();
+	g_data.lexer = lexer_init();
 	tokens = deque_init();
 	token_buffer = deque_init();
 	idx[0] = -1;
 	while (input_string[++idx[0]])
 	{
 		if (input_string[idx[0]] == '\\')
-			lexer_back_slash(lexer, token_buffer);
+			lexer_back_slash(token_buffer);
 		else if (input_string[idx[0]] == '\'')
-			lexer_quote(lexer, token_buffer);
+			lexer_quote(token_buffer);
 		else if (input_string[idx[0]] == '\"')
-			lexer_dquote(lexer, token_buffer);
+			lexer_dquote(token_buffer);
 		else if (input_string[idx[0]] == ';')
-			lexer_semicolon(lexer, tokens, token_buffer);
+			lexer_semicolon(tokens, token_buffer);
 		else if (input_string[idx[0]] == '<')
-			lexer_redir_in(lexer, token_buffer, input_string, idx);
+			lexer_redir_in(tokens, token_buffer, input_string, idx);
 		else if (input_string[idx[0]] == '>')
-			lexer_redir_out(lexer, token_buffer, input_string, idx);
+			lexer_redir_out(tokens, token_buffer, input_string, idx);
 		else if (input_string[idx[0]] == '|')
-			lexer_pipe(lexer, tokens, token_buffer);
+			lexer_pipe(tokens, token_buffer);
 		else if (input_string[idx[0]] == '$')
-			lexer_dollar(lexer, token_buffer);
+			lexer_dollar(token_buffer);
 		else if (ft_isspace(input_string[idx[0]]))
-			lexer_space(lexer, tokens, token_buffer, input_string[idx[0]]);
+			lexer_space(tokens, token_buffer, input_string[idx[0]]);
 		else
-			lexer_general(lexer, token_buffer, input_string, idx);
+			lexer_general(token_buffer, input_string, idx);
 		if (input_string[idx[0]] == 0) // idx[0] may be modified in some functions so this line is necessary
 			break ;
 	}
 	// if ... error ?
 	// clear things ? (put the last into tokens)
+	// free everything that was malloc / init ?
 	return (tokens);
 }
 

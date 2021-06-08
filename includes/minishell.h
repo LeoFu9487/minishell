@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 11:06:51 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 01:58:27 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ struct s_data
 	char			*clip_board;
 	t_double_list	*cursor;
 	t_double_list	*history_iterator;
+	t_lexer			*lexer;
 }g_data;
 
 /*
