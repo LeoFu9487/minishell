@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:39:51 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 21:11:25 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 23:36:34 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static int	check_redir(t_deque *tokens, t_end_of_command eoc)
 	iterator = tokens->head;
 	while (iterator)
 	{
-		if (ft_strncmp(iterator->content, ">", 2) == 0 || ft_strncmp(iterator->content, "<", 2) == 0
-		|| ft_strncmp(iterator->content, ">>", 3) == 0 || ft_strncmp(iterator->content, "<<", 3) == 0)
+		if (is_redir(iterator->content))
 		{
 			if (last_key_is_redir)
 			{
@@ -147,7 +146,7 @@ static int	check_semicolon(t_deque *tokens)
 	return (0);
 }
 
-int	parse_error(t_deque *tokens)
+int	check_parse_error(t_deque *tokens)
 {
 	return (check_semicolon(tokens));
 }

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 00:15:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 20:03:06 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 22:32:54 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,7 @@
 
 void	parse_and_execute(t_deque *tokens) // need to hanlde exit_status and pid
 {
-	t_deque			*new_token;
-	t_double_list	*iterator;
-
-	iterator = tokens->head;
-	while (iterator)
-	{
-		ft_putendl_fd(iterator->content, 2);
-		iterator = iterator->next;
-	}
-	if (parse_error(tokens))
+	if (check_parse_error(tokens))
 		return ;
 	if (g_data.lexer_error != NoError)
 	{
@@ -43,5 +34,6 @@ void	parse_and_execute(t_deque *tokens) // need to hanlde exit_status and pid
 			ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
 		return ;
 	}
-	(void)new_token;
+	create_cmd(tokens);
+	g_data.pid = 0;
 }
