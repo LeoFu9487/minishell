@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 23:59:58 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 01:10:56 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_all(char **env) //todo
 {
-	g_data.stdin_fd = 0;
+	g_data.stdin_fd = dup(STDIN_FILENO);
 	g_data.exit_status = 0;
 	g_data.pid = 0;
 	g_data.history = deque_init();

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 00:06:32 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 01:41:47 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 01:12:25 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ unsigned	get_key()
 	unsigned char	c[10];
 	int				cnt;
 
-	cnt = read(0, c, 10);
+	cnt = read(g_data.stdin_fd, c, 10);
 	if (cnt < 1)
 		message_exit(87, "get_key_error", 2);
 	if (c[0] == CTRL_A)

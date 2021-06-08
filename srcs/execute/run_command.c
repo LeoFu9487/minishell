@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:25:59 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 00:54:56 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 01:16:06 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	here_document(char *eof)
 	{
 		close(pipefd[0]);
 		len = ft_strlen(eof) + 1;
-		while (get_next_line(g_data.stdin_fd, &line) > 0) // problem : can't get '\n'
+		while (get_next_line(g_data.stdin_fd, &line) > 0)
 		{
 			//problem : put into history
 			if (ft_strncmp(line, eof, len) != 0)
@@ -88,7 +88,7 @@ static void	set_redir(char *redir, char *file_name)
 	}
 }
 
-void	run_command(t_deque *cmd) // need to execve or exit
+void	run_command(t_deque *cmd)
 {
 	char	**args;
 	int		cnt;
@@ -106,6 +106,5 @@ void	run_command(t_deque *cmd) // need to execve or exit
 			args[cnt++] = cmd->head->content;
 		deque_pop_front(cmd, NULL);
 	}
-	
-	message_exit(0, "", -1);
+	execute(args);
 }

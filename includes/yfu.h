@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 23:35:11 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 01:15:47 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void		handle_delete(void);
 int			check_parse_error(t_deque *tokens);
 void		create_cmd(t_deque *tokens);
 int			is_redir(char *str);
+void		run_command(t_deque *cmd);
 
 /*____todo____*/
 void		init_env(char **env);//todo
@@ -115,7 +116,7 @@ void		handle_ctrl_right(void);//todo
 void		handle_alt_a(void);//todo
 void		handle_alt_b(void);//todo
 void		handle_alt_l(void);//todo
-void		run_command(t_deque *cmd);//todo
 void		no_pipe_command(t_deque *cmd);//todo
+void		execute(char **args);//todo
 
 #endif

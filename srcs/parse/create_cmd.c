@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 00:04:03 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 01:10:52 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	recursive_pipe(t_deque *cmd_list, t_double_list *iterator, int fd)
 	if (g_data.pid > 0) // parent process
 	{
 		close(pipefd[1]);
-		g_data.stdin_fd = dup(STDIN_FILENO);
 		dup2(pipefd[0], STDIN_FILENO); // read(0, ...) will read from pipe
 		close(pipefd[0]);
 		dup2(fd, STDOUT_FILENO); // write(1, ...) will write to pipe

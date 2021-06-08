@@ -23,4 +23,3 @@ https://unix.stackexchange.com/questions/398646/why-is-a-single-backslash-shown-
 
 problem :
 1. how to deal with literal message in parsing ? For example : touch \;
-2. << doesn't work properly
