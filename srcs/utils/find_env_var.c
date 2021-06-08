@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 08:00:26 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 10:53:49 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 02:13:00 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*find_env_var(char *key)
 {
 	t_double_list	*iterator;
 
+	if (ft_strncmp(key, "$?", 3) == 0)
+		return (ft_itoa(g_data.exit_status));
 	iterator = find_env_var_line(key);
 	if (!iterator)
 		return (NULL);
