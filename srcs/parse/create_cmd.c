@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 01:10:52 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 02:54:20 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	}
 	else // child process
 	{
-		recursive_pipe(cmd_list, cmd_list->tail, STDOUT_FILENO);
+		recursive_pipe(cmd_list, cmd_list->tail, g_data.stdout_fd);
 	}
 }
 

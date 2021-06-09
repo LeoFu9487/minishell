@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 01:00:11 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 01:23:16 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 02:58:40 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	launch_builtins(char **args)
 	//	builtin_exit(args);
 }
 
-void	execute(char **args) // need to execve or exit
+void	execute(char **args)
 {
 	launch_builtins(args);
-	exit(0);
+	launch_bin(args);
 }

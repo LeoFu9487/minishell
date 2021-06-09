@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:25:59 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 01:16:06 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 02:16:09 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ static void	here_document(char *eof)
 	{
 		close(pipefd[0]);
 		len = ft_strlen(eof) + 1;
+		ft_putstr_fd("> ", 2);
 		while (get_next_line(g_data.stdin_fd, &line) > 0)
 		{
+			ft_putstr_fd("> ", 2);
 			//problem : put into history
 			if (ft_strncmp(line, eof, len) != 0)
 				ft_putendl_fd(line, pipefd[1]);

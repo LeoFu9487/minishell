@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 01:15:47 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 01:45:15 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int			check_parse_error(t_deque *tokens);
 void		create_cmd(t_deque *tokens);
 int			is_redir(char *str);
 void		run_command(t_deque *cmd);
+void		execute(char **args);
 
 /*____todo____*/
 void		init_env(char **env);//todo
@@ -117,6 +118,13 @@ void		handle_alt_a(void);//todo
 void		handle_alt_b(void);//todo
 void		handle_alt_l(void);//todo
 void		no_pipe_command(t_deque *cmd);//todo
-void		execute(char **args);//todo
+void		launch_bin(char **args);
+
+/*
+** todo : 
+** 1. exit code
+** 2. ctrl-C, ctrl-D, ctrl-\
+** 3. exit_status
+*/
 
 #endif
