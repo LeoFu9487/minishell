@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 11:43:07 by xli               #+#    #+#             */
-/*   Updated: 2021/06/09 15:25:05 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 19:09:52 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	print_sorted_env(void)
 ** Return 1 if var's name is valid
 **/
 
-/*static int	check_var_name(char *var)
+static int	check_var_name(char *var)
 {
 	int	i;
 
@@ -104,34 +104,67 @@ static void	print_sorted_env(void)
 	if (var[i] == '\0' || var[i] == '=' || (var[i] == '+' && var[i + 1] == '='))
 		return (1);
 	return (0);
-}*/
+}
 
 /**
-** Return 1 if var does not exsit in env list
+** If i > 0, var is a new var, else, var already exits in env list.
 **/
 
-/*static int	is_new_var(char *var)
+static int	is_new_var(char *var)
 {
-	int				var_len; //len of var before '=' or '+='
+	int				i;
+	char			*var_key;
 	t_double_list	*temp;
 
-	var_len = var_name_len(var);
+	i = 0;
 	temp = g_data.env_list->head;
 	while (temp)
 	{
-		if (ft_strncmp(var, temp->content, var_len)
-			|| var_name_len(var) != var_name_len(temp->content))
-			return (1);
+		var_key = ft_substr(temp->content, 0, var_key_len(temp->content));
+		if (ft_strncmp(var, var_key, ft_strlen(var))
+			|| (int)ft_strlen(var) != var_key_len(temp->content))
+			i++;
+		else
+		{
+			i = 0;
+			break ;
+		}
 		temp = temp->next;
 	}
-	return (0);
-}*/
+	return (i);
+}
 
 /*
-** Reallocates an array of *char (previous variables + new ones from export).
+** If var does not have any value(no '='), do nothing.
+** Else if('='), frees the previous var and adds the new one value.
+** Else('+='), cat previous value and new one.
 */
 
-//int	create_new_env()
+static void	update_var(char *var)
+{
+	int				key_len;
+	char			*var_key;
+	t_double_list	*temp;
+
+	key_len = var_key_len(var);
+	if (var[key_len] == '\0') //var does not have any value(no '=')
+		return ;
+	temp = g_data.env_list->head;
+	while (temp)
+	{
+		var_key = ft_substr(temp->content, 0, var_key_len(temp->content));
+		if (ft_strncmp(var, var_key, ft_strlen(var))
+			|| (int)ft_strlen(var) != var_key_len(temp->content))
+		{
+			if (var[key_len] == '=') //input: var = value
+			{
+				ft_free(temp->content);
+				temp->content = var;
+			}
+		}
+		temp = temp->next;
+	}
+}
 
 /*
 ** If no arguments, prints all the var sorted by alphabetical order on stdout.
@@ -141,28 +174,25 @@ static void	print_sorted_env(void)
 
 void	builtin_export(char **args)
 {
-	//int	i;
+	int	i;
 
 	if (args && !args[1]) //export with no argument
 		print_sorted_env();
-	/*
-	if (args[1][0] == '-') //export does not handle options
+	if (args[1] && args[1][0] == '-') //export does not handle options
 		message_exit(1, "export: does not take options\n", 2);
 	i = 0;
 	while (args[++i])
 	{
 		if (!check_var_name(args[1])) //if var's name is not valid >> error
 		{
-			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd("export: `", 2);
 			ft_putstr_fd(args[1], 2);
-			ft_putendl_fd("': not a valid identifier", 2);
-			message_exit(1, "", 2);
+			message_exit(1, "': not a valid identifier\n", 2);
 		}
-		else if (is_new_var(args[i])) //if var does not exsit in env list
-			printf("new var");
-		else //if var exsits in env list >> update env list
-			printf("old var");
+		//else if (is_new_var(args[i])) //if var does not exsit in env list
+		//	printf("new var\n");
+		else if (!is_new_var(args[i])) //if var exsits in env list >> update env list
+			update_var(args[1]);
 	}
-	*/
 	message_exit(0, "", -1);
 }
