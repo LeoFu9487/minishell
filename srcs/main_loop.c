@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 04:28:27 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 12:30:35 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 	while (1)
 	{
+		g_data.pid = 0;
 		raw_mode_switch(on);
 		print_prompt();
 		input_string = get_input();
 		raw_mode_switch(off);
 		tokens = lexer(input_string);
-		// will tokens be NULL ?
 		if (tokens->size > 0)
 		{
 			deque_push_back(g_data.history, input_string); // when it's written in history, don't free input_string
