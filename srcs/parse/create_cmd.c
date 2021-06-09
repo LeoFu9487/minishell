@@ -6,12 +6,12 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 15:14:50 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 17:01:25 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	recursive_pipe(t_deque *cmd_list, t_double_list *iterator, int fd)
 {
 	int	pipefd[2];
@@ -46,11 +46,15 @@ void	recursive_pipe(t_deque *cmd_list, t_double_list *iterator, int fd)
 		recursive_pipe(cmd_list, iterator->last, pipefd[1]);
 	}
 }
-
+*/
 void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free), but don't free cmd_list (only pop_front to make it empty)
 {
-	int	status;
+	int				status;
+	int				**pipefd;
+	pid_t			*pid;
+	int				size;
 
+	size = cmd_list->size;
 	if (cmd_list->size == 1)
 	{
 		no_pipe_command(cmd_list->head->content);
@@ -58,24 +62,78 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		deque_pop_front(cmd_list, NULL);
 		return ;
 	}
-	g_data.pid = fork(); // if cmd_list->size == 1 and exit then don't do this
-	if (g_data.pid < 0)
-		message_exit(87, strerror(errno), 2);
-	if (g_data.pid > 0) // parent process
+	pipefd = ft_malloc(cmd_list->size, sizeof(int *));
+	for (int i = 0 ; i < cmd_list->size ; ++i) pipefd[i] = ft_calloc(2, sizeof(int)); // write into 1 and read from 0
+	for (int i = 0 ; i < cmd_list->size ; ++i) if (pipe(pipefd[i]) < 0) message_exit(87, "pipe", 2);
+	pid = ft_malloc(cmd_list->size, sizeof(pid_t));
+	pid[size - 1] = fork();
+	if (pid[size - 1] < 0)
+		message_exit(87, "fork", 2);
+	else if (pid[size - 1] > 0)
 	{
-		waitpid(g_data.pid, &status, 0);
-		if (WIFEXITED(status))
-			g_data.exit_status = WEXITSTATUS(status);
-		while (cmd_list->size > 0)
+		g_data.pid = pid[size - 1];
+		deque_clear(cmd_list->tail->content, ft_free);
+		deque_pop_back(cmd_list, NULL);
+	}
+	else // child : run_command
+	{
+		close(pipefd[size - 1][1]);
+		dup2(pipefd[size - 1][0], STDIN_FILENO);
+		dup2(g_data.stdout_fd, STDOUT_FILENO);
+		close(pipefd[size - 1][0]);
+		run_command(cmd_list->tail->content);
+	}
+	for (int i = size - 2; cmd_list->size > 1; --i)
+	{
+		pid[i] = fork();
+		if (pid[i] < 0)
+			message_exit(87, "fork", 2);
+		else if (pid[i] > 0)
 		{
-			deque_clear(cmd_list->head->content, ft_free);
-			deque_pop_front(cmd_list, NULL);
+			deque_clear(cmd_list->tail->content, ft_free);
+			deque_pop_back(cmd_list, NULL);
+		}
+		else
+		{
+			close(pipefd[i + 1][0]);
+			close(pipefd[i][1]);
+			dup2(pipefd[i][0], STDIN_FILENO);
+			close(pipefd[i][0]);
+			dup2(pipefd[i + 1][1], STDOUT_FILENO);
+			close(pipefd[i + 1][1]);
+			run_command(cmd_list->tail->content);
 		}
 	}
-	else // child process
+	//need to deal with the last command
+	pid[0] = fork();
+	if (pid[0] < 0)
+		message_exit(87, "fork", 2);
+	else if (pid[size - 1] > 0)
 	{
-		recursive_pipe(cmd_list, cmd_list->tail, g_data.stdout_fd);
+		deque_clear(cmd_list->tail->content, ft_free);
+		deque_pop_back(cmd_list, NULL);
 	}
+	else
+	{
+		close(pipefd[0][0]);
+		dup2(g_data.stdin_fd, STDIN_FILENO);
+		dup2(pipefd[0][1], STDOUT_FILENO);
+		close(pipefd[0][1]);
+		run_command(cmd_list->tail->content);
+	}
+	for (int i = 0 ; i < size - 1 ; ++i)
+		waitpid(pid[i], NULL, 0);
+	waitpid(pid[size - 1], &status, 0);
+	for (int i = 0 ; i < size - 1;  ++i)
+	{
+		printf("%d \n", pid[i]);
+	}
+	printf("\n");
+	if (WIFEXITED(status))
+		g_data.exit_status = WEXITSTATUS(status);
+	for (int i = 0 ; i < cmd_list->size ; ++i) ft_free(pipefd[i]);
+	ft_free(pipefd);
+	ft_free(pid);
 }
 
 void	create_cmd(t_deque *tokens) // seperate commands with pipes, call create_pipe when there is a semicolon or EOL

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:25:59 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 04:04:47 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 16:36:32 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,21 @@ static void	set_redir(char *redir, char *file_name)
 		fd = open(file_name, O_RDONLY);
 		check_fd(fd, file_name);
 		dup2(fd, STDIN_FILENO);
+		close(fd);
 	}
 	else if (ft_strncmp(redir, ">", 2) == 0)
 	{
 		fd = open(file_name, O_WRONLY | O_TRUNC | O_CREAT, 0664);
 		check_fd(fd, file_name);
 		dup2(fd, STDOUT_FILENO);
+		close(fd);
 	}
 	else
 	{
 		fd = open(file_name, O_WRONLY | O_APPEND | O_CREAT, 0664);
 		check_fd(fd, file_name);
 		dup2(fd, STDOUT_FILENO);
+		close(fd);
 	}
 }
 
