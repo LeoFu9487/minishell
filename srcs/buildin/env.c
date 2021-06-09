@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 10:04:56 by xli               #+#    #+#             */
-/*   Updated: 2021/06/09 09:41:34 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 10:25:51 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ void	builtin_env(char **args)
 
 	temp = g_data.env_list->head;
 	if (*(args + 1))
-	{
-		ft_putendl_fd("env: does not take options or arguments", 2);
-		message_exit(1, "", -1);
-	}
+		message_exit(1, "env: does not take options or arguments\n", 2);
 	while (temp)
 	{
 		if (is_equal(temp->content))
