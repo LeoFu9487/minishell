@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 03:55:10 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 14:24:13 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	recursive_pipe(t_deque *cmd_list, t_double_list *iterator, int fd)
 	int	status;
 
 	if (iterator == cmd_list->head)
+	{
+		dup2(g_data.stdin_fd, STDIN_FILENO);
+		dup2(fd, STDOUT_FILENO);
 		run_command(iterator->content);
+	}
 	if (pipe(pipefd) < 0)
 		message_exit(87, strerror(errno), 2);
 	g_data.pid = fork();
