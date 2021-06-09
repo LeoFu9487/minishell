@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 17:01:25 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 23:50:50 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		deque_pop_front(cmd_list, NULL);
 		return ;
 	}
-	pipefd = ft_malloc(cmd_list->size, sizeof(int *));
-	for (int i = 0 ; i < cmd_list->size ; ++i) pipefd[i] = ft_calloc(2, sizeof(int)); // write into 1 and read from 0
-	for (int i = 0 ; i < cmd_list->size ; ++i) if (pipe(pipefd[i]) < 0) message_exit(87, "pipe", 2);
-	pid = ft_malloc(cmd_list->size, sizeof(pid_t));
+	pipefd = ft_malloc(size - 1, sizeof(int *));
+	for (int i = 0 ; i < size - 1 ; ++i) pipefd[i] = ft_calloc(2, sizeof(int)); // write into 1 and read from 0
+	for (int i = 0 ; i < size - 1 ; ++i) if (pipe(pipefd[i]) < 0) message_exit(87, "pipe", 2);
+	pid = ft_malloc(size, sizeof(pid_t));
 	pid[size - 1] = fork();
 	if (pid[size - 1] < 0)
 		message_exit(87, "fork", 2);
@@ -77,13 +77,16 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	}
 	else // child : run_command
 	{
-		close(pipefd[size - 1][1]);
-		dup2(pipefd[size - 1][0], STDIN_FILENO);
+		dup2(pipefd[size - 2][0], STDIN_FILENO);
 		dup2(g_data.stdout_fd, STDOUT_FILENO);
-		close(pipefd[size - 1][0]);
+		for (int i = 0 ; i < size - 1 ; ++i)
+		{
+			close(pipefd[i][0]);
+			close(pipefd[i][1]);
+		}
 		run_command(cmd_list->tail->content);
 	}
-	for (int i = size - 2; cmd_list->size > 1; --i)
+	for (int i = size - 2; i > 0; --i)
 	{
 		pid[i] = fork();
 		if (pid[i] < 0)
@@ -95,12 +98,13 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		}
 		else
 		{
-			close(pipefd[i + 1][0]);
-			close(pipefd[i][1]);
-			dup2(pipefd[i][0], STDIN_FILENO);
-			close(pipefd[i][0]);
-			dup2(pipefd[i + 1][1], STDOUT_FILENO);
-			close(pipefd[i + 1][1]);
+			dup2(pipefd[i - 1][0], STDIN_FILENO);
+			dup2(pipefd[i][1], STDOUT_FILENO);
+			for (int j = 0 ; j < size - 1 ; ++j)
+			{
+				close(pipefd[j][0]);
+				close(pipefd[j][1]);
+			}
 			run_command(cmd_list->tail->content);
 		}
 	}
@@ -108,30 +112,32 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	pid[0] = fork();
 	if (pid[0] < 0)
 		message_exit(87, "fork", 2);
-	else if (pid[size - 1] > 0)
+	else if (pid[0] > 0)
 	{
+		for (int i = 0 ; i < size - 1 ; ++i)
+		{
+			close(pipefd[i][0]);
+			close(pipefd[i][1]);
+		}
 		deque_clear(cmd_list->tail->content, ft_free);
 		deque_pop_back(cmd_list, NULL);
 	}
 	else
 	{
-		close(pipefd[0][0]);
 		dup2(g_data.stdin_fd, STDIN_FILENO);
 		dup2(pipefd[0][1], STDOUT_FILENO);
-		close(pipefd[0][1]);
+		for (int i = 0 ; i < size - 1 ; ++i)
+		{
+			close(pipefd[i][0]);
+			close(pipefd[i][1]);
+		}
 		run_command(cmd_list->tail->content);
 	}
-	for (int i = 0 ; i < size - 1 ; ++i)
-		waitpid(pid[i], NULL, 0);
+	for (int i = 0 ; i < size - 1 ; ++i) waitpid(pid[i], NULL, 0);
 	waitpid(pid[size - 1], &status, 0);
-	for (int i = 0 ; i < size - 1;  ++i)
-	{
-		printf("%d \n", pid[i]);
-	}
-	printf("\n");
 	if (WIFEXITED(status))
 		g_data.exit_status = WEXITSTATUS(status);
-	for (int i = 0 ; i < cmd_list->size ; ++i) ft_free(pipefd[i]);
+	for (int i = 0 ; i < size - 1 ; ++i) ft_free(pipefd[i]);
 	ft_free(pipefd);
 	ft_free(pid);
 }
