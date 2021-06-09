@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 02:54:20 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 03:55:10 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	recursive_pipe(t_deque *cmd_list, t_double_list *iterator, int fd)
 {
 	int	pipefd[2];
+	int	status;
 
 	if (iterator == cmd_list->head)
 		run_command(iterator->content);
@@ -31,7 +32,9 @@ void	recursive_pipe(t_deque *cmd_list, t_double_list *iterator, int fd)
 		dup2(fd, STDOUT_FILENO); // write(1, ...) will write to pipe
 		close(fd);
 		run_command(iterator->content);
-		waitpid(g_data.pid, NULL, 0); // need to get and change the exit code here
+		waitpid(g_data.pid, &status, 0);
+		if (WIFEXITED(status))
+			g_data.exit_status = WEXITSTATUS(status);
 	}
 	else // child process
 	{
@@ -42,6 +45,8 @@ void	recursive_pipe(t_deque *cmd_list, t_double_list *iterator, int fd)
 
 void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free), but don't free cmd_list (only pop_front to make it empty)
 {
+	int	status;
+
 	if (cmd_list->size == 1)
 	{
 		no_pipe_command(cmd_list->head->content);
@@ -54,7 +59,9 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		message_exit(87, strerror(errno), 2);
 	if (g_data.pid > 0) // parent process
 	{
-		waitpid(g_data.pid, NULL, 0); // need to get and change the exit code here
+		waitpid(g_data.pid, &status, 0);
+		if (WIFEXITED(status))
+			g_data.exit_status = WEXITSTATUS(status);
 		while (cmd_list->size > 0)
 		{
 			deque_clear(cmd_list->head->content, ft_free);

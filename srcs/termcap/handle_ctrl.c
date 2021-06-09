@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:45:34 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 01:38:11 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 04:00:57 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	handle_ctrl_b(void)
 
 void	handle_ctrl_d(void)
 {
-	ft_putendl_fd("ctrl-d", 2);
+	if ((g_data.buffer_list == NULL || g_data.buffer_list->size == 0) && g_data.pid == 0)
+	{
+		message_exit(g_data.exit_status, "exit\n", 2);
+	}
 }
 
 void	handle_ctrl_l(void)

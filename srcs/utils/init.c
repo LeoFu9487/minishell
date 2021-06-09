@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 02:50:45 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 03:58:44 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_all(char **env) //todo
 	g_data.stdin_fd = dup(STDIN_FILENO);
 	g_data.stdout_fd = dup(STDOUT_FILENO);
 	g_data.exit_status = 0;
+	g_data.buffer_list = NULL;
 	g_data.pid = 0;
 	g_data.history = deque_init();
 	deque_push_back(g_data.history, "You have no history before this.");

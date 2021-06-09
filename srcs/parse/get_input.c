@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:42:12 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 16:55:28 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 03:58:18 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char *get_input(void)
 		{
 			str = buffer_to_string();
 			deque_clear(g_data.buffer_list, ft_free);
+			g_data.buffer_list = NULL;
 			ft_putchar_fd('\n', 2);
 			break ;
 		}
