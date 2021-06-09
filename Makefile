@@ -2,11 +2,12 @@ NAME = minishell
 
 LIBSH = libmsh.a
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 CC = gcc
 
-UTILS_FILE = exit.c	init.c	signal.c
+UTILS_FILE = exit.c	init.c	signal.c	find_env_var.c\
+prompt.c	is_redir.c
 
 UTILS_PATH = utils/
 
@@ -15,13 +16,18 @@ TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c\
 
 TERMCAP_PATH = termcap/
 
-PARSE_FILE = get_input.c	lexer.c	parse.c
+PARSE_FILE = get_input.c	lexer.c	parse.c	parse_error.c\
+	create_cmd.c
 
 PARSE_PATH = parse/
 
 BULDIN_FILE = echo.c	env.c
 
 BUILDIN_PATH = buildin/
+
+EXECUTE_FILE = run_command.c	no_pipe_command.c	execute.c	launch_bin.c
+
+EXECUTE_PATH = execute/
 
 #PUT FILES HERE
 SRCS_FILE += $(addprefix $(UTILS_PATH), $(UTILS_FILE))
@@ -33,6 +39,8 @@ SRCS_FILE += $(addprefix $(PARSE_PATH), $(PARSE_FILE))
 SRCS_FILE += main_loop.c
 
 SRCS_FILE += $(addprefix $(BUILDIN_PATH), $(BULDIN_FILE))
+
+SRCS_FILE += $(addprefix $(EXECUTE_PATH), $(EXECUTE_FILE))
 
 SRCS_PATH = srcs/
 

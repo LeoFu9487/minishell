@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 19:34:44 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 01:45:15 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,34 @@ typedef enum e_switch
 }t_switch;
 /*____ok_____*/
 
+typedef enum e_lexer_key
+{
+	others = 0,
+	back_slash,
+	dollar
+}t_lexer_key;
+
+typedef enum e_lexer_key_2
+{
+	NoError = 0,
+	quote,
+	dquote
+}t_lexer_key_2;
+
+typedef enum e_end_of_command
+{
+	NewLine = 0,
+	Semicolon,
+	Pipe
+}t_end_of_command;
+
+typedef struct s_lexer
+{
+	int			quote;
+	int			dquote;
+	t_lexer_key	last_key;
+}t_lexer;
+
 void		raw_mode_switch(t_switch e);
 char		*buffer_to_string(void);
 unsigned	get_key();
@@ -64,6 +92,11 @@ void		handle_right(void);
 void		handle_home(void);
 void		handle_end(void);
 void		handle_delete(void);
+int			check_parse_error(t_deque *tokens);
+void		create_cmd(t_deque *tokens);
+int			is_redir(char *str);
+void		run_command(t_deque *cmd);
+void		execute(char **args);
 
 /*____todo____*/
 void		init_env(char **env);//todo
@@ -84,5 +117,14 @@ void		handle_ctrl_right(void);//todo
 void		handle_alt_a(void);//todo
 void		handle_alt_b(void);//todo
 void		handle_alt_l(void);//todo
+void		no_pipe_command(t_deque *cmd);//todo
+void		launch_bin(char **args);
+
+/*
+** todo : 
+** 1. exit code
+** 2. ctrl-C, ctrl-D, ctrl-\
+** 3. exit_status
+*/
 
 #endif

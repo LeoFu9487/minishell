@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:58:29 by yfu               #+#    #+#             */
-/*   Updated: 2021/05/04 19:49:04 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 04:39:39 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_double_list	*double_list_init(void *ptr)
 
 void	deque_clear(t_deque *deque, void (*f)(void*))
 {
+	if (deque == NULL)
+		return ;
 	while (deque->size)
 		deque_pop_back(deque, f);
 }

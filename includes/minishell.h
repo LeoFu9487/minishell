@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 11:06:51 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 04:31:05 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,24 @@
 # include "xli.h"
 # include "yfu.h"
 # define PROMPT_MESSAGE "minishell $> "
+# define GREEN "\x1B[32m"
+# define RED "\x1B[31m"
+# define NOCOLOR "\x1B[0m"
 
 struct s_data
 {
+	t_lexer_key_2	lexer_error;
 	int				exit_status;
+	pid_t			pid;
 	t_deque			*env_list;
 	t_deque			*history;
 	t_deque			*buffer_list;
 	char			*clip_board;
 	t_double_list	*cursor;
 	t_double_list	*history_iterator;
+	t_lexer			*lexer;
+	int				stdin_fd;
+	int				stdout_fd;
 }g_data;
 
 /*
@@ -62,14 +70,15 @@ void	builtin_exit(char **args);//todo
 
 void	message_exit(int exit_code, char *message, int fd);
 void	catch_signal(void);//todo
+void	print_prompt(void);
 
 t_double_list	*find_env_var_line(char *key);//return the whole line, don't free after calling this function
 char			*find_env_var(char *key);//return the value that corresponds to the key, ft_free after the use of this function
 /*
-** return NULL if not foudn (for both of them)
+** return NULL if not found (for both of them)
 **
 ** example :
-** char *str = find_env_var_line("SHLVL");
+** char *str = find_env_var_line("SHLVL")->content;
 ** ft_putendl_fd(str, 1); //output : SHLVL=2
 **
 ** char *str2 = find_env_var("SHLVL");

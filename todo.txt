@@ -18,4 +18,8 @@ need to turn off raw mode while exit ? (ctrl-D)
 
 quote(') and double quote (")
 https://stackoverflow.com/questions/6697753/difference-between-single-and-double-quotes-in-bash#:~:text=Single%20quotes%20won't%20interpolate,%2C%20certain%20%5C%20escapes%2C%20etc.&text=Enclosing%20characters%20in%20single%20quotes,when%20preceded%20by%20a%20backslash.
+https://unix.stackexchange.com/questions/398646/why-is-a-single-backslash-shown-when-using-quotes#:~:text=3%20Answers&text=Section%203.1.2.3%20Double%20Quotes,of%20these%20characters%20are%20removed.
 
+
+problem :
+1. how to deal with literal message in parsing ? For example : touch \;

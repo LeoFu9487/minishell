@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 01:19:53 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 04:41:34 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,29 @@ static void	handle_signal(int signal)
 {
 	if (signal == SIGINT) /* ctrl + C */
 	{
-		ft_putstr_fd("SIGINT\n", 1);
-		raw_mode_switch(off);
-		exit(1);
+		g_data.exit_status = 130;
+		if (g_data.buffer_list)
+		{
+			deque_clear(g_data.buffer_list, ft_free);
+			g_data.buffer_list = deque_init();
+			g_data.cursor = NULL;
+			g_data.history_iterator = NULL;
+		}
+		if (g_data.pid == 0)
+		{
+			ft_putendl_fd("", 2);
+			print_prompt();
+		}
+		else
+			ft_putendl_fd("", 2);
 	}
 	if (signal == SIGQUIT) /* ctrl + \ */
 	{
-		ft_putstr_fd("SIGQUIT\n", 1);
-		raw_mode_switch(off);
-		exit(2);
+		if (g_data.pid != 0)
+		{
+			g_data.exit_status = 131;
+			ft_putendl_fd("Quit", 2);
+		}
 	}
 }
 
