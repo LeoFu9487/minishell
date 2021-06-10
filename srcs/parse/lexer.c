@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 20:50:13 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 01:44:51 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,12 @@ void	lexer_general(t_deque *token_buffer, char *str, int *idx)
 				var[0] = find_env_var("$?");
 			else if (str[*idx] >= '0' && str[*idx] <= '9') // not supported yet
 				var[0] = NULL;
+			else if (ft_isalnum(str[*idx]) == 0 && str[*idx] != '_')
+			{
+				var[0] = NULL;
+				deque_push_back(token_buffer, ft_strdup("$"));
+				deque_push_back(token_buffer, ft_substr(str, *idx, 1));
+			}
 			else
 			{
 				var[1] = ft_substr(str, *idx, ft_strlen(str) - *idx);
@@ -338,6 +344,12 @@ void	lexer_general(t_deque *token_buffer, char *str, int *idx)
 			var[0] = find_env_var("$?");
 		else if (str[*idx] >= '0' && str[*idx] <= '9') // not supported yet
 			var[0] = NULL;
+		else if (ft_isalnum(str[*idx]) == 0 && str[*idx] != '_')
+		{
+			var[0] = NULL;
+			deque_push_back(token_buffer, ft_strdup("$"));
+			deque_push_back(token_buffer, ft_substr(str, *idx, 1));
+		}
 		else
 		{
 			var[1] = ft_substr(str, *idx, ft_strlen(str) - *idx);
