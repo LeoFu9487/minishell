@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 01:51:15 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/10 20:42:50 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,15 @@ void		handle_right(void);
 void		handle_home(void);
 void		handle_end(void);
 void		handle_delete(void);
+void		handle_ctrl_d(void);
 int			check_parse_error(t_deque *tokens);
 void		create_cmd(t_deque *tokens);
 int			is_redir(char *str);
 void		run_command(t_deque *cmd);
 void		execute(char **args);
 void		set_redir(char *redir, char *file_name);
+void		no_pipe_command(t_deque *cmd);
+void		launch_bin(char **args);
 
 /*____todo____*/
 void		init_env(char **env);//todo
@@ -108,7 +111,6 @@ void		main_loop(void);//todo
 void		init_all(char **env);//todo
 void		handle_ctrl_a(void);//todo
 void		handle_ctrl_b(void);//todo
-void		handle_ctrl_d(void);//todo
 void		handle_ctrl_l(void);//todo
 void		handle_ctrl_v(void);//todo
 void		handle_ctrl_up(void);//todo
@@ -118,8 +120,6 @@ void		handle_ctrl_right(void);//todo
 void		handle_alt_a(void);//todo
 void		handle_alt_b(void);//todo
 void		handle_alt_l(void);//todo
-void		no_pipe_command(t_deque *cmd);//todo
-void		launch_bin(char **args);
 
 /*
 ** todo : 
