@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xli.h                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/01 13:52:23 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/10 10:34:25 by xli              ###   ########lyon.fr   */
+/*   Created: 2021/06/10 09:49:31 by xli               #+#    #+#             */
+/*   Updated: 2021/06/10 10:42:18 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XLI_H
-# define XLI_H
+#include "minishell.h"
 
-void	builtin_echo(char **args);
-void	builtin_env(char **args);
-void	builtin_exit(char **args);
+/*
+** If no arg, exits the whole minishell(exit code 0).
+**
+**
+**
+*/
 
-#endif
+void	builtin_exit(char **args)
+{
+	if (args && !args[1])
+		message_exit(0, "exit\n", 2);
+}

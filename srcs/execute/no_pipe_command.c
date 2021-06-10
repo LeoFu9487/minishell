@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_pipe_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 01:54:14 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/10 10:41:06 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	no_pipe_exit(t_deque *cmd)
 			args[cnt++] = cmd->head->content;
 		deque_pop_front(cmd, NULL);
 	}
-	//builtin_exit(args);
+	builtin_exit(args);
 	ft_free(args);
 }
 
