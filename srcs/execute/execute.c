@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 01:00:11 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 01:56:17 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 12:38:43 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	launch_builtins(char **args)
 	//	message_exit(g_data.exit_status, "", -1);
 	//}
 	// while enable builtin_exit
-	// also do enable the builtin_exit in execute/no_pipe_command.c(line 33)
+	// also do enable the builtin_exit in execute/no_pipe_command.c(line 27)
 }
 
 void	execute(char **args)

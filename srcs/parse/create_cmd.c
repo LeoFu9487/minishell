@@ -6,11 +6,48 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 20:15:25 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 12:57:49 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+change set_redir
+change no_pipe_command
+change run_command
+while running, if fd < 0, error else dup2
+First, run set_redir for every command
+Second, check from 0 to size - 1  if there is fd < 0, if so, print the error message
+Third, still run the command, but check if there is fd < 0, exit directly
+*/
+
+t_iofd	*init_iofd(int size)
+{
+	t_iofd	*iofd;
+	int		cnt;
+
+	iofd = ft_malloc(size, sizeof(t_iofd));
+	cnt = -1;
+	while (++cnt < size)
+	{
+		iofd[cnt].in_file = ft_strdup("STDIN");
+		iofd[cnt].out_file = ft_strdup("STDOUT");
+		iofd[cnt].stdin_fd = STDIN_FILENO;
+		iofd[cnt].stdout_fd = STDOUT_FILENO;
+	}
+	return (iofd);
+}
+
+void	ft_free_iofd(t_iofd *iofd, int size)
+{
+	while (--size >= 0)
+	{
+		ft_free(iofd[size].in_file);
+		ft_free(iofd[size].out_file);
+	}
+	ft_free(iofd);
+}
 
 void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free), but don't free cmd_list (only pop_front to make it empty)
 {
@@ -18,11 +55,36 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	int				**pipefd;
 	pid_t			*pid;
 	int				size;
+	t_iofd			*iofd; // iofd needs to be initialize ?
+	t_double_list	*iterator[3];
 
 	size = cmd_list->size;
+	iofd = init_iofd(size);
+	iterator[0] = cmd_list->head;
+	for (int i = 0 ; i < size ; ++i) // set redir for every cmd
+	{
+		iterator[1] = ((t_deque *)iterator[0]->content)->head;
+		while (iterator[1])
+		{
+			if (is_redir(iterator[1]->content))
+			{
+				set_redir(iterator[1]->content, iterator[1]->next->content, &iofd[i]);
+				iterator[2] = iterator[1];
+				iterator[1] = iterator[1]->next;
+				deque_pop_one(iterator[0]->content, iterator[2], ft_free);
+				iterator[2] = iterator[1];
+				iterator[1] = iterator[1]->next;
+				deque_pop_one(iterator[0]->content, iterator[2], ft_free);
+			}
+			else
+				iterator[1] = iterator[1]->next;
+		}
+		iterator[0] = iterator[0]->next;
+	}
 	if (cmd_list->size == 1)
 	{
-		no_pipe_command(cmd_list->head->content);
+		no_pipe_command(cmd_list->head->content, &iofd[0]);
+		ft_free_iofd(iofd, size);
 		deque_clear(cmd_list->head->content, ft_free);
 		deque_pop_front(cmd_list, NULL);
 		return ;
@@ -44,6 +106,28 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	{
 		dup2(pipefd[size - 2][0], STDIN_FILENO);
 		dup2(g_data.stdout_fd, STDOUT_FILENO);
+		if (iofd[size - 1].stdin_fd < 0)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			perror(iofd[size - 1].in_file);
+			message_exit(1, "", -1);
+		}
+		else if (iofd[size - 1].stdin_fd != STDIN_FILENO)
+		{
+			dup2(iofd[size - 1].stdin_fd, STDIN_FILENO);
+			close(iofd[size - 1].stdin_fd);
+		}
+		if (iofd[size - 1].stdout_fd < 0)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			perror(iofd[size - 1].out_file);
+			message_exit(1, "", -1);
+		}
+		else if (iofd[size - 1].stdout_fd != STDOUT_FILENO)
+		{
+			dup2(iofd[size - 1].stdout_fd, STDOUT_FILENO);
+			close(iofd[size - 1].stdout_fd);
+		}
 		for (int i = 0 ; i < size - 1 ; ++i)
 		{
 			close(pipefd[i][0]);
@@ -65,6 +149,28 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		{
 			dup2(pipefd[i - 1][0], STDIN_FILENO);
 			dup2(pipefd[i][1], STDOUT_FILENO);
+			if (iofd[i].stdin_fd < 0)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				perror(iofd[i].in_file);
+				message_exit(1, "", -1);
+			}
+			else if (iofd[i].stdin_fd != STDIN_FILENO)
+			{
+				dup2(iofd[i].stdin_fd, STDIN_FILENO);
+				close(iofd[i].stdin_fd);
+			}
+			if (iofd[i].stdout_fd < 0)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				perror(iofd[i].out_file);
+				message_exit(1, "", -1);
+			}
+			else if (iofd[i].stdout_fd != STDOUT_FILENO)
+			{
+				dup2(iofd[i].stdout_fd, STDOUT_FILENO);
+				close(iofd[i].stdout_fd);
+			}
 			for (int j = 0 ; j < size - 1 ; ++j)
 			{
 				close(pipefd[j][0]);
@@ -91,6 +197,28 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	{
 		dup2(g_data.stdin_fd, STDIN_FILENO);
 		dup2(pipefd[0][1], STDOUT_FILENO);
+		if (iofd[0].stdin_fd < 0)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			perror(iofd[0].in_file);
+			message_exit(1, "", -1);
+		}
+		else if (iofd[0].stdin_fd != STDIN_FILENO)
+		{
+			dup2(iofd[0].stdin_fd, STDIN_FILENO);
+			close(iofd[0].stdin_fd);
+		}
+		if (iofd[0].stdout_fd < 0)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			perror(iofd[0].out_file);
+			message_exit(1, "", -1);
+		}
+		else if (iofd[0].stdout_fd != STDOUT_FILENO)
+		{
+			dup2(iofd[0].stdout_fd, STDOUT_FILENO);
+			close(iofd[0].stdout_fd);
+		}
 		for (int i = 0 ; i < size - 1 ; ++i)
 		{
 			close(pipefd[i][0]);
@@ -118,6 +246,7 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	for (int i = 0 ; i < size - 1 ; ++i) ft_free(pipefd[i]);
 	ft_free(pipefd);
 	ft_free(pid);
+	ft_free_iofd(iofd, size);
 }
 
 void	create_cmd(t_deque *tokens) // seperate commands with pipes, call create_pipe when there is a semicolon or EOL

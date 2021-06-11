@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/10 20:42:50 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 12:28:57 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ typedef struct s_lexer
 	t_lexer_key	last_key;
 }t_lexer;
 
+typedef struct s_iofd
+{
+	int		stdin_fd;
+	int		stdout_fd;
+	char	*in_file;
+	char	*out_file;
+}t_iofd;
+
 void		raw_mode_switch(t_switch e);
 char		*buffer_to_string(void);
 unsigned	get_key();
@@ -98,8 +106,8 @@ void		create_cmd(t_deque *tokens);
 int			is_redir(char *str);
 void		run_command(t_deque *cmd);
 void		execute(char **args);
-void		set_redir(char *redir, char *file_name);
-void		no_pipe_command(t_deque *cmd);
+void		set_redir(char *redir, char *file_name, t_iofd *iofd);
+void		no_pipe_command(t_deque *cmd, t_iofd *iofd);
 void		launch_bin(char **args);
 
 /*____todo____*/

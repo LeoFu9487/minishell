@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 20:17:17 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 12:37:45 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,41 @@ static void	no_pipe_exit(t_deque *cmd)
 	cnt = 0;
 	while (cmd->size > 0)
 	{
-		if (is_redir(cmd->head->content))
-		{
-			set_redir(cmd->head->content, cmd->head->next->content);
-			deque_pop_front(cmd, NULL);
-		}
-		else
-			args[cnt++] = cmd->head->content;
+		args[cnt++] = cmd->head->content;
 		deque_pop_front(cmd, NULL);
 	}
 	//builtin_exit(args);
 	ft_free(args);
 }
 
-void	no_pipe_command(t_deque *cmd) // cmd is a list of tokens
+void	no_pipe_command(t_deque *cmd, t_iofd *iofd) // cmd is a list of tokens
 {
 	int		status;
 
+	if (iofd->stdin_fd < 0)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(iofd->in_file);
+		g_data.exit_status = 1;
+		return ;
+	}
+	else if (iofd->stdin_fd != STDIN_FILENO)
+	{
+		dup2(iofd->stdin_fd, STDIN_FILENO);
+		close(iofd->stdin_fd);
+	}
+	if (iofd->stdout_fd < 0)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(iofd->out_file);
+		g_data.exit_status = 1;
+		return ;
+	}
+	else if (iofd->stdout_fd != STDOUT_FILENO)
+	{
+		dup2(iofd->stdout_fd, STDOUT_FILENO);
+		close(iofd->stdout_fd);
+	}
 	if (ft_strncmp(cmd->head->content, "exit", 5) == 0)
 	{
 		no_pipe_exit(cmd);
