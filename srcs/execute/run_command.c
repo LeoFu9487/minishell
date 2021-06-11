@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:25:59 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 12:52:48 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 20:04:03 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ void	set_redir(char *redir, char *file_name, t_iofd *iofd) // change here for re
 	int	fd;
 
 	if (ft_strncmp(redir, "<<", 3) == 0)
+	{
 		here_document(file_name, iofd);
+		return ;
+	}
 	if (iofd->stdin_fd < 0 || iofd->stdout_fd < 0)
 		return ;
 	if (ft_strncmp(redir, "<", 2) == 0)
@@ -102,6 +105,8 @@ void	run_command(t_deque *cmd)
 	char	**args;
 	int		cnt;
 
+	if (cmd->size == 0)
+		message_exit(0, "", -1);
 	args = ft_calloc(cmd->size + 1, sizeof(char *));
 	cnt = 0;
 	while (cmd->size > 0)

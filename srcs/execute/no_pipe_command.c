@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 12:37:45 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 19:58:36 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ void	no_pipe_command(t_deque *cmd, t_iofd *iofd) // cmd is a list of tokens
 		g_data.exit_status = 1;
 		return ;
 	}
-	else if (iofd->stdin_fd != STDIN_FILENO)
-	{
-		dup2(iofd->stdin_fd, STDIN_FILENO);
-		close(iofd->stdin_fd);
-	}
 	if (iofd->stdout_fd < 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -51,12 +46,7 @@ void	no_pipe_command(t_deque *cmd, t_iofd *iofd) // cmd is a list of tokens
 		g_data.exit_status = 1;
 		return ;
 	}
-	else if (iofd->stdout_fd != STDOUT_FILENO)
-	{
-		dup2(iofd->stdout_fd, STDOUT_FILENO);
-		close(iofd->stdout_fd);
-	}
-	if (ft_strncmp(cmd->head->content, "exit", 5) == 0)
+	if (cmd->size > 0 && ft_strncmp(cmd->head->content, "exit", 5) == 0)
 	{
 		no_pipe_exit(cmd);
 		return ;
@@ -83,6 +73,16 @@ void	no_pipe_command(t_deque *cmd, t_iofd *iofd) // cmd is a list of tokens
 	}
 	else
 	{
+		if (iofd->stdin_fd != STDIN_FILENO)
+		{
+			dup2(iofd->stdin_fd, STDIN_FILENO);
+			close(iofd->stdin_fd);
+		}
+		if (iofd->stdout_fd != STDOUT_FILENO)
+		{
+			dup2(iofd->stdout_fd, STDOUT_FILENO);
+			close(iofd->stdout_fd);
+		}
 		run_command(cmd);
 	}
 }
