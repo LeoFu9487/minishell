@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:39:51 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 23:36:34 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 20:30:31 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int	check_redir(t_deque *tokens, t_end_of_command eoc)
 						ft_putendl_fd("minishell: unexpected EOL while looking for matching `\"\'", 2);
 					else if (g_data.lexer_error == dquote)
 						ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
+					else if (g_data.lexer_error == backslash)
+						ft_putendl_fd("minishell: unexpected EOL while looking for matching `\\\'", 2);
 					else
 						ft_putendl_fd("minishell: syntax error near unexpected token `newline\'", 2);
 				}

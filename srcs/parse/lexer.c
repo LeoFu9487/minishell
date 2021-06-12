@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 20:01:14 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 20:24:20 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,8 +423,8 @@ t_deque	*lexer(char *input_string)
 		g_data.lexer_error = dquote;
 	else if (g_data.lexer->last_key == dollar)
 		deque_push_back(token_buffer, ft_strdup("$"));
-	else if (g_data.lexer->last_key == back_slash) // undefined behavior
-		deque_push_back(token_buffer, ft_strdup("\\"));
+	else if (g_data.lexer->last_key == back_slash)
+		g_data.lexer_error = backslash;
 	if (g_data.lexer_error == NoError)
 		put_buffer_in_tokens(tokens, token_buffer);
 	deque_clear(token_buffer, ft_free);

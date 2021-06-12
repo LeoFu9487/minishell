@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 00:15:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 22:32:54 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 20:31:15 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	parse_and_execute(t_deque *tokens) // need to hanlde exit_status and pid
 		g_data.exit_status = 2;
 		if (g_data.lexer_error == dquote)
 			ft_putendl_fd("minishell: unexpected EOL while looking for matching `\"\'", 2);
-		else
+		else if (g_data.lexer_error == quote)
 			ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
+		else if (g_data.lexer_error == backslash)
+			ft_putendl_fd("minishell: unexpected EOL while looking for matching `\\\'", 2);
 		return ;
 	}
 	create_cmd(tokens);

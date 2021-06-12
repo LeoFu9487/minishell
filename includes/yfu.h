@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 12:28:57 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 20:23:52 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ typedef enum e_lexer_key_2
 {
 	NoError = 0,
 	quote,
-	dquote
+	dquote,
+	backslash
 }t_lexer_key_2;
 
 typedef enum e_end_of_command

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 01:05:46 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 20:25:20 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@
 				g_data.exit_status = 2;
 				if (g_data.lexer_error == dquote)
 					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\"\'", 2);
-				else
+				else if (g_data.lexer_error == quote)
 					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
+				else
+					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\\\'", 2);
 			}
 		}
 		deque_clear(tokens, ft_free);
