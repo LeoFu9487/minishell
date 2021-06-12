@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 20:08:37 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 23:37:51 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		iterator[1] = ((t_deque *)iterator[0]->content)->head;
 		while (iterator[1])
 		{
-			if (is_redir(iterator[1]->content))
+			if (is_redir(((t_token *)iterator[1]->content)->lexer_flag))
 			{
-				set_redir(iterator[1]->content, iterator[1]->next->content, &iofd[i]);
+				set_redir(((t_token *)iterator[1]->content)->str, ((t_token *)iterator[1]->next->content)->str, &iofd[i]);
 				iterator[2] = iterator[1];
 				iterator[1] = iterator[1]->next;
-				deque_pop_one(iterator[0]->content, iterator[2], ft_free);
+				deque_pop_one(iterator[0]->content, iterator[2], free_token);
 				iterator[2] = iterator[1];
 				iterator[1] = iterator[1]->next;
-				deque_pop_one(iterator[0]->content, iterator[2], ft_free);
+				deque_pop_one(iterator[0]->content, iterator[2], free_token);
 			}
 			else
 				iterator[1] = iterator[1]->next;
@@ -85,7 +85,7 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	{
 		no_pipe_command(cmd_list->head->content, &iofd[0]);
 		ft_free_iofd(iofd, size);
-		deque_clear(cmd_list->head->content, ft_free);
+		deque_clear(cmd_list->head->content, free_token);
 		deque_pop_front(cmd_list, NULL);
 		return ;
 	}
@@ -99,7 +99,7 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 	else if (pid[size - 1] > 0)
 	{
 		g_data.pid = pid[size - 1];
-		deque_clear(cmd_list->tail->content, ft_free);
+		deque_clear(cmd_list->tail->content, free_token);
 		deque_pop_back(cmd_list, NULL);
 	}
 	else // child : run_command
@@ -146,7 +146,7 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 			message_exit(87, "fork", 2);
 		else if (pid[i] > 0)
 		{
-			deque_clear(cmd_list->tail->content, ft_free);
+			deque_clear(cmd_list->tail->content, free_token);
 			deque_pop_back(cmd_list, NULL);
 		}
 		else
@@ -198,7 +198,7 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 			close(pipefd[i][0]);
 			close(pipefd[i][1]);
 		}
-		deque_clear(cmd_list->tail->content, ft_free);
+		deque_clear(cmd_list->tail->content, free_token);
 		deque_pop_back(cmd_list, NULL);
 	}
 	else
@@ -270,21 +270,21 @@ void	create_cmd(t_deque *tokens) // seperate commands with pipes, call create_pi
 	cur_cmd = deque_init();
 	while (tokens->size > 0)
 	{
-		if (ft_strncmp(tokens->head->content, "|", 2) == 0)
+		if (((t_token *)tokens->head->content)->lexer_flag == _pipe)
 		{
 			deque_push_back(cmd_list, cur_cmd);
 			cur_cmd = deque_init();
 		}
-		else if (ft_strncmp(tokens->head->content, ";", 2) != 0)
-			deque_push_back(cur_cmd, ft_strdup(tokens->head->content));
-		if (ft_strncmp(tokens->head->content, ";", 2) == 0 || tokens->size == 1)
+		else if (((t_token *)tokens->head->content)->lexer_flag != _semicolon)
+			deque_push_back(cur_cmd, tokens->head->content);
+		if (((t_token *)tokens->head->content)->lexer_flag == _semicolon || tokens->size == 1)
 		{
 			deque_push_back(cmd_list, cur_cmd);
 			cur_cmd = deque_init();
 			create_pipe(cmd_list); // after running this, cmd_list will be empty
 		}
-		deque_pop_front(tokens, ft_free);
+		deque_pop_front(tokens, NULL);
 	}
-	deque_clear(cur_cmd, ft_free);
+	deque_clear(cur_cmd, free_token);
 	deque_clear(cmd_list, NULL);
 }

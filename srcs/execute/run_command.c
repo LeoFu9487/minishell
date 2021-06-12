@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:25:59 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 20:04:03 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 23:35:51 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	run_command(t_deque *cmd)
 	cnt = 0;
 	while (cmd->size > 0)
 	{
-		args[cnt++] = cmd->head->content;
+		args[cnt++] = ((t_token *)cmd->head->content)->str;
 		deque_pop_front(cmd, NULL);
 	}
 	execute(args);

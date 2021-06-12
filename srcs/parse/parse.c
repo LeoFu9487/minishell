@@ -6,13 +6,13 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 00:15:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 20:31:15 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 21:20:38 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//if > < end : unexpected token near 'newline'
+//if > < end : unexpected  near 'newline'
 
 /*
 ** parse step :

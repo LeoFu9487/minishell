@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 20:07:05 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 23:35:19 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	no_pipe_exit(t_deque *cmd)
 	cnt = 0;
 	while (cmd->size > 0)
 	{
-		args[cnt++] = cmd->head->content;
+		args[cnt++] = ((t_token *)cmd->head->content)->str;
 		deque_pop_front(cmd, NULL);
 	}
 	//builtin_exit(args);
@@ -50,7 +50,7 @@ void	no_pipe_command(t_deque *cmd, t_iofd *iofd) // cmd is a list of tokens
 		g_data.exit_status = 1;
 		return ;
 	}
-	if (cmd->size > 0 && ft_strncmp(cmd->head->content, "exit", 5) == 0)
+	if (cmd->size > 0 && ft_strncmp(((t_token *)cmd->head->content)->str, "exit", 5) == 0)
 	{
 		no_pipe_exit(cmd);
 		return ;

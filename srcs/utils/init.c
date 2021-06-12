@@ -6,13 +6,23 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 22:39:01 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 21:25:02 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_all(char **env) //todo
+t_token		*init_token(char *str, t_lexer_flag lexer_flag)
+{
+	t_token	*token;
+
+	token = ft_malloc(1, sizeof(t_token));
+	token->str = ft_strdup(str);
+	token->lexer_flag = lexer_flag;
+	return (token);
+}
+
+void	init_all(char **env)
 {
 	g_data.stdin_fd = dup(STDIN_FILENO);
 	g_data.stdout_fd = dup(STDOUT_FILENO);

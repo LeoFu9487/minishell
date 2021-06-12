@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_redir.c                                         :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/08 23:34:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 23:19:20 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/12 21:27:47 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/12 23:37:28 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redir(t_lexer_flag lexer_flag)
+void	free_token(void *token)
 {
-	if (lexer_flag == _redir_in || lexer_flag == _redir_in_d || lexer_flag == _redir_out || lexer_flag == _redir_out_d)
-		return (1);
-	return (0);
+	ft_free(((t_token *)token)->str);
+	ft_free(token);
 }
-

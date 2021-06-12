@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 20:23:52 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 23:37:13 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,23 @@ typedef struct s_iofd
 	char	*out_file;
 }t_iofd;
 
+typedef enum e_lexer_flag
+{
+	_undefined,
+	_semicolon,
+	_redir_in,
+	_redir_in_d,
+	_redir_out,
+	_redir_out_d,
+	_pipe
+}t_lexer_flag;
+
+typedef struct s_token
+{
+	char			*str;
+	t_lexer_flag	lexer_flag;
+}t_token;
+
 void		raw_mode_switch(t_switch e);
 char		*buffer_to_string(void);
 unsigned	get_key();
@@ -104,12 +121,14 @@ void		handle_delete(void);
 void		handle_ctrl_d(void);
 int			check_parse_error(t_deque *tokens);
 void		create_cmd(t_deque *tokens);
-int			is_redir(char *str);
+int			is_redir(t_lexer_flag lexer_flag);
 void		run_command(t_deque *cmd);
 void		execute(char **args);
 void		set_redir(char *redir, char *file_name, t_iofd *iofd);
 void		no_pipe_command(t_deque *cmd, t_iofd *iofd);
 void		launch_bin(char **args);
+t_token		*init_token(char *str, t_lexer_flag lexer_flag); //deep copy
+void		free_token(void *token);
 
 /*____todo____*/
 void		init_env(char **env);//todo

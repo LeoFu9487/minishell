@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 20:25:20 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 21:38:05 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@
 					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\\\'", 2);
 			}
 		}
-		deque_clear(tokens, ft_free);
+		deque_clear(tokens, free_token);
 	}
 }
