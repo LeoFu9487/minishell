@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 01:44:51 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 20:01:14 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,9 +389,17 @@ t_deque	*lexer(char *input_string)
 		if (input_string[idx[0]] == '\\')
 			lexer_back_slash(token_buffer);
 		else if (input_string[idx[0]] == '\'')
+		{
 			lexer_quote(token_buffer);
+			if (g_data.lexer->quote == 0 && (ft_isspace(input_string[idx[0] + 1]) || input_string[idx[0] + 1] == '\0') && token_buffer->size == 0)
+				deque_push_back(tokens, ft_strdup(""));
+		}
 		else if (input_string[idx[0]] == '\"')
+		{
 			lexer_dquote(token_buffer);
+			if (g_data.lexer->dquote == 0 && (ft_isspace(input_string[idx[0] + 1]) || input_string[idx[0] + 1] == '\0') && token_buffer->size == 0)
+				deque_push_back(tokens, ft_strdup(""));
+		}
 		else if (input_string[idx[0]] == ';')
 			lexer_semicolon(tokens, token_buffer);
 		else if (input_string[idx[0]] == '<')

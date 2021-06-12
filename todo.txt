@@ -23,3 +23,5 @@ https://unix.stackexchange.com/questions/398646/why-is-a-single-backslash-shown-
 
 check if it's a directory :
 https://stackoverflow.com/questions/4553012/checking-if-a-file-is-a-directory-or-just-a-file
+
+check cursor position : https://stackoverflow.com/questions/50884685/how-to-get-cursor-position-in-c-using-ansi-code

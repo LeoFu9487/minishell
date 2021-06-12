@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:23:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 12:57:49 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 20:08:37 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		if (iofd[size - 1].stdin_fd < 0)
 		{
 			ft_putstr_fd("minishell: ", 2);
+			if (ft_strncmp(iofd[size - 1].in_file, "", 1) == 0)
+				ft_putstr_fd(": ", 2);
 			perror(iofd[size - 1].in_file);
 			message_exit(1, "", -1);
 		}
@@ -120,6 +122,8 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		if (iofd[size - 1].stdout_fd < 0)
 		{
 			ft_putstr_fd("minishell: ", 2);
+			if (ft_strncmp(iofd[size - 1].out_file, "", 1) == 0)
+				ft_putstr_fd(": ", 2);
 			perror(iofd[size - 1].out_file);
 			message_exit(1, "", -1);
 		}
@@ -152,6 +156,8 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 			if (iofd[i].stdin_fd < 0)
 			{
 				ft_putstr_fd("minishell: ", 2);
+				if (ft_strncmp(iofd[i].in_file, "", 1) == 0)
+					ft_putstr_fd(": ", 2);
 				perror(iofd[i].in_file);
 				message_exit(1, "", -1);
 			}
@@ -163,6 +169,8 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 			if (iofd[i].stdout_fd < 0)
 			{
 				ft_putstr_fd("minishell: ", 2);
+				if (ft_strncmp(iofd[i].out_file, "", 1) == 0)
+					ft_putstr_fd(": ", 2);
 				perror(iofd[i].out_file);
 				message_exit(1, "", -1);
 			}
@@ -200,6 +208,8 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		if (iofd[0].stdin_fd < 0)
 		{
 			ft_putstr_fd("minishell: ", 2);
+			if (ft_strncmp(iofd[0].in_file, "", 1) == 0)
+				ft_putstr_fd(": ", 2);
 			perror(iofd[0].in_file);
 			message_exit(1, "", -1);
 		}
@@ -211,6 +221,8 @@ void	create_pipe(t_deque *cmd_list) // need to deque_clear every cmd (deep free)
 		if (iofd[0].stdout_fd < 0)
 		{
 			ft_putstr_fd("minishell: ", 2);
+			if (ft_strncmp(iofd[0].out_file, "", 1) == 0)
+				ft_putstr_fd(": ", 2);
 			perror(iofd[0].out_file);
 			message_exit(1, "", -1);
 		}

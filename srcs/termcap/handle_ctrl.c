@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:45:34 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/10 21:17:37 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 19:36:13 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	handle_ctrl_l(void)
 	else
 		ft_putstr_fd(tgetstr("cl", NULL), 2);
 	print_prompt();
+	if (g_data.buffer_list == NULL || g_data.buffer_list->size == 0)
+		return ;
 	iterator = g_data.buffer_list->head;
 	while (iterator)
 	{

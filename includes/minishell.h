@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 02:14:43 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 22:29:54 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ struct s_data
 	t_lexer			*lexer;
 	int				stdin_fd;
 	int				stdout_fd;
+	int				term_width;
+	int				term_height;
 }g_data;
 
 /*

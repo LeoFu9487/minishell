@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/11 19:58:36 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 20:07:05 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	no_pipe_command(t_deque *cmd, t_iofd *iofd) // cmd is a list of tokens
 	if (iofd->stdin_fd < 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
+		if (ft_strncmp(iofd->in_file, "", 1) == 0)
+			ft_putstr_fd(": ", 2);
 		perror(iofd->in_file);
 		g_data.exit_status = 1;
 		return ;
@@ -42,6 +44,8 @@ void	no_pipe_command(t_deque *cmd, t_iofd *iofd) // cmd is a list of tokens
 	if (iofd->stdout_fd < 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
+		if (ft_strncmp(iofd->out_file, "", 1) == 0)
+			ft_putstr_fd(": ", 2);
 		perror(iofd->out_file);
 		g_data.exit_status = 1;
 		return ;

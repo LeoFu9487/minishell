@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/10 23:18:32 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 19:21:58 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,24 @@ static void	handle_signal(int signal)
 	}
 }
 
+static void	update_term_size(int signal)
+{
+	if (tgetent(NULL, getenv("TERM")) != 1)
+	{
+		g_data.term_width = -1;
+		g_data.term_height = -1;
+	}
+	else
+	{
+		g_data.term_height = tgetnum("li");
+		g_data.term_width = tgetnum("co");
+	}
+	(void)signal;
+}
+
 void	catch_signal(void)
 {
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, handle_signal);
+	signal(SIGWINCH, update_term_size);
 }
