@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 09:49:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/13 21:51:05 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/13 22:29:53 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,12 @@ static int	is_only_digit(char *str)
 /*
 ** If no arg, exits the whole minishell(exit code = g_data.exit_status).
 ** If >= 2 args, error message and do not exit(g_data.exit_status = 1).
-** If only one arg AND it's positive or negetive num AND it's smaller than long,
-** exit with atoi(code).
-** If argument is not numeric or bigger than a long, exit(exit code 255).
+** If argument is not numeric or bigger than long max or smaller than long min, exit(exit code 255).
+** Else exit with atoi(code).
 */
 
 void	builtin_exit(char **args)
 {
-	int l;
-
-	l = ft_atoi(args[1]);
-	printf("%d\n", l);
 	if (args && !args[1])
 		message_exit(g_data.exit_status, "exit\n", 2);
 	else if (args && args[1] && args[2])
@@ -82,7 +77,10 @@ void	builtin_exit(char **args)
 		printf("exit\nexit: %s: numeric argument required\n", args[1]);
 		message_exit(g_data.exit_status, "", 2);
 	}
-	g_data.exit_status = ft_atoi_long(args[1]);
-	message_exit(g_data.exit_status, "exit\n", 2);
+	else
+	{
+		g_data.exit_status = ft_atoi_long(args[1]);
+		message_exit(g_data.exit_status, "exit\n", 2);
+	}
 }
 
