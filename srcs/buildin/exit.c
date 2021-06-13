@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 09:49:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/10 10:42:18 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/13 16:11:15 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 void	builtin_exit(char **args)
 {
 	if (args && !args[1])
-		message_exit(0, "exit\n", 2);
+		message_exit(g_data.exit_status, "exit\n", 2);
 }
+
