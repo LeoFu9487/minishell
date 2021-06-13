@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 21:25:02 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/13 14:22:04 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,55 +45,88 @@ void	init_all(char **env)
 	init_env(env);
 }
 
-void	init_env(char **env) //todo : not found SHLVL or SHLVL not valid (too big, non-numerical, negative ...)
+static int	count_shlvl(char *str)
+{
+	long long	num[2]; // 18 digits max 999,999,999,999,999,999
+	int			cnt[2];
+
+	if (!str)
+		return (1);
+	while (ft_isspace(*str))
+		++str;
+	num[1] = 1LL;
+	if (*str == '-')
+		num[1] = -1LL;
+	if (*str == '+' || *str == '-')
+		++str;
+	cnt[0] = -1;
+	while (str[++cnt[0]])
+		if (!ft_isdigit(str[cnt[0]]))
+			return (1);
+	num[0] = 0LL;
+	cnt[0] = -1;
+	while (str[++cnt[0]])
+	{
+		if (num[0] > 922337203685477580LL)
+			return (1);
+		num[0] = num[0] * 10LL + (long long)(str[cnt[0]] - '0');
+	}
+	cnt[1] = (int)(num[0] * num[1] + 1LL);
+	if (cnt[1] < 0)
+		return (0);
+	if (cnt[1] > 999)
+	{
+		ft_putstr_fd("minishell: warning: shell level (", 2);
+		ft_putnbr_fd(cnt[1], 2);
+		ft_putendl_fd(") too high, resetting to 1", 2);
+		return (1);
+	}
+	return (cnt[1]);
+}
+
+static void	modify_shlvl()
+{
+	char		*str[2];
+	char		*args[3];
+
+	str[0] = find_env_var("SHLVL");
+	args[0] = "export";
+	args[2] = 0;
+	str[1] = ft_itoa(count_shlvl(str[0]));
+	ft_free(str[0]);
+	args[1] = ft_calloc(20, sizeof(char));
+	ft_strcat(args[1], "SHLVL=");
+	ft_strcat(args[1], str[1]);
+	ft_free(str[1]);
+	builtin_export(args);
+	ft_free(args[1]);
+}
+
+/*
+** bigger than int : problem : 2147483648->0, 99999999999999999999999999999999999->1
+** export SHLVL=9999999999     1410065408
+**
+** from limit to max_int : 
+**
+** from 0 to limit : 
+**
+** negative number -> 0 (but -999999999999999999999 -> 1)
+**
+** number mix with others : -> 1
+**
+** non-numerics : -> 1
+**
+** non-existant : -> 1 
+*/
+
+
+void	init_env(char **env)
 {
 	int		idx[2];
-	int		shlvl;
-	char	*str[3];
 
 	g_data.env_list = deque_init();
 	idx[0] = -1;
 	while (env[++idx[0]])
-	{
-		if (ft_strncmp(env[idx[0]], "SHLVL=", 6) == 0)
-		{
-			shlvl = ft_atoi(env[idx[0]] + 6);
-			if (++shlvl > 999)
-			{
-				ft_putstr_fd("minishell: warning: shell level (", 2);
-				ft_putnbr_fd(shlvl, 2);
-				ft_putendl_fd(") too high, resetting to 1", 2);
-				deque_push_back(g_data.env_list, "SHLVL=1");
-			}
-			else
-			{
-				str[1] = ft_itoa(shlvl);
-				str[0] = ft_malloc(7 + ft_strlen(str[1]), sizeof(char));
-				str[2] = "SHLVL=";
-				idx[1] = -1;
-				while (++idx[1] < 7)
-					str[0][idx[1]] = str[2][idx[1]];
-				idx[1] = -1;
-				while (str[1][++idx[1]])
-					str[0][6 + idx[1]] = str[1][idx[1]];
-				str[0][6 + idx[1]] = 0;
-				deque_push_back(g_data.env_list, str[0]);
-				ft_free(str[1]);
-			}
-		}
-		else
-			deque_push_back(g_data.env_list, env[idx[0]]);
-	}
-	if (shlvl == -1) //not found : not finished yet
-	{
-		
-	}
-	//change SHLVL and other variables ?
-/*	t_double_list	*it = g_data.env_list->head;
-	while (it)
-	{
-		ft_putendl_fd(it->content, 2);
-		it = it->next;
-	}
-*/	//problem : what if atoi bigger than int
+		deque_push_back(g_data.env_list, env[idx[0]]);
+	modify_shlvl();
 }
