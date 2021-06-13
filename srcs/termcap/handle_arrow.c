@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:57:57 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/10 23:12:17 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/13 21:34:35 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ void	handle_right(void)
 		g_data.cursor = g_data.buffer_list->head;
 	else
 		g_data.cursor = g_data.cursor->next;
-	ft_putchar_fd(*((char*)g_data.cursor->content), 2);
+	if (g_data.cursor)
+		ft_putchar_fd(*((char*)g_data.cursor->content), 2);
 }
