@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 23:35:19 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 10:47:41 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	no_pipe_exit(t_deque *cmd)
 		args[cnt++] = ((t_token *)cmd->head->content)->str;
 		deque_pop_front(cmd, NULL);
 	}
-	//builtin_exit(args);
+	builtin_exit(args);
 	ft_free(args);
 }
 

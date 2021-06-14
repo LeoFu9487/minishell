@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 16:22:00 by xli               #+#    #+#             */
-/*   Updated: 2021/06/09 10:25:09 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 10:11:30 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	builtin_echo(char **args)
 	option_n = 0;
 	args++; //args[0] == echo "string"
 	if (!(*args))
-		message_exit(0, "\n", 2);
+		message_exit(0, "\n", 1);
 	args = check_n(args, &option_n); //search for a n option
 	while (args[i])
 	{

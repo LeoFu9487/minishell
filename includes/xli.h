@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:23 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/07 10:05:24 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/10 10:34:25 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 void	builtin_echo(char **args);
 void	builtin_env(char **args);
+void	builtin_exit(char **args);
 
 #endif
