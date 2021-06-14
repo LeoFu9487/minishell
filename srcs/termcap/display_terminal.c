@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 02:47:14 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 19:45:07 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 20:06:03 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** g_data.cursor's position won't be modified
 ** print the element since g_data.cursor's position
 */
-void	print_the_rest_of_buffer()
+void	print_the_rest_of_buffer(void)
 {
 	t_double_list	*iterator;
 	int				cnt;
@@ -80,7 +80,7 @@ char	*buffer_to_string(void)
 	iterator = g_data.buffer_list->head;
 	while (iterator)
 	{
-		str[idx++] = *((char*)iterator->content);
+		str[idx++] = *((char *)iterator->content);
 		iterator = iterator->next;
 	}
 	str[idx] = 0;

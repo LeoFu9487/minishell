@@ -12,7 +12,8 @@ prompt.c	is_redir.c	is_dir.c	free.c
 UTILS_PATH = utils/
 
 TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c\
-	get_key.c	handle_alt.c	handle_others.c	display_terminal.c
+	get_key.c	handle_alt.c	handle_others.c	display_terminal.c\
+	handle_backspace.c	handle_delete.c
 
 TERMCAP_PATH = termcap/
 

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:57:57 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/13 21:34:35 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 20:04:17 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	clean_line(void)
 	t_double_list	*iterator;
 
 	iterator = g_data.cursor;
-	while (iterator) // move to the beginning
+	while (iterator)
 	{
 		ft_putchar_fd('\b', 2);
 		iterator = iterator->last;
@@ -87,5 +87,5 @@ void	handle_right(void)
 	else
 		g_data.cursor = g_data.cursor->next;
 	if (g_data.cursor)
-		ft_putchar_fd(*((char*)g_data.cursor->content), 2);
+		ft_putchar_fd(*((char *)g_data.cursor->content), 2);
 }
