@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 00:06:32 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 20:01:42 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 22:38:59 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ unsigned int	get_key(void)
 		message_exit(87, "get_key_error", 2);
 	if (c[0] == CTRL_D)
 		handle_ctrl_d();
+	if (c[0] == CTRL_L)
+		handle_ctrl_l();
 	if (c[0] == BACKSPACE)
 		handle_backspace();
 	if (c[0] != 27 || cnt == 1)
