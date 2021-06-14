@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 01:00:11 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/10 10:40:40 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/13 23:05:26 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	launch_builtins(char **args)
 		builtin_env(args);
 	if (ft_strncmp(args[0], "exit", 5) == 0)
 	{
+		close(STDOUT_FILENO);
 		builtin_exit(args);
 		message_exit(g_data.exit_status, "", -1);
 	}

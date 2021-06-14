@@ -6,33 +6,36 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 09:49:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/13 22:29:53 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 10:05:22 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static long	ft_atoi_long(const char *str)
+static long	ft_atoi_long(char *str)
 {
-	long	nb;
-	long	sign;
-	long	i;
+	long long int	ct[3];
 
-	nb = 0;
-	sign = 1;
-	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '-')
-		sign *= -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	if (!str || str[0] == 0)
+		return (0);
+	if (ft_isspace(*str))
+		return (ft_atoi(str + 1));
+	if (str[0] == '+' || str[0] == '-')
+		ct[0] = 0;
+	else
+		ct[0] = -1;
+	if (str[0] == '-')
+		ct[2] = -1;
+	else
+		ct[2] = 1;
+	ct[1] = 0;
+	while (str[++ct[0]])
 	{
-		nb = nb * 10 + (str[i] - '0');
-		i++;
+		if (str[ct[0]] < '0' || str[ct[0]] > '9')
+			return (ct[1] * ct[2]);
+		ct[1] = 10 * ct[1] + str[ct[0]] - '0';
 	}
-	return ((long)(nb * sign));
+	return ((long)ct[1] * ct[2]);
 }
 
 /*
@@ -52,21 +55,16 @@ static int	is_only_digit(char *str)
 
 /*
 ** If no arg, exits the whole minishell(exit code = g_data.exit_status).
-** If >= 2 args, error message and do not exit(g_data.exit_status = 1).
 ** If argument is not numeric or bigger than long max or smaller than long min, exit(exit code 255).
+** If >= 2 args, error message and do not exit(g_data.exit_status = 1).
 ** Else exit with atoi(code).
 */
 
 void	builtin_exit(char **args)
 {
 	if (args && !args[1])
-		message_exit(g_data.exit_status, "exit\n", 2);
-	else if (args && args[1] && args[2])
-	{
-		g_data.exit_status = 1;
-		ft_putendl_fd("exit: too many arguments", 2);
-	}
-	else if (args[1] && (ft_strlen(args[1]) > 20 //case len of args[1] > len of long max
+		message_exit(g_data.exit_status, "exit\n", 1);
+	else if (args[1] && !ft_isspace(args[1][0]) && (ft_strlen(args[1]) > 20 //case len of args[1] > len of long max
 		|| ((args[1][0] != '-' && args[1][0] != '+' && !ft_isdigit(args[1][0]))
 		|| !is_only_digit(&args[1][1])) //case first char is '-'
 		|| ((args[1][0] == '-' || args[1][0] == '+') && args[1][1] == '\0') //case only '-' or '+'
@@ -74,13 +72,19 @@ void	builtin_exit(char **args)
 		|| (args[1][0] == '-' && ft_atoi_long(args[1]) > 0))) //case args[1] < long min
 	{
 		g_data.exit_status = 255;
-		printf("exit\nexit: %s: numeric argument required\n", args[1]);
-		message_exit(g_data.exit_status, "", 2);
+		ft_putendl_fd("exit", 1);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		message_exit(g_data.exit_status, ": numeric argument required\n", 2);
+	}
+	else if (args && args[1] && args[2])
+	{
+		g_data.exit_status = 1;
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
 	}
 	else
 	{
 		g_data.exit_status = ft_atoi_long(args[1]);
-		message_exit(g_data.exit_status, "exit\n", 2);
+		message_exit(g_data.exit_status, "exit\n", 1);
 	}
 }
-
