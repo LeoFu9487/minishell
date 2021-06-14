@@ -25,7 +25,7 @@ BULDIN_FILE = echo.c	env.c	exit.c	pwd.c
 
 BUILDIN_PATH = buildin/
 
-EXECUTE_FILE = run_command.c	no_pipe_command.c	execute.c	launch_bin.c
+EXECUTE_FILE = run_command.c	no_pipe_command.c	execute.c	launch_bin.c	set_redir.c
 
 EXECUTE_PATH = execute/
 
