@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 21:45:16 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 23:11:19 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,9 @@ t_token		*init_token(char *str, t_lexer_flag lexer_flag); //deep copy
 void		free_token(void *token);
 void		print_unexpected_eof_message(char *line, int pipefd[2], char *eof);
 void		print_unexpected_eol_message(void);
+void		create_pipe(t_deque *cmd_list);
+void		ft_free_iofd(t_iofd *iofd, int size);
+t_iofd		*init_iofd(int size);
 
 /*____todo____*/
 void		init_env(char **env);//todo

@@ -19,7 +19,7 @@ TERMCAP_PATH = termcap/
 
 PARSE_FILE = get_input.c	parse.c	check_parse.c\
 	create_cmd.c	check_parse_semicolon.c	check_parse_pipe.c\
-	check_parse_redir.c
+	check_parse_redir.c	create_pipe.c
 
 PARSE_PATH = parse/
 
