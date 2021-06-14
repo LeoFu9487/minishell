@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 19:21:58 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 19:01:20 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	handle_signal(int signal)
 {
-	if (signal == SIGINT) /* ctrl + C */
+	if (signal == SIGINT)
 	{
 		g_data.exit_status = 130;
 		if (g_data.buffer_list)
