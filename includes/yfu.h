@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 23:37:13 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 21:45:16 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,10 @@ void		handle_home(void);
 void		handle_end(void);
 void		handle_delete(void);
 void		handle_ctrl_d(void);
-int			check_parse_error(t_deque *tokens);
+int			check_parse(t_deque *tokens);
+int			check_parse_semicolon(t_deque *tokens);
+int			check_parse_pipe(t_deque *tokens, t_end_of_command eoc);
+int			check_parse_redir(t_deque *tokens, t_end_of_command eoc);
 void		create_cmd(t_deque *tokens);
 int			is_redir(t_lexer_flag lexer_flag);
 void		run_command(t_deque *cmd);
@@ -129,6 +132,8 @@ void		no_pipe_command(t_deque *cmd, t_iofd *iofd);
 void		launch_bin(char **args);
 t_token		*init_token(char *str, t_lexer_flag lexer_flag); //deep copy
 void		free_token(void *token);
+void		print_unexpected_eof_message(char *line, int pipefd[2], char *eof);
+void		print_unexpected_eol_message(void);
 
 /*____todo____*/
 void		init_env(char **env);//todo

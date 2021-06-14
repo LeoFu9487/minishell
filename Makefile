@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 CC = gcc
 
 UTILS_FILE = exit.c	init.c	signal.c	find_env_var.c\
-prompt.c	is_redir.c	is_dir.c	free.c
+prompt.c	is_redir.c	is_dir.c	free.c	print.c
 
 UTILS_PATH = utils/
 
@@ -17,8 +17,9 @@ TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c\
 
 TERMCAP_PATH = termcap/
 
-PARSE_FILE = get_input.c	lexer.c	parse.c	parse_error.c\
-	create_cmd.c
+PARSE_FILE = get_input.c	lexer.c	parse.c	check_parse.c\
+	create_cmd.c	check_parse_semicolon.c	check_parse_pipe.c\
+	check_parse_redir.c
 
 PARSE_PATH = parse/
 

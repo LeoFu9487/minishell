@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 18:56:25 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 21:32:10 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,11 @@ static void	empty_process(char *input_string)
 {
 	if (g_data.lexer_error != NoError)
 	{
-		g_data.exit_status = 2;
 		if (ft_strncmp(input_string, g_data.history->tail->content,
 				ft_strlen(input_string) + 1) != 0)
 			deque_push_back(g_data.history, input_string);
-		ft_putstr_fd("minishell: unexpected EOL while looking for matching `",
-			2);
-		if (g_data.lexer_error == dquote)
-			ft_putendl_fd("\"\'", 2);
-		else if (g_data.lexer_error == quote)
-			ft_putendl_fd("\'\'", 2);
-		else
-			ft_putendl_fd("\\\'", 2);
+		g_data.exit_status = 2;
+		print_unexpected_eol_message();
 	}
 	else
 		ft_free(input_string);

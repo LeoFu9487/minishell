@@ -6,20 +6,11 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 19:14:19 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 19:30:40 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 21:26:46 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	print_unexpected_eof_message(char *line, int pipefd[2], char *eof)
-{
-	ft_putstr_fd(line, pipefd[1]);
-	ft_putstr_fd("minishell: warning: here-document delimited", 2);
-	ft_putstr_fd(" by end-of-file (wanted `", 2);
-	ft_putstr_fd(eof, 2);
-	ft_putendl_fd("\')", 2);
-}
 
 static void	here_document_child_process(char *eof, int pipefd[2])
 {
@@ -42,8 +33,7 @@ static void	here_document_child_process(char *eof, int pipefd[2])
 			message_exit(0, "", -1);
 		}
 	}
-	if (ft_strncmp(line, eof, len) != 0)
-		print_unexpected_eof_message(line, pipefd, eof);
+	print_unexpected_eof_message(line, pipefd, eof);
 	close(pipefd[1]);
 	message_exit(0, "", -1);
 }
