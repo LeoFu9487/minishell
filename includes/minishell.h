@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 10:47:49 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 11:45:59 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ struct s_data
 
 void	builtin_cd(char **args);//todo
 void	builtin_pwd(char **args);//todo
-void	builtin_export(char **args);//todo
 void	builtin_unset(char **args);//todo
 
 /*

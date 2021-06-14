@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xli.h                                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/01 13:52:23 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 11:46:05 by xli              ###   ########lyon.fr   */
+/*   Created: 2021/06/14 11:45:14 by xli               #+#    #+#             */
+/*   Updated: 2021/06/14 11:55:29 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XLI_H
-# define XLI_H
+#include "minishell.h"
 
-void	builtin_echo(char **args);
-void	builtin_env(char **args);
-void	builtin_exit(char **args);
-void	builtin_export(char **args);
+void	builtin_pwd(char **args)
+{
+	char	*temp;
 
-#endif
+	temp = find_env_var("PWD");
+	if (args && args[1] && args[1][0] == '-')
+		message_exit(1, "pwd: does not take options\n", 2);
+	ft_putstr_fd(temp, 1);
+	message_exit(0, "\n", 1);
+	ft_free(temp);
+}
