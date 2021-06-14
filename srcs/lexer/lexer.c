@@ -6,13 +6,11 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/12 23:40:42 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 22:59:50 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// all special tokens need to be put : special
 
 static void	lexer_init(void)
 {
@@ -23,7 +21,8 @@ static void	lexer_init(void)
 	g_data.lexer->last_key = others;
 }
 
-void	put_buffer_in_tokens(t_deque *tokens, t_deque *token_buffer, t_lexer_flag lexer_flag)
+void	put_buffer_in_tokens(t_deque *tokens, t_deque *token_buffer,
+t_lexer_flag lexer_flag)
 {
 	char			*str;
 	int				idx;
@@ -417,7 +416,7 @@ t_deque	*lexer(char *input_string)
 			lexer_space(tokens, token_buffer, input_string[idx[0]]);
 		else
 			lexer_general(token_buffer, input_string, idx);
-		if (input_string[idx[0]] == 0) // idx[0] may be modified in some functions so this line is necessary
+		if (input_string[idx[0]] == 0)
 			break ;
 	}
 	if (g_data.lexer->quote)

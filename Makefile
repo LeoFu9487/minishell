@@ -17,7 +17,7 @@ TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c\
 
 TERMCAP_PATH = termcap/
 
-PARSE_FILE = get_input.c	lexer.c	parse.c	check_parse.c\
+PARSE_FILE = get_input.c	parse.c	check_parse.c\
 	create_cmd.c	check_parse_semicolon.c	check_parse_pipe.c\
 	check_parse_redir.c
 
@@ -31,6 +31,10 @@ EXECUTE_FILE = run_command.c	no_pipe_command.c	execute.c	launch_bin.c	set_redir.
 
 EXECUTE_PATH = execute/
 
+LEXER_FILE = lexer.c
+
+LEXER_PATH = lexer/
+
 #PUT FILES HERE
 SRCS_FILE += $(addprefix $(UTILS_PATH), $(UTILS_FILE))
 
@@ -43,6 +47,8 @@ SRCS_FILE += main_loop.c
 SRCS_FILE += $(addprefix $(BUILDIN_PATH), $(BULDIN_FILE))
 
 SRCS_FILE += $(addprefix $(EXECUTE_PATH), $(EXECUTE_FILE))
+
+SRCS_FILE += $(addprefix $(LEXER_PATH), $(LEXER_FILE))
 
 SRCS_PATH = srcs/
 
