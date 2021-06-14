@@ -17,5 +17,6 @@ void	builtin_echo(char **args);
 void	builtin_env(char **args);
 void	builtin_exit(char **args);
 void	builtin_export(char **args);
+void	builtin_pwd(char **args);
 
 #endif

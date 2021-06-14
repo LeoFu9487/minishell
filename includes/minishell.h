@@ -59,7 +59,6 @@ struct s_data
 */
 
 void	builtin_cd(char **args);//todo
-void	builtin_pwd(char **args);//todo
 void	builtin_unset(char **args);//todo
 
 /*
