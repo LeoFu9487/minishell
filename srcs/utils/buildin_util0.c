@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 14:17:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 15:14:15 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 16:26:15 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,18 @@ int	is_new_var(char *var)
 {
 	int				i;
 	char			*var_key;
+	char			*var_temp;
 	t_double_list	*temp;
 
 	i = 0;
+	var_temp = ft_substr(var, 0, var_key_len(var));
+	//printf("%s\n", var_temp);
 	temp = g_data.env_list->head;
 	while (temp)
 	{
 		var_key = ft_substr(temp->content, 0, var_key_len(temp->content));
-		if (ft_strncmp(var, var_key, ft_strlen(var))
-			|| (int)ft_strlen(var) != var_key_len(temp->content))
+		if (ft_strncmp(var_temp, var_key, ft_strlen(var))
+			|| (int)ft_strlen(var_temp) != var_key_len(temp->content))
 			i++;
 		else
 		{
@@ -108,7 +111,7 @@ int	is_new_var(char *var)
 ** Else if('='), frees the previous var and adds the new one value.
 ** Else('+='), cat previous value and new one.
 */
-/*
+
 void	update_var(char *var)
 {
 	int				key_len;
@@ -128,15 +131,19 @@ void	update_var(char *var)
 		{
 			if (var[key_len] == '=') //input: var = value
 			{
-				deque_pop_one(g_data.env_list, temp, NULL);
+				//deque_pop_one(g_data.env_list, temp, NULL);
+				ft_free(temp->content);
 				temp->content = var;
 			}
 			else if (var[key_len] == '+') //input: var += value
 			{
-				str = ft_calloc(ft_strlen(find_env_var(temp) + (ft_strlen(temp->content) - key_len - 1)) + 1);
+				str = ft_calloc(ft_strlen(temp->content) + (ft_strlen(var) - key_len - 2) + 1, sizeof(char));
+				ft_strcat(str, temp->content);
+				ft_strcat(str, ft_substr(var, key_len + 2, ft_strlen(var)));
+				temp->content = str;
 			}
 		}
 		temp = temp->next;
 	}
 }
-*/
+
