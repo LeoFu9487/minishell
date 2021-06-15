@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 13:56:14 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 16:02:12 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 23:17:49 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 static void	unset_var(char *var)
 {
-	int				key_len;
 	char			*var_key;
 	t_double_list	*temp;
 
-	key_len = ft_strlen(var);
 	temp = g_data.env_list->head;
 	while (temp)
 	{
