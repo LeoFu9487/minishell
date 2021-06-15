@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 11:43:07 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 17:34:10 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 17:41:42 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	builtin_export(char **args)
 	{
 		g_data.exit_status = 1;
 		ft_putendl_fd("export: does not take options", 2);
+		return ;
 	}
 	i = 0;
 	while (args[++i])
