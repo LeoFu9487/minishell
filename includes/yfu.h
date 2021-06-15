@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 04:03:33 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 15:12:16 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,11 @@ void		lexer_redir_in(t_deque *tokens, t_deque *token_buffer, char *str, int *idx
 void		lexer_redir_out(t_deque *tokens, t_deque *token_buffer, char *str, int *idx);
 void		lexer_semicolon(t_deque *tokens, t_deque *token_buffer);
 void		lexer_space(t_deque *tokens, t_deque *token_buffer, char input_char);
-
+int			no_pipe_builtin(t_deque *cmd);
+void		no_pipe_exit(t_deque *cmd);
+void		no_pipe_cd(t_deque *cmd);
+void		no_pipe_export(t_deque *cmd);
+void		no_pipe_unset(t_deque *cmd);
 
 /*____todo____*/
 void		handle_ctrl_a(void);

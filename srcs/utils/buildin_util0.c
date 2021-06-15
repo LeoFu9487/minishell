@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 14:17:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 16:26:15 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 16:43:11 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	update_var(char *var)
 				ft_free(temp->content);
 				temp->content = var;
 			}
-			else if (var[key_len] == '+') //input: var += value
+			else if (var[key_len] == '+' && var[key_len + 1] == '=') //input: var += value
 			{
 				str = ft_calloc(ft_strlen(temp->content) + (ft_strlen(var) - key_len - 2) + 1, sizeof(char));
 				ft_strcat(str, temp->content);

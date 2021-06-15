@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 11:43:07 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 16:11:19 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 16:35:03 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,6 @@ void	builtin_export(char **args)
 		//else if (is_new_var(args[i])) //if var does not exsit in env list
 		//	printf("new var\n");
 		else if (!is_new_var(args[i])) //if var exsits in env list >> update env list
-		{
-			ft_putendl_fd("IN", 2);
 			update_var(args[i]);
-		}
 	}
 }
