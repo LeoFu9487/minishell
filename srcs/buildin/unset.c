@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 13:56:14 by xli               #+#    #+#             */
-/*   Updated: 2021/06/14 17:25:50 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 15:20:54 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	unset_var(char *var)
 		{
 			if (ft_strchr(temp->content, '='))
 			{
-				//printf("IN\n");
 				deque_pop_one(g_data.env_list, temp, NULL);
 				break ;
 			}
@@ -48,21 +47,27 @@ void	builtin_unset(char **args)
 {
 	int		i;
 
+	g_data.exit_status = 0;
 	if ((args && !args[1]))
-		message_exit(0, "", 1);
+		return ;
 	if (args[1] && args[1][0] == '-')
-		message_exit(1, "unset: does not take options\n", 2);
+	{
+		g_data.exit_status = 1;
+		ft_putendl_fd("unset: does not take options\n", 2);
+	}
 	i = 0;
 	while (args[++i])
 	{
-		if (!check_var_name(args[i]))
+		if (!check_var_name(args[i]) || ((check_var_name(args[i]) 
+			&& (args[i][ft_strlen(args[i]) - 1] == '+' 
+			|| args[i][ft_strlen(args[i]) - 1] == '='))))
 		{
+			g_data.exit_status = 1;
 			ft_putstr_fd("minishell: unset: `", 2);
 			ft_putstr_fd(args[i], 2);
-			message_exit(1, "': not a valid identifier\n", 2);
+			ft_putendl_fd("': not a valid identifier", 2);
 		}
 		else if (!is_new_var(args[i]))
 			unset_var(args[i]);
 	}
-	message_exit(0, "", -1);
 }

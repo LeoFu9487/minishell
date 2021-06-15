@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 14:17:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/14 14:21:52 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 15:14:15 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,12 @@ int	is_new_var(char *var)
 ** Else if('='), frees the previous var and adds the new one value.
 ** Else('+='), cat previous value and new one.
 */
-
+/*
 void	update_var(char *var)
 {
 	int				key_len;
 	char			*var_key;
+	char			*str;
 	t_double_list	*temp;
 
 	key_len = var_key_len(var);
@@ -122,15 +123,20 @@ void	update_var(char *var)
 	while (temp)
 	{
 		var_key = ft_substr(temp->content, 0, var_key_len(temp->content));
-		if (ft_strncmp(var, var_key, ft_strlen(var))
-			|| (int)ft_strlen(var) != var_key_len(temp->content))
+		if (!ft_strncmp(var, var_key, ft_strlen(var))
+			|| (int)ft_strlen(var) == var_key_len(temp->content))
 		{
 			if (var[key_len] == '=') //input: var = value
 			{
-				ft_free(temp->content);
+				deque_pop_one(g_data.env_list, temp, NULL);
 				temp->content = var;
+			}
+			else if (var[key_len] == '+') //input: var += value
+			{
+				str = ft_calloc(ft_strlen(find_env_var(temp) + (ft_strlen(temp->content) - key_len - 1)) + 1);
 			}
 		}
 		temp = temp->next;
 	}
 }
+*/

@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_dir.c                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/05 02:12:45 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 19:06:57 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/14 11:45:14 by xli               #+#    #+#             */
+/*   Updated: 2021/06/14 11:55:29 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_dir(const char *path)
+void	builtin_pwd(char **args)
 {
-	struct stat	stat_buffer;
+	char	*temp;
 
-	if (stat(path, &stat_buffer) != 0)
-		return (0);
-	return (S_ISDIR(stat_buffer.st_mode));
+	temp = find_env_var("PWD");
+	if (args && args[1] && args[1][0] == '-')
+		message_exit(1, "pwd: does not take options\n", 2);
+	ft_putstr_fd(temp, 1);
+	message_exit(0, "\n", 1);
+	ft_free(temp);
 }

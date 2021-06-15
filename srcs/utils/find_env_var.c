@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 08:00:26 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 02:13:00 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 19:02:14 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_double_list	*find_env_var_line(char *key)
 	{
 		if (ft_strlen(iterator->content) > key_len)
 			if (ft_strncmp(iterator->content, key, key_len) == 0
-			&& ((char *)iterator->content)[key_len] == '=')
+				&& ((char *)iterator->content)[key_len] == '=')
 				return (iterator);
 		iterator = iterator->next;
 	}
@@ -41,5 +41,6 @@ char	*find_env_var(char *key)
 	iterator = find_env_var_line(key);
 	if (!iterator)
 		return (NULL);
-	return (ft_substr(iterator->content, ft_strlen(key) + 1, ft_strlen(iterator->content) - ft_strlen(key) - 1));
+	return (ft_substr(iterator->content, ft_strlen(key) + 1,
+			ft_strlen(iterator->content) - ft_strlen(key) - 1));
 }
