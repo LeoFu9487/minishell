@@ -104,7 +104,6 @@ static void	modify_shlvl(void)
 	ft_strcat(args[1], str[1]);
 	ft_free(str[1]);
 	builtin_export(args);
-	ft_free(args[1]);
 }
 
 /*
