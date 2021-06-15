@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_ctrl_arrow.c                                :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 23:57:57 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/10 20:44:00 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/12 21:27:47 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/12 23:37:28 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_ctrl_up(void)
-{}
-
-void	handle_ctrl_down(void)
-{}
-
-void	handle_ctrl_left(void)
-{}
-
-void	handle_ctrl_right(void)
-{}
+void	free_token(void *token)
+{
+	ft_free(((t_token *)token)->str);
+	ft_free(token);
+}

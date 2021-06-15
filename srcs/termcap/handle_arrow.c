@@ -6,17 +6,38 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:57:57 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 04:52:11 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/13 21:34:35 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	clean_line(void)
+{
+	int				cnt;
+	t_double_list	*iterator;
+
+	iterator = g_data.cursor;
+	while (iterator) // move to the beginning
+	{
+		ft_putchar_fd('\b', 2);
+		iterator = iterator->last;
+	}
+	cnt = 0;
+	while (cnt++ < g_data.buffer_list->size)
+		ft_putchar_fd(' ', 2);
+	cnt = 0;
+	while (cnt++ < g_data.buffer_list->size)
+		ft_putchar_fd('\b', 2);
+	deque_clear(g_data.buffer_list, ft_free);
+	g_data.buffer_list = deque_init();
+	g_data.cursor = NULL;
+}
+
 void	handle_up(void)
 {
 	int				cnt[2];
 	char			*str;
-	t_double_list	*iter;
 
 	if (g_data.history_iterator == NULL)
 		g_data.history_iterator = g_data.history->tail;
@@ -24,23 +45,7 @@ void	handle_up(void)
 		g_data.history_iterator = g_data.history_iterator->last;
 	else
 		return ;
-	iter = g_data.cursor;
-	cnt[0] = 0;
-	while (iter)
-	{
-		iter = iter->last;
-		++cnt[0];
-		ft_putchar_fd('\b', 2);
-	}
-	cnt[1] = -1;
-	while (++cnt[1] < cnt[0])
-		ft_putchar_fd(' ', 2);
-	cnt[1] = -1;
-	while (++cnt[1] < cnt[0])
-		ft_putchar_fd('\b', 2);
-	deque_clear(g_data.buffer_list, ft_free);
-	g_data.buffer_list = deque_init();
-	g_data.cursor = NULL;
+	clean_line();
 	cnt[0] = -1;
 	str = g_data.history_iterator->content;
 	while (str[++cnt[0]])
@@ -56,18 +61,7 @@ void	handle_down(void)
 		return ;
 	else
 		g_data.history_iterator = g_data.history_iterator->next;
-	cnt = -1;
-	while (++cnt < g_data.buffer_list->size)
-		ft_putchar_fd('\b', 2);
-	cnt = -1;
-	while (++cnt < g_data.buffer_list->size)
-		ft_putchar_fd(' ', 2);
-	cnt = -1;
-	while (++cnt < g_data.buffer_list->size)
-		ft_putchar_fd('\b', 2);
-	deque_clear(g_data.buffer_list, ft_free);
-	g_data.buffer_list = deque_init();
-	g_data.cursor = NULL;
+	clean_line();
 	if (g_data.history_iterator == NULL)
 		return ;
 	cnt = -1;
@@ -92,5 +86,6 @@ void	handle_right(void)
 		g_data.cursor = g_data.buffer_list->head;
 	else
 		g_data.cursor = g_data.cursor->next;
-	ft_putchar_fd(*((char*)g_data.cursor->content), 2);
+	if (g_data.cursor)
+		ft_putchar_fd(*((char*)g_data.cursor->content), 2);
 }

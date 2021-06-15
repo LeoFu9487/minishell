@@ -6,13 +6,23 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 04:31:10 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 21:25:02 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_all(char **env) //todo
+t_token		*init_token(char *str, t_lexer_flag lexer_flag)
+{
+	t_token	*token;
+
+	token = ft_malloc(1, sizeof(t_token));
+	token->str = ft_strdup(str);
+	token->lexer_flag = lexer_flag;
+	return (token);
+}
+
+void	init_all(char **env)
 {
 	g_data.stdin_fd = dup(STDIN_FILENO);
 	g_data.stdout_fd = dup(STDOUT_FILENO);
@@ -22,6 +32,16 @@ void	init_all(char **env) //todo
 	g_data.history = deque_init();
 	deque_push_back(g_data.history, "You have no history before this.");
 	g_data.clip_board = NULL;
+	if (tgetent(NULL, getenv("TERM")) != 1)
+	{
+		g_data.term_width = -1;
+		g_data.term_height = -1;
+	}
+	else
+	{
+		g_data.term_height = tgetnum("li");
+		g_data.term_width = tgetnum("co");
+	}
 	init_env(env);
 }
 

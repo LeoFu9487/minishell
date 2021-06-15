@@ -6,16 +6,16 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:34:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 23:34:50 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 23:19:20 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redir(char *str)
+int	is_redir(t_lexer_flag lexer_flag)
 {
-	if (ft_strncmp(str, ">", 2) == 0 || ft_strncmp(str, "<", 2) == 0 ||
-	ft_strncmp(str, ">>", 3) == 0 || ft_strncmp(str, "<<", 3) == 0)
+	if (lexer_flag == _redir_in || lexer_flag == _redir_in_d || lexer_flag == _redir_out || lexer_flag == _redir_out_d)
 		return (1);
 	return (0);
 }
+

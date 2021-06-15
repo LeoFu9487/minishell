@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:39:51 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/08 23:36:34 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 23:44:31 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static int	check_redir(t_deque *tokens, t_end_of_command eoc)
 	iterator = tokens->head;
 	while (iterator)
 	{
-		if (is_redir(iterator->content))
+		if (is_redir(((t_token *)(iterator->content))->lexer_flag))
 		{
 			if (last_key_is_redir)
 			{
 				g_data.exit_status = 2;
 				ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-				ft_putstr_fd(iterator->content, 2);
+				ft_putstr_fd(((t_token *)(iterator->content))->str, 2);
 				ft_putendl_fd("\'", 2);
 				return (1);
 			}
@@ -39,10 +39,12 @@ static int	check_redir(t_deque *tokens, t_end_of_command eoc)
 				g_data.exit_status = 2;
 				if (eoc == NewLine)
 				{
-					if (g_data.lexer_error == quote)
+					if (g_data.lexer_error == dquote)
 						ft_putendl_fd("minishell: unexpected EOL while looking for matching `\"\'", 2);
-					else if (g_data.lexer_error == dquote)
+					else if (g_data.lexer_error == quote)
 						ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
+					else if (g_data.lexer_error == backslash)
+						ft_putendl_fd("minishell: unexpected EOL while looking for matching `\\\'", 2);
 					else
 						ft_putendl_fd("minishell: syntax error near unexpected token `newline\'", 2);
 				}
@@ -72,7 +74,7 @@ static int	check_pipe(t_deque *tokens, t_end_of_command eoc)
 	iterator = tokens->head;
 	while (iterator)
 	{
-		if (ft_strncmp(iterator->content, "|", 2) != 0)
+		if (((t_token *)iterator->content)->lexer_flag != _pipe)
 			deque_push_back(new_token, iterator->content);
 		else if (iterator == tokens->tail) // | in the end
 		{
@@ -81,11 +83,11 @@ static int	check_pipe(t_deque *tokens, t_end_of_command eoc)
 			ft_putendl_fd("minishell: syntax error near unexpected token `|\'", 2);
 			return (1);
 		}
-		if (ft_strncmp(iterator->content, "|", 2) == 0 || iterator == tokens->tail)
+		if (((t_token *)iterator->content)->lexer_flag == _pipe || iterator == tokens->tail)
 		{
 			if (new_token->size > 0)
 			{
-				if (ft_strncmp(iterator->content, "|", 2) != 0)
+				if (((t_token *)iterator->content)->lexer_flag != _pipe)
 					result = check_redir(new_token, eoc);
 				else
 					result = check_redir(new_token, Pipe);
@@ -118,13 +120,13 @@ static int	check_semicolon(t_deque *tokens)
 	iterator = tokens->head;
 	while (iterator)
 	{
-		if (ft_strncmp(iterator->content, ";", 2) != 0)
+		if (((t_token *)iterator->content)->lexer_flag != _semicolon)
 			deque_push_back(new_token, iterator->content);
-		if (ft_strncmp(iterator->content, ";", 2) == 0 || iterator == tokens->tail)
+		if (((t_token *)iterator->content)->lexer_flag == _semicolon || iterator == tokens->tail)
 		{
 			if (new_token->size > 0)
 			{
-				if (ft_strncmp(iterator->content, ";", 2) != 0)
+				if (((t_token *)iterator->content)->lexer_flag != _semicolon)
 					result = check_pipe(new_token, NewLine);
 				else
 					result = check_pipe(new_token, Semicolon);

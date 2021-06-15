@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 04:41:34 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 19:21:58 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,30 @@ static void	handle_signal(int signal)
 		}
 		if (g_data.pid == 0)
 		{
-			ft_putendl_fd("", 2);
+			ft_putendl_fd("^C", 2);
 			print_prompt();
 		}
-		else
-			ft_putendl_fd("", 2);
 	}
-	if (signal == SIGQUIT) /* ctrl + \ */
+}
+
+static void	update_term_size(int signal)
+{
+	if (tgetent(NULL, getenv("TERM")) != 1)
 	{
-		if (g_data.pid != 0)
-		{
-			g_data.exit_status = 131;
-			ft_putendl_fd("Quit", 2);
-		}
+		g_data.term_width = -1;
+		g_data.term_height = -1;
 	}
+	else
+	{
+		g_data.term_height = tgetnum("li");
+		g_data.term_width = tgetnum("co");
+	}
+	(void)signal;
 }
 
 void	catch_signal(void)
 {
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, handle_signal);
+	signal(SIGWINCH, update_term_size);
 }

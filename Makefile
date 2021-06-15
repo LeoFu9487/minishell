@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 CC = gcc
 
 UTILS_FILE = exit.c	init.c	signal.c	find_env_var.c\
-prompt.c	is_redir.c
+prompt.c	is_redir.c	is_dir.c	free.c
 
 UTILS_PATH = utils/
 
@@ -21,7 +21,7 @@ PARSE_FILE = get_input.c	lexer.c	parse.c	parse_error.c\
 
 PARSE_PATH = parse/
 
-BULDIN_FILE = echo.c	env.c	export.c
+BULDIN_FILE = echo.c	env.c	exit.c	export.c	unset.c
 
 BUILDIN_PATH = buildin/
 

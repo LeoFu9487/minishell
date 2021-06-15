@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 11:22:42 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/03 16:21:10 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/11 02:01:14 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			deque_push_back(t_deque *deque, void *ptr);
 void			deque_push_front(t_deque *deque, void *ptr);
 void			deque_pop_back(t_deque *deque, void (*f)(void*));
 void			deque_pop_front(t_deque *deque, void (*f)(void*));
+void			deque_pop_one(t_deque *deque, t_double_list *target, void (*f)(void *));
 t_deque			*deque_init(void);
 void			*ft_malloc(size_t elem_cnt, size_t elem_size);
 void			ft_free(void *del);

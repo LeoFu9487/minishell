@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 04:28:27 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 21:38:05 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@
 
 	while (1)
 	{
+		g_data.pid = 0;
 		raw_mode_switch(on);
 		print_prompt();
 		input_string = get_input();
 		raw_mode_switch(off);
 		tokens = lexer(input_string);
-		// will tokens be NULL ?
 		if (tokens->size > 0)
 		{
-			deque_push_back(g_data.history, input_string); // when it's written in history, don't free input_string
+			if (ft_strncmp(input_string, g_data.history->tail->content, ft_strlen(input_string)) != 0)
+				deque_push_back(g_data.history, input_string); // when it's written in history, don't free input_string
 			parse_and_execute(tokens);
 		}
 		else
@@ -38,10 +39,12 @@
 				g_data.exit_status = 2;
 				if (g_data.lexer_error == dquote)
 					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\"\'", 2);
-				else
+				else if (g_data.lexer_error == quote)
 					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\'\'", 2);
+				else
+					ft_putendl_fd("minishell: unexpected EOL while looking for matching `\\\'", 2);
 			}
 		}
-		deque_clear(tokens, ft_free);
+		deque_clear(tokens, free_token);
 	}
 }

@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_ctrl_arrow.c                                :+:      :+:    :+:   */
+/*   is_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 23:57:57 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/10 20:44:00 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/05 02:12:45 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/05 02:16:43 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_ctrl_up(void)
-{}
-
-void	handle_ctrl_down(void)
-{}
-
-void	handle_ctrl_left(void)
-{}
-
-void	handle_ctrl_right(void)
-{}
+int is_dir(const char *path)
+{
+    struct stat stat_buffer;
+    if (stat(path, &stat_buffer) != 0)
+        return (0);
+    return (S_ISDIR(stat_buffer.st_mode));
+}
