@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 11:43:07 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 16:35:03 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 17:34:10 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	builtin_export(char **args)
 			ft_putstr_fd(args[i], 2);
 			ft_putendl_fd("': not a valid identifier", 2);
 		}
-		//else if (is_new_var(args[i])) //if var does not exsit in env list
-		//	printf("new var\n");
+		else if (is_new_var(args[i])) //if var does not exsit in env list
+			deque_push_back(g_data.env_list, args[i]);
 		else if (!is_new_var(args[i])) //if var exsits in env list >> update env list
 			update_var(args[i]);
 	}

@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 14:17:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 16:43:11 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 17:34:01 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,11 @@ void	update_var(char *var)
 	while (temp)
 	{
 		var_key = ft_substr(temp->content, 0, var_key_len(temp->content));
-		if (!ft_strncmp(var, var_key, ft_strlen(var))
-			|| (int)ft_strlen(var) == var_key_len(temp->content))
+		if (!ft_strncmp(var, var_key, var_key_len(var))
+			&& (int)var_key_len(var) == var_key_len(temp->content))
 		{
 			if (var[key_len] == '=') //input: var = value
 			{
-				//deque_pop_one(g_data.env_list, temp, NULL);
 				ft_free(temp->content);
 				temp->content = var;
 			}
@@ -146,4 +145,3 @@ void	update_var(char *var)
 		temp = temp->next;
 	}
 }
-
