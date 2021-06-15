@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 15:12:16 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 00:55:53 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void		no_pipe_exit(t_deque *cmd);
 void		no_pipe_cd(t_deque *cmd);
 void		no_pipe_export(t_deque *cmd);
 void		no_pipe_unset(t_deque *cmd);
+int			set_color(char *input_string);
 
 /*____todo____*/
 void		handle_ctrl_a(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 12:45:02 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 00:42:39 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,14 @@
 # include "xli.h"
 # include "yfu.h"
 # define PROMPT_MESSAGE "minishell $> "
-# define GREEN "\x1B[32m"
+# define BLACK "\x1B[30m"
 # define RED "\x1B[31m"
+# define GREEN "\x1B[32m"
+# define YELLOW "\x1B[33m"
+# define BLUE "\x1B[34m"
+# define PURPLE "\x1B[35m"
+# define CYAN "\x1B[36m"
+# define WHITE "\x1B[37m"
 # define NOCOLOR "\x1B[0m"
 
 struct s_data
@@ -51,6 +57,7 @@ struct s_data
 	int				stdout_fd;
 	int				term_width;
 	int				term_height;
+	char			*color;
 }g_data;
 
 /*

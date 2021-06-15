@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 21:32:10 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 01:22:18 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,20 @@ void	main_loop(void)
 	while (1)
 	{
 		g_data.pid = 0;
-		raw_mode_switch(on);
 		print_prompt();
+		raw_mode_switch(on);
 		input_string = get_input();
 		raw_mode_switch(off);
-		tokens = lexer(input_string);
-		if (tokens->size > 0)
-			no_empty_process(input_string, tokens);
+		if (set_color(input_string))
+			deque_push_back(g_data.history, input_string);
 		else
-			empty_process(input_string);
-		deque_clear(tokens, free_token);
+		{
+			tokens = lexer(input_string);
+			if (tokens->size > 0)
+				no_empty_process(input_string, tokens);
+			else
+				empty_process(input_string);
+			deque_clear(tokens, free_token);
+		}
 	}
 }
