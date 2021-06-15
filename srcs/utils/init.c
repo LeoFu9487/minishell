@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_token		*init_token(char *str, t_lexer_flag lexer_flag)
+t_token	*init_token(char *str, t_lexer_flag lexer_flag)
 {
 	t_token	*token;
 
@@ -45,21 +45,8 @@ void	init_all(char **env)
 	init_env(env);
 }
 
-static int	count_shlvl(char *str)
+static int	sub(char *str, long long num[2], int cnt[2])
 {
-	long long	num[2]; // 18 digits max 999,999,999,999,999,999
-	int			cnt[2];
-
-	if (!str)
-		return (1);
-	while (ft_isspace(*str))
-		++str;
-	num[1] = 1LL;
-	if (*str == '-')
-		num[1] = -1LL;
-	if (*str == '+' || *str == '-')
-		++str;
-	cnt[0] = -1;
 	while (str[++cnt[0]])
 		if (!ft_isdigit(str[cnt[0]]))
 			return (1);
@@ -84,7 +71,25 @@ static int	count_shlvl(char *str)
 	return (cnt[1]);
 }
 
-static void	modify_shlvl()
+static int	count_shlvl(char *str)
+{
+	long long	num[2];
+	int			cnt[2];
+
+	if (!str)
+		return (1);
+	while (ft_isspace(*str))
+		++str;
+	num[1] = 1LL;
+	if (*str == '-')
+		num[1] = -1LL;
+	if (*str == '+' || *str == '-')
+		++str;
+	cnt[0] = -1;
+	return (sub(str, num, cnt));
+}
+
+static void	modify_shlvl(void)
 {
 	char		*str[2];
 	char		*args[3];
@@ -103,7 +108,8 @@ static void	modify_shlvl()
 }
 
 /*
-** bigger than int : problem : 2147483648->0, 99999999999999999999999999999999999->1
+** bigger than int : problem : 2147483648->0,
+** 99999999999999999999999999999999999->1
 ** export SHLVL=9999999999     1410065408
 **
 ** from limit to max_int : 
@@ -118,7 +124,6 @@ static void	modify_shlvl()
 **
 ** non-existant : -> 1 
 */
-
 
 void	init_env(char **env)
 {
