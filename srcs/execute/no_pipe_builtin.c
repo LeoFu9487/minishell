@@ -12,7 +12,10 @@
 
 #include "minishell.h"
 
-int	no_pipe_builtin(t_deque *cmd) // need to redir ?
+/*
+** no redir for here
+*/
+int	no_pipe_builtin(t_deque *cmd)
 {
 	if (cmd->size > 0 && ft_strncmp(((t_token *)cmd->head->content)->str,
 			"exit", 5) == 0)
@@ -102,5 +105,5 @@ void	no_pipe_unset(t_deque *cmd)
 		deque_pop_front(cmd, NULL);
 	}
 	//builtin_unset(args);
-	ft_free(args);	
+	ft_free(args);
 }

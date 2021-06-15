@@ -12,6 +12,23 @@
 
 #include "minishell.h"
 
+static void	sub(char **args)
+{
+	if (ft_strncmp(args[0], "unset", 6) == 0)
+	{
+		//builtin_unset(args);
+		message_exit(g_data.exit_status, "", -1);
+	}
+	if (ft_strncmp(args[0], "env", 4) == 0)
+		builtin_env(args);
+	if (ft_strncmp(args[0], "exit", 5) == 0)
+	{
+		close(STDOUT_FILENO);
+		builtin_exit(args);
+		message_exit(g_data.exit_status, "", -1);
+	}
+}
+
 void	launch_builtins(char **args)
 {
 	if (ft_strncmp(args[0], "echo", 5) == 0)
@@ -28,19 +45,7 @@ void	launch_builtins(char **args)
 		//builtin_export(args);
 		message_exit(g_data.exit_status, "", -1);
 	}
-	if (ft_strncmp(args[0], "unset", 6) == 0)
-	{
-		//builtin_unset(args);
-		message_exit(g_data.exit_status, "", -1);
-	}
-	if (ft_strncmp(args[0], "env", 4) == 0)
-		builtin_env(args);
-	if (ft_strncmp(args[0], "exit", 5) == 0)
-	{
-		close(STDOUT_FILENO);
-		builtin_exit(args);
-		message_exit(g_data.exit_status, "", -1);
-	}
+	sub(args);
 }
 
 void	execute(char **args)
