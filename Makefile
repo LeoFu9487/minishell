@@ -31,7 +31,9 @@ EXECUTE_FILE = run_command.c	no_pipe_command.c	execute.c	launch_bin.c	set_redir.
 
 EXECUTE_PATH = execute/
 
-LEXER_FILE = lexer.c
+LEXER_FILE = lexer.c	lexer_back_slash.c	lexer_quote.c	lexer_dquote.c\
+	lexer_semicolon.c	lexer_redir_in.c	lexer_redir_out.c	lexer_pipe.c\
+	lexer_dollar.c	lexer_space.c	lexer_general.c
 
 LEXER_PATH = lexer/
 

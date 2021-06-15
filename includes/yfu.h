@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 03:22:36 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 04:03:33 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void		handle_home(void);
 void		handle_end(void);
 void		handle_delete(void);
 void		handle_ctrl_d(void);
+void		handle_ctrl_l(void);
 int			check_parse(t_deque *tokens);
 int			check_parse_semicolon(t_deque *tokens);
 int			check_parse_pipe(t_deque *tokens, t_end_of_command eoc);
@@ -139,31 +140,35 @@ void		ft_free_iofd(t_iofd *iofd, int size);
 t_iofd		*init_iofd(int size);
 void		close_pipefd(int size, int **pipefd);
 void		create_pipe_child(t_deque *cmd_list, int size, int **pipefd, t_iofd *iofd);
+void		init_env(char **env);
+char		*get_input(void);
+t_deque		*lexer(char *input_string);
+void		parse_and_execute(t_deque *tokens);
+void		main_loop(void);
+void		init_all(char **env);
+void		put_buffer_in_tokens(t_deque *tokens, t_deque *token_buffer, t_lexer_flag lexer_flag);
+void		lexer_back_slash(t_deque *token_buffer);
+void		lexer_dollar(t_deque *token_buffer);
+void		lexer_dquote(t_deque *token_buffer);
+void		lexer_general(t_deque *token_buffer, char *str, int *idx);
+void		lexer_pipe(t_deque *tokens, t_deque *token_buffer);
+void		lexer_quote(t_deque *token_buffer);
+void		lexer_redir_in(t_deque *tokens, t_deque *token_buffer, char *str, int *idx);
+void		lexer_redir_out(t_deque *tokens, t_deque *token_buffer, char *str, int *idx);
+void		lexer_semicolon(t_deque *tokens, t_deque *token_buffer);
+void		lexer_space(t_deque *tokens, t_deque *token_buffer, char input_char);
+
 
 /*____todo____*/
-void		init_env(char **env);//todo
-char		*get_input(void);//todo
-t_deque		*lexer(char *input_string);//todo
-void		parse_and_execute(t_deque *tokens);//todo
-void		main_loop(void);//todo
-void		init_all(char **env);//todo
-void		handle_ctrl_a(void);//todo
-void		handle_ctrl_b(void);//todo
-void		handle_ctrl_l(void);//todo
-void		handle_ctrl_v(void);//todo
-void		handle_ctrl_up(void);//todo
-void		handle_ctrl_down(void);//todo
-void		handle_ctrl_left(void);//todo
-void		handle_ctrl_right(void);//todo
-void		handle_alt_a(void);//todo
-void		handle_alt_b(void);//todo
-void		handle_alt_l(void);//todo
-
-/*
-** todo : 
-** 1. exit code
-** 2. ctrl-C, ctrl-D, ctrl-\
-** 3. exit_status
-*/
+void		handle_ctrl_a(void);
+void		handle_ctrl_b(void);
+void		handle_ctrl_v(void);
+void		handle_ctrl_up(void);
+void		handle_ctrl_down(void);
+void		handle_ctrl_left(void);
+void		handle_ctrl_right(void);
+void		handle_alt_a(void);
+void		handle_alt_b(void);
+void		handle_alt_l(void);
 
 #endif
