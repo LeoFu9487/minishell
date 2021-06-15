@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_input.c                                        :+:      :+:    :+:   */
+/*   lexer_dquote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/02 23:42:12 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 19:51:15 by yfu              ###   ########lyon.fr   */
+/*   Created: 2021/06/15 03:52:31 by yfu               #+#    #+#             */
+/*   Updated: 2021/06/15 04:07:09 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_input(void)
+void	lexer_dquote(t_deque *token_buffer)
 {
-	char			*str;
-	unsigned int	key;
-
-	g_data.buffer_list = deque_init();
-	g_data.cursor = NULL;
-	g_data.history_iterator = NULL;
-	while (1)
+	if (g_data.lexer->last_key == back_slash || g_data.lexer->quote)
+		deque_push_back(token_buffer, ft_strdup("\""));
+	else
 	{
-		key = get_key();
-		if (ft_isprint(key))
-			insert_in_buffer((char)key);
-		else if (key == '\n')
-		{
-			str = buffer_to_string();
-			deque_clear(g_data.buffer_list, ft_free);
-			g_data.buffer_list = NULL;
-			ft_putchar_fd('\n', 2);
-			break ;
-		}
+		if (g_data.lexer->last_key == dollar)
+			deque_push_back(token_buffer, ft_strdup("$"));
+		g_data.lexer->dquote ^= 1;
 	}
-	return (str);
+	g_data.lexer->last_key = others;
 }

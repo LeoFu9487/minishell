@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 01:31:35 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/05 02:25:02 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 19:48:32 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	run_path(char *path, char **args, char **env)
 			ft_putendl_fd(strerror(errno), 2);
 		message_exit(126, "", -1);
 	}
-	ft_putendl_fd(strerror(errno), 2);;
+	ft_putendl_fd(strerror(errno), 2);
 	message_exit(127, "", -1);
 }
 
@@ -63,8 +63,8 @@ static void	multiple_path(char *path, int ct[3], char **args, char **env)
 
 static void	find_path(char **args, char **env)
 {
-	char	*path; // path that is going to be used in execve
-	char	*var; // the value of global variable PATH
+	char	*path;
+	char	*var;
 	int		ct[3];
 
 	ct[2] = 0;
@@ -75,10 +75,7 @@ static void	find_path(char **args, char **env)
 	while (var[0])
 	{
 		if (var[0] != ':')
-		{
 			path[ct[1]++] = var[0];
-			path[ct[1]] = 0;
-		}
 		if (var[0] == ':' || var[1] == 0)
 			multiple_path(path, ct, args, env);
 		++var;

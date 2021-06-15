@@ -7,27 +7,36 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 CC = gcc
 
 UTILS_FILE = exit.c	init.c	signal.c	find_env_var.c\
-prompt.c	is_redir.c	is_dir.c	free.c
+prompt.c	is_redir.c	is_dir.c	free.c	print.c	buildin_util0.c
 
 UTILS_PATH = utils/
 
 TERMCAP_FILE = termcap.c	handle_ctrl.c	handle_arrow.c	handle_ctrl_arrow.c\
-	get_key.c	handle_alt.c	handle_others.c	display_terminal.c
+	get_key.c	handle_alt.c	handle_others.c	display_terminal.c\
+	handle_backspace.c	handle_delete.c
 
 TERMCAP_PATH = termcap/
 
-PARSE_FILE = get_input.c	lexer.c	parse.c	parse_error.c\
-	create_cmd.c
+PARSE_FILE = get_input.c	parse.c	check_parse.c\
+	create_cmd.c	check_parse_semicolon.c	check_parse_pipe.c\
+	check_parse_redir.c	create_pipe.c	create_pipe_sub.c
 
 PARSE_PATH = parse/
 
-BULDIN_FILE = echo.c	env.c
+BULDIN_FILE = echo.c	env.c	exit.c	export.c	unset.c	pwd.c
 
 BUILDIN_PATH = buildin/
 
-EXECUTE_FILE = run_command.c	no_pipe_command.c	execute.c	launch_bin.c
+EXECUTE_FILE = run_command.c	no_pipe_command.c	execute.c	launch_bin.c	set_redir.c\
+	no_pipe_builtin.c
 
 EXECUTE_PATH = execute/
+
+LEXER_FILE = lexer.c	lexer_back_slash.c	lexer_quote.c	lexer_dquote.c\
+	lexer_semicolon.c	lexer_redir_in.c	lexer_redir_out.c	lexer_pipe.c\
+	lexer_dollar.c	lexer_space.c	lexer_general.c
+
+LEXER_PATH = lexer/
 
 #PUT FILES HERE
 SRCS_FILE += $(addprefix $(UTILS_PATH), $(UTILS_FILE))
@@ -41,6 +50,8 @@ SRCS_FILE += main_loop.c
 SRCS_FILE += $(addprefix $(BUILDIN_PATH), $(BULDIN_FILE))
 
 SRCS_FILE += $(addprefix $(EXECUTE_PATH), $(EXECUTE_FILE))
+
+SRCS_FILE += $(addprefix $(LEXER_PATH), $(LEXER_FILE))
 
 SRCS_PATH = srcs/
 

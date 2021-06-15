@@ -6,13 +6,13 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 00:06:32 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 01:12:25 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 22:38:59 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static unsigned	get_composed_key_6(unsigned char c[10])
+static unsigned int	get_composed_key_6(unsigned char c[10])
 {
 	if (c[1] != 91 || c[2] != 49 || c[3] != 59 || c[4] != 53)
 		return (NOT_DEFINED);
@@ -39,7 +39,7 @@ static unsigned	get_composed_key_6(unsigned char c[10])
 	return (NOT_DEFINED);
 }
 
-static unsigned	get_composed_key_4(unsigned char c[10])
+static unsigned int	get_composed_key_4(unsigned char c[10])
 {
 	if (c[1] != 91 || c[3] != 126)
 		return (NOT_DEFINED);
@@ -61,7 +61,7 @@ static unsigned	get_composed_key_4(unsigned char c[10])
 	return (NOT_DEFINED);
 }
 
-static unsigned	get_composed_key_3(unsigned char c[10])
+static unsigned int	get_composed_key_3(unsigned char c[10])
 {
 	if (c[1] != 91)
 		return (NOT_DEFINED);
@@ -88,7 +88,7 @@ static unsigned	get_composed_key_3(unsigned char c[10])
 	return (NOT_DEFINED);
 }
 
-static unsigned	get_composed_key_2(unsigned char c[10])
+static unsigned int	get_composed_key_2(unsigned char c[10])
 {
 	if (c[1] == 97)
 	{
@@ -108,7 +108,7 @@ static unsigned	get_composed_key_2(unsigned char c[10])
 	return (NOT_DEFINED);
 }
 
-unsigned	get_key()
+unsigned int	get_key(void)
 {
 	unsigned char	c[10];
 	int				cnt;
@@ -116,16 +116,10 @@ unsigned	get_key()
 	cnt = read(g_data.stdin_fd, c, 10);
 	if (cnt < 1)
 		message_exit(87, "get_key_error", 2);
-	if (c[0] == CTRL_A)
-		handle_ctrl_a();
-	if (c[0] == CTRL_B)
-		handle_ctrl_b();
 	if (c[0] == CTRL_D)
 		handle_ctrl_d();
 	if (c[0] == CTRL_L)
 		handle_ctrl_l();
-	if (c[0] == CTRL_V)
-		handle_ctrl_v();
 	if (c[0] == BACKSPACE)
 		handle_backspace();
 	if (c[0] != 27 || cnt == 1)
