@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 23:11:19 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 03:22:36 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ void		print_unexpected_eol_message(void);
 void		create_pipe(t_deque *cmd_list);
 void		ft_free_iofd(t_iofd *iofd, int size);
 t_iofd		*init_iofd(int size);
+void		close_pipefd(int size, int **pipefd);
+void		create_pipe_child(t_deque *cmd_list, int size, int **pipefd, t_iofd *iofd);
 
 /*____todo____*/
 void		init_env(char **env);//todo
