@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 04:03:28 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 13:27:18 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ typedef enum e_lexer_key_2
 	NoError = 0,
 	quote,
 	dquote,
-	backslash
+	backslash,
+	left_parenthese,
+	right_parenthese
 }t_lexer_key_2;
 
 typedef enum e_end_of_command
@@ -77,6 +79,7 @@ typedef struct s_lexer
 {
 	int			quote;
 	int			dquote;
+	int			subshell_lvl;
 	t_lexer_key	last_key;
 }t_lexer;
 
@@ -96,7 +99,11 @@ typedef enum e_lexer_flag
 	_redir_in_d,
 	_redir_out,
 	_redir_out_d,
-	_pipe
+	_pipe,
+	_logical_or,
+	_logical_and,
+	_left_parenthese,
+	_right_parenthese
 }t_lexer_flag;
 
 typedef struct s_token
@@ -151,13 +158,16 @@ void		lexer_back_slash(t_deque *token_buffer);
 void		lexer_dollar(t_deque *token_buffer);
 void		lexer_dquote(t_deque *token_buffer);
 void		lexer_general(t_deque *token_buffer, char *str, int *idx);
-void		lexer_pipe(t_deque *tokens, t_deque *token_buffer);
+void		lexer_pipe(t_deque *tokens, t_deque *token_buffer, char *str, int *idx);
 void		lexer_quote(t_deque *token_buffer);
 void		lexer_redir_in(t_deque *tokens, t_deque *token_buffer, char *str, int *idx);
 void		lexer_redir_out(t_deque *tokens, t_deque *token_buffer, char *str, int *idx);
 void		lexer_semicolon(t_deque *tokens, t_deque *token_buffer);
 void		lexer_space(t_deque *tokens, t_deque *token_buffer, char input_char);
 void		lexer_wildcard(t_deque *token_buffer);
+void		lexer_left_parenthese(t_deque *tokens, t_deque *token_buffer);
+void		lexer_right_parenthese(t_deque *tokens, t_deque *token_buffer);
+void		lexer_logical_and(t_deque *tokens, t_deque *token_buffer, char *str, int *idx);
 int			no_pipe_builtin(t_deque *cmd);
 void		no_pipe_exit(t_deque *cmd);
 void		no_pipe_cd(t_deque *cmd);

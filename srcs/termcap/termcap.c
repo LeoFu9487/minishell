@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 14:49:16 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 00:49:13 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 15:31:30 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	raw_mode_switch(t_switch e)
 	if (e == on)
 	{
 		tcsetattr(STDIN_FILENO, TCSAFLUSH, &(termcap->raw));
+		ft_putstr_fd(NOCOLOR, 2);
 		ft_putstr_fd(g_data.color, 2);
 	}
 	else

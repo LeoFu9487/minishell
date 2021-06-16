@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 01:42:50 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 15:32:26 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,23 @@
 # include "xli.h"
 # include "yfu.h"
 # define PROMPT_MESSAGE "minishell $> "
-# define BLACK "\x1B[30m"
-# define RED "\x1B[31m"
-# define GREEN "\x1B[32m"
-# define YELLOW "\x1B[33m"
-# define BLUE "\x1B[34m"
-# define PURPLE "\x1B[35m"
-# define CYAN "\x1B[36m"
-# define WHITE "\x1B[37m"
-# define NOCOLOR "\x1B[0m"
+# define BLACK		"\x1B[30m"
+# define RED		"\x1B[31m"
+# define GREEN		"\x1B[32m"
+# define YELLOW		"\x1B[33m"
+# define BLUE		"\x1B[34m"
+# define PURPLE		"\x1B[35m"
+# define CYAN		"\x1B[36m"
+# define WHITE		"\x1B[37m"
+# define P_BLACK	"\x1B[1;30m"
+# define P_RED		"\x1B[1;31m"
+# define P_GREEN	"\x1B[1;32m"
+# define P_YELLOW	"\x1B[1;33m"
+# define P_BLUE		"\x1B[1;34m"
+# define P_PURPLE	"\x1B[1;35m"
+# define P_CYAN		"\x1B[1;36m"
+# define P_WHITE	"\x1B[1;37m"
+# define NOCOLOR	"\x1B[0m"
 
 struct s_data
 {
