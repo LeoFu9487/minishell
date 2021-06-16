@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 02:45:09 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 03:44:10 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 04:03:13 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_deque	*get_all_files(void)
 		}
 		closedir(d);
 	}
+	sort_string(all_files);
 	return (all_files);
 }
 

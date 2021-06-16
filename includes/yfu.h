@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 03:43:30 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 04:03:28 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ int			set_color(char *input_string);
 void		wild_card(t_deque *tokens, char *str);
 int			has_wild_card(char *str);
 int			match(char *pattern, char *str, char *, char *);
+void		sort_string(t_deque *deque);
 
 /*____todo____*/
 void		handle_ctrl_a(void);
