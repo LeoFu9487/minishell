@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 23:15:05 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 00:50:19 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 01:47:48 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_all(char **env)
 	g_data.buffer_list = NULL;
 	g_data.pid = 0;
 	g_data.color = WHITE;
+	g_data.prompt_color = WHITE;
 	g_data.history = deque_init();
 	deque_push_back(g_data.history, "You have no history before this.");
 	g_data.clip_board = NULL;

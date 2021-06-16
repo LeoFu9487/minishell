@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:36:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/09 01:23:55 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 02:03:50 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_prompt(void)
 	else
 		ft_putstr_fd(RED, 2);
 	ft_putnbr_fd(g_data.exit_status, 2);
-	ft_putstr_fd(NOCOLOR, 2);
+	ft_putstr_fd(g_data.prompt_color, 2);
 	if (g_data.exit_status < 10)
 		ft_putstr_fd("   ", 2);
 	else if (g_data.exit_status < 100)

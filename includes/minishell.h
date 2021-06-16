@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 00:42:39 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 01:42:50 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ struct s_data
 	int				term_width;
 	int				term_height;
 	char			*color;
+	char			*prompt_color;
 }g_data;
 
 /*
