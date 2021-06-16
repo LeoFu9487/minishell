@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 03:23:04 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 15:51:10 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char *input_string, int idx[1])
 	else if (input_string[idx[0]] == '>')
 		lexer_redir_out(tokens, token_buffer, input_string, idx);
 	else if (input_string[idx[0]] == '|')
-		lexer_pipe(tokens, token_buffer);
+		lexer_pipe(tokens, token_buffer, input_string, idx);
 	else if (input_string[idx[0]] == '$')
 		lexer_dollar(token_buffer);
 	else if (ft_isspace(input_string[idx[0]]))
