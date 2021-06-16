@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:36:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 02:03:50 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 21:11:18 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void	print_prompt(void)
 	else
 		ft_putstr_fd(" ", 2);
 	ft_putstr_fd(PROMPT_MESSAGE, 2);
+	raw_mode_switch(on);
 }

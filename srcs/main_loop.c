@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 01:22:18 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 21:11:08 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	main_loop(void)
 	{
 		g_data.pid = 0;
 		print_prompt();
-		raw_mode_switch(on);
 		input_string = get_input();
 		raw_mode_switch(off);
 		if (set_color(input_string))
