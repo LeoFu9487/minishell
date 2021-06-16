@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 15:51:10 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 16:12:36 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	lexer_init(void)
 	g_data.lexer->dquote = 0;
 	g_data.lexer->quote = 0;
 	g_data.lexer->last_key = others;
+	g_data.lexer->subshell_lvl = 0;
 }
 
 void	put_buffer_in_tokens(t_deque *tokens, t_deque *token_buffer,
@@ -63,6 +64,12 @@ char *input_string, int idx[1])
 		lexer_space(tokens, token_buffer, input_string[idx[0]]);
 	else if (input_string[idx[0]] == '*')
 		lexer_wildcard(token_buffer);
+	else if (input_string[idx[0]] == '&')
+		lexer_logical_and(tokens, token_buffer, input_string, idx);
+	else if (input_string[idx[0]] == '(')
+		lexer_left_parenthese(tokens, token_buffer);
+	else if (input_string[idx[0]] == ')')
+		lexer_right_parenthese(tokens, token_buffer);
 	else
 		lexer_general(token_buffer, input_string, idx);
 }
@@ -88,7 +95,7 @@ int idx[1])
 	}
 	else
 		sub2(tokens, token_buffer, input_string, idx);
-	if (input_string[idx[0]] == 0)
+	if (input_string[idx[0]] == 0 || g_data.lexer->subshell_lvl < 0)
 		return (1);
 	return (0);
 }
@@ -106,7 +113,11 @@ t_deque	*lexer(char *input_string)
 	while (input_string[++idx[0]])
 		if (sub1(tokens, token_buffer, input_string, idx))
 			break ;
-	if (g_data.lexer->quote)
+	if (g_data.lexer->subshell_lvl < 0)
+		g_data.lexer_error = right_parenthese;
+	else if (g_data.lexer->subshell_lvl > 0)
+		g_data.lexer_error = left_parenthese;
+	else if (g_data.lexer->quote)
 		g_data.lexer_error = quote;
 	else if (g_data.lexer->dquote)
 		g_data.lexer_error = dquote;
