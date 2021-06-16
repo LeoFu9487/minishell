@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 04:24:04 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 03:23:04 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ t_lexer_flag lexer_flag)
 		iterator = iterator->next;
 		deque_pop_front(token_buffer, ft_free);
 	}
-	deque_push_back(tokens, init_token(str, lexer_flag));
+	if (lexer_flag == _undefined && has_wild_card(str))
+		wild_card(tokens, str);
+	else
+		deque_push_back(tokens, init_token(str, lexer_flag));
 	ft_free(str);
 }
 
@@ -58,6 +61,8 @@ char *input_string, int idx[1])
 		lexer_dollar(token_buffer);
 	else if (ft_isspace(input_string[idx[0]]))
 		lexer_space(tokens, token_buffer, input_string[idx[0]]);
+	else if (input_string[idx[0]] == '*')
+		lexer_wildcard(token_buffer);
 	else
 		lexer_general(token_buffer, input_string, idx);
 }

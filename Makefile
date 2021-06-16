@@ -35,7 +35,8 @@ EXECUTE_PATH = execute/
 
 LEXER_FILE = lexer.c	lexer_back_slash.c	lexer_quote.c	lexer_dquote.c\
 	lexer_semicolon.c	lexer_redir_in.c	lexer_redir_out.c	lexer_pipe.c\
-	lexer_dollar.c	lexer_space.c	lexer_general.c
+	lexer_dollar.c	lexer_space.c	lexer_general.c	wild_card.c\
+	lexer_wildcard.c
 
 LEXER_PATH = lexer/
 
