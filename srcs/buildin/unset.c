@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 13:56:14 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 23:17:49 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 18:08:32 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	builtin_unset(char **args)
 	i = 0;
 	while (args[++i])
 	{
-		if (!check_var_name(args[i]) || ((check_var_name(args[i]) 
-			&& (args[i][ft_strlen(args[i]) - 1] == '+' 
-			|| args[i][ft_strlen(args[i]) - 1] == '='))))
+		if (!check_var_name(args[i]) || ((check_var_name(args[i])
+					&& (args[i][ft_strlen(args[i]) - 1] == '+'
+					|| args[i][ft_strlen(args[i]) - 1] == '='))))
 		{
 			g_data.exit_status = 1;
 			ft_putstr_fd("minishell: unset: `", 2);

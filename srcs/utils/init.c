@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 23:14:36 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 16:10:54 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	init_env(char **env)
 	g_data.env_list = deque_init();
 	idx[0] = -1;
 	while (env[++idx[0]])
-		deque_push_back(g_data.env_list, env[idx[0]]);
+		if (ft_strncmp(env[idx[0]], "OLDPWD=", 7) != 0)
+			deque_push_back(g_data.env_list, env[idx[0]]);
 	modify_shlvl();
 }
