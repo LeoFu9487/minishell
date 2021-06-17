@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 12:05:26 by xli               #+#    #+#             */
-/*   Updated: 2021/06/18 01:11:16 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 01:30:23 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ static void	update_env_oldpwd(void)
 
 	pwd = ft_strjoin("PWD=", g_data.pwd);
 	old_pwd = ft_strjoin("OLD", pwd);
+	ft_free(pwd);
 	if (find_env_var("OLDPWD"))
 	{
-		deque_pop_one(g_data.env_list, find_env_var_line("OLDPWD"), NULL);
+		deque_pop_one(g_data.env_list, find_env_var_line("OLDPWD"), ft_free);
 		deque_push_back(g_data.env_list, old_pwd);
 	}
 	else
@@ -32,11 +33,12 @@ static void	update_env_pwd(void)
 {
 	char	*pwd;
 
-	g_data.pwd = getcwd(NULL, 0);
+	ft_free(g_data.pwd);
+	g_data.pwd = ft_getcwd(NULL, 0);
 	pwd = ft_strjoin("PWD=", g_data.pwd);
 	if (find_env_var("PWD"))
 	{
-		deque_pop_one(g_data.env_list, find_env_var_line("PWD"), NULL);
+		deque_pop_one(g_data.env_list, find_env_var_line("PWD"), ft_free);
 		deque_push_back(g_data.env_list, pwd);
 	}
 	else
@@ -53,7 +55,7 @@ static int	update_pwd(char *str)
 	char	*cwd;
 	char	*pwd;
 
-	cwd = getcwd(NULL, 0);
+	cwd = ft_getcwd(NULL, 0);
 	if (!cwd && str && !ft_strncmp(str, ".", 1))
 	{
 		ft_putstr_fd("cd: error retrieving current directory: ", 2);
@@ -61,13 +63,14 @@ static int	update_pwd(char *str)
 		ft_putendl_fd("No such file or directory", 2);
 		pwd = g_data.pwd;
 		g_data.pwd = ft_strjoin(pwd, "/.");
-		free(pwd);
+		ft_free(pwd);
 	}
 	else if (cwd || !ft_strncmp(str, "~", 2))
 	{
 		update_env_oldpwd();
 		update_env_pwd();
 	}
+	ft_free(cwd);
 	return (1);
 }
 
@@ -80,7 +83,7 @@ static int	update_pwd(char *str)
 void	builtin_cd(char **args)
 {
 	g_data.exit_status = 0;
-	if (args && (!args[1] || (args[1] && args[1][0] == '~')))
+	if (args && !args[1])
 	{
 		if (chdir(find_env_var("HOME"))) //fail to find HOME
 		{

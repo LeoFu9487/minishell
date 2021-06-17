@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 00:34:12 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/18 01:03:36 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 01:34:29 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ int *idx)
 		else
 			deque_push_back(token_buffer, ft_strdup("~"));
 	}
+	g_data.lexer->last_key = others;
 }

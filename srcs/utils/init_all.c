@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 23:15:05 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 16:10:12 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 01:24:43 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_all(char **env)
 	g_data.heredoc_process = 0;
 	deque_push_back(g_data.history, "You have no history before this.");
 	g_data.clip_board = NULL;
-	g_data.pwd = getcwd(NULL, 0);
+	g_data.pwd = ft_getcwd(NULL, 0);
 	if (tgetent(NULL, getenv("TERM")) != 1)
 	{
 		g_data.term_width = -1;
