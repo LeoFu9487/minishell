@@ -6,60 +6,11 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 19:14:19 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 21:26:46 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 13:15:22 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	here_document_child_process(char *eof, int pipefd[2])
-{
-	int		len;
-	char	*line;
-
-	close(pipefd[0]);
-	len = ft_strlen(eof) + 1;
-	ft_putstr_fd("> ", 2);
-	while (get_next_line(g_data.stdin_fd, &line) > 0)
-	{
-		if (ft_strncmp(line, eof, len) != 0)
-		{
-			ft_putstr_fd("> ", 2);
-			ft_putendl_fd(line, pipefd[1]);
-		}
-		else
-		{
-			close(pipefd[1]);
-			message_exit(0, "", -1);
-		}
-	}
-	print_unexpected_eof_message(line, pipefd, eof);
-	close(pipefd[1]);
-	message_exit(0, "", -1);
-}
-
-static void	here_document(char *eof, t_iofd *iofd)
-{
-	pid_t	pid;
-	int		pipefd[2];
-
-	pipe(pipefd);
-	pid = fork();
-	if (pid)
-	{
-		close(pipefd[1]);
-		waitpid(pid, NULL, 0);
-		if (iofd->stdin_fd < 0 || iofd->stdout_fd < 0)
-			return ;
-		if (iofd->stdin_fd != STDIN_FILENO)
-			close(iofd->stdin_fd);
-		iofd->stdin_fd = pipefd[0];
-		ft_free(iofd->in_file);
-		iofd->in_file = ft_strdup("heredoc");
-	}
-	else
-		here_document_child_process(eof, pipefd);
-}
 
 static void	set_redir_in(char *file_name, t_iofd *iofd)
 {
@@ -77,14 +28,18 @@ void	set_redir(char *redir, char *file_name, t_iofd *iofd)
 {
 	int	fd;
 
-	if (ft_strncmp(redir, "<<", 3) == 0)
-	{
-		here_document(file_name, iofd);
-		return ;
-	}
 	if (iofd->stdin_fd < 0 || iofd->stdout_fd < 0)
 		return ;
-	if (ft_strncmp(redir, "<", 2) == 0)
+	if (ft_strncmp(redir, "<<", 3) == 0)
+	{
+		if (iofd->stdin_fd != STDIN_FILENO)
+			close(iofd->stdin_fd);
+		iofd->stdin_fd = *((int *)g_data.heredoc_fd->head->content);
+		deque_pop_front(g_data.heredoc_fd, ft_free);
+		ft_free(iofd->in_file);
+		iofd->in_file = ft_strdup("heredoc");
+	}
+	else if (ft_strncmp(redir, "<", 2) == 0)
 		set_redir_in(file_name, iofd);
 	else
 	{

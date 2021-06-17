@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 23:15:05 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 04:10:42 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 13:49:09 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_all(char **env)
 	g_data.color = NOCOLOR;
 	g_data.prompt_color = NOCOLOR;
 	g_data.history = deque_init();
+	g_data.heredoc_process = 0;
 	deque_push_back(g_data.history, "You have no history before this.");
 	g_data.clip_board = NULL;
 	if (tgetent(NULL, getenv("TERM")) != 1)

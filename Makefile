@@ -29,7 +29,7 @@ BULDIN_FILE = echo.c	env.c	exit.c	export.c	unset.c	pwd.c
 BUILDIN_PATH = buildin/
 
 EXECUTE_FILE = run_command.c	no_pipe_command.c	execute.c	launch_bin.c	set_redir.c\
-	no_pipe_builtin.c
+	no_pipe_builtin.c	handle_heredoc.c
 
 EXECUTE_PATH = execute/
 

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 21:13:30 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 12:38:40 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ struct s_data
 	int				term_height;
 	char			*color;
 	char			*prompt_color;
+	t_deque			*heredoc_fd;
+	int				heredoc_process;
 }g_data;
 
 /*

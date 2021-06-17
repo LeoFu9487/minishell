@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 03:58:24 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 04:23:18 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 13:28:08 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	sub1(t_deque *token_buffer, t_deque *tokens, int *idx, char *str)
 	if (str[(*idx) + 1] == '>')
 	{
 		++(*idx);
-		deque_push_back(tokens, init_token(">>", _redir_in_d));
+		deque_push_back(tokens, init_token(">>", _redir_out_d));
 	}
 	else
-		deque_push_back(tokens, init_token(">", _redir_in));
+		deque_push_back(tokens, init_token(">", _redir_out));
 }
 
 void	lexer_redir_out(t_deque *tokens, t_deque *token_buffer, char *str,

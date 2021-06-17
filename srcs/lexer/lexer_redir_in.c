@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 03:58:12 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 04:18:46 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 13:27:43 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int *idx)
 		if (str[(*idx) + 1] == '<')
 		{
 			++(*idx);
-			deque_push_back(tokens, init_token("<<", _redir_out_d));
+			deque_push_back(tokens, init_token("<<", _redir_in_d));
 		}
 		else
-			deque_push_back(tokens, init_token("<", _redir_out));
+			deque_push_back(tokens, init_token("<", _redir_in));
 	}
 	g_data.lexer->last_key = others;
 }
