@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 09:21:04 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 18:24:28 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,9 @@ struct s_data
 	int				term_height;
 	char			*color;
 	char			*prompt_color;
-<<<<<<< HEAD
 	t_deque			*heredoc_fd;
 	int				heredoc_process;
-=======
 	char			*pwd;
->>>>>>> cd needs to be tested, update_pwd message needs to be checked
 }g_data;
 
 /*
