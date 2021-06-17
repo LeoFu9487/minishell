@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 23:09:38 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 13:53:40 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 21:22:29 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ static void	create_pipe_sub_4(int size, pid_t *pid, int **pipefd, t_iofd *iofd)
 			g_data.exit_status = 128 + WTERMSIG(status);
 		if (WTERMSIG(status) == SIGQUIT)
 			ft_putendl_fd("Quit", 2);
-		//if (WTERMSIG(status) == SIGINT)
-		//	ft_putendl_fd("", 2);
+		if (WTERMSIG(status) == SIGINT)
+			ft_putendl_fd("", 2);
 	}
 	i = -1;
 	while (++i < size - 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 18:24:28 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 01:16:10 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	message_exit(int exit_code, char *message, int fd);
 void	catch_signal(void);//todo
 void	print_prompt(void);
 int		is_dir(const char *path);
+char	*ft_getcwd(char *buf, size_t size);
 
 t_double_list	*find_env_var_line(char *key);//return the whole line, don't free after calling this function
 char			*find_env_var(char *key);//return the value that corresponds to the key, ft_free after the use of this function

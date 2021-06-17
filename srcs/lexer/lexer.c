@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:57:21 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 03:23:04 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 01:04:19 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char *input_string, int idx[1])
 		lexer_space(tokens, token_buffer, input_string[idx[0]]);
 	else if (input_string[idx[0]] == '*')
 		lexer_wildcard(token_buffer);
+	else if (input_string[idx[0]] == '~')
+		lexer_tilde(token_buffer, input_string, idx);
 	else
 		lexer_general(token_buffer, input_string, idx);
 }

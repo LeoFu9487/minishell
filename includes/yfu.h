@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 13:45:07 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 01:03:54 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef enum e_switch
 	on = 0,
 	off
 }t_switch;
-/*____ok_____*/
 
 typedef enum e_lexer_key
 {
@@ -171,6 +170,8 @@ int			match(char *pattern, char *str, char *, char *);
 void		sort_string(t_deque *deque);
 int			here_document(char *eof);
 int			handle_heredoc(t_deque *tokens);
+void		lexer_tilde(t_deque *token_buffer, char *input_string, int *idx);
+char		*get_home(void);
 
 /*____todo____*/
 void		handle_ctrl_a(void);

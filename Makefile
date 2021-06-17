@@ -8,7 +8,7 @@ CC = gcc
 
 UTILS_FILE = exit.c	init.c	signal.c	find_env_var.c\
 prompt.c	is_redir.c	is_dir.c	free.c	print.c	buildin_util0.c\
-init_all.c	set_color.c
+init_all.c	set_color.c	get_home.c	ft_getcwd.c
 
 UTILS_PATH = utils/
 
@@ -36,7 +36,7 @@ EXECUTE_PATH = execute/
 LEXER_FILE = lexer.c	lexer_back_slash.c	lexer_quote.c	lexer_dquote.c\
 	lexer_semicolon.c	lexer_redir_in.c	lexer_redir_out.c	lexer_pipe.c\
 	lexer_dollar.c	lexer_space.c	lexer_general.c	wild_card.c\
-	lexer_wildcard.c	wild_card_sub.c
+	lexer_wildcard.c	wild_card_sub.c	lexer_tilde.c
 
 LEXER_PATH = lexer/
 

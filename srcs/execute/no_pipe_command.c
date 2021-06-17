@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 13:53:27 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 21:22:39 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	no_pipe_command_parent_process(void)
 		if (WTERMSIG(status) == SIGINT)
 		{
 			g_data.exit_status = 130;
-			//ft_putendl_fd("", 2);
+			ft_putendl_fd("", 2);
 		}
 	}
 }

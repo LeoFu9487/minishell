@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 13:52:36 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 21:22:20 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ static void	handle_signal(int signal)
 		if (g_data.pid && g_data.heredoc_process)
 			kill(g_data.pid, SIGUSR1);
 		else if (g_data.pid)
-		{
-			ft_putendl_fd("", 2);
 			g_data.exit_status = 130;
-		}
 	}
 }
 
