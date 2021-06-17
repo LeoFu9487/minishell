@@ -66,6 +66,7 @@ int	here_document(char *eof) //error returns 0, ok returns 1
 			close(pipefd[0]);
 			clear_heredoc_fd();
 			g_data.exit_status = 1;
+			ft_putendl_fd("", 2);
 			return (0);
 		}
 		fd = ft_malloc(1, sizeof(int));
