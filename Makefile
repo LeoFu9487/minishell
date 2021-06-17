@@ -24,7 +24,7 @@ PARSE_FILE = get_input.c	parse.c	check_parse.c\
 
 PARSE_PATH = parse/
 
-BULDIN_FILE = echo.c	env.c	exit.c	export.c	unset.c	pwd.c
+BULDIN_FILE = echo.c	env.c	exit.c	export.c	unset.c	pwd.c	cd.c
 
 BUILDIN_PATH = buildin/
 

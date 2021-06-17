@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 12:38:40 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 09:21:04 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,13 @@ struct s_data
 	int				term_height;
 	char			*color;
 	char			*prompt_color;
+<<<<<<< HEAD
 	t_deque			*heredoc_fd;
 	int				heredoc_process;
+=======
+	char			*pwd;
+>>>>>>> cd needs to be tested, update_pwd message needs to be checked
 }g_data;
-
-/*
-** builtin
-** simulates execve (args[0] will be ignored)
-*/
-
-void	builtin_cd(char **args);//todo
 
 /*
 ** utils :

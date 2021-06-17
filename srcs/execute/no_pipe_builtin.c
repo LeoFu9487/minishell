@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 15:08:09 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 16:32:52 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 12:06:36 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	no_pipe_cd(t_deque *cmd)
 		args[cnt++] = ((t_token *)cmd->head->content)->str;
 		deque_pop_front(cmd, NULL);
 	}
-	//builtin_cd(args);
+	builtin_cd(args);
 	ft_free(args);
 }
 

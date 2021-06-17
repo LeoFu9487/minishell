@@ -6,12 +6,17 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:23 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 13:20:10 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 12:06:10 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef XLI_H
 # define XLI_H
+
+/*
+** builtin
+** simulates execve (args[0] will be ignored)
+*/
 
 int		var_key_len(char *var);
 int		check_var_name(char *var);
@@ -26,5 +31,6 @@ void	builtin_pwd(char **args);
 void	builtin_export(char **args);
 void	builtin_export(char **args);
 void	builtin_pwd(char **args);
+void	builtin_cd(char **args);
 
 #endif

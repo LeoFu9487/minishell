@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 01:00:11 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 16:32:37 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 12:06:22 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	launch_builtins(char **args)
 		builtin_echo(args);
 	if (ft_strncmp(args[0], "cd", 3) == 0)
 	{
-		//builtin_cd(args);
+		builtin_cd(args);
 		message_exit(g_data.exit_status, "", -1);
 	}
 	if (ft_strncmp(args[0], "pwd", 4) == 0)
