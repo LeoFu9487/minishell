@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:06:43 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 21:22:20 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 21:53:51 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	update_term_size(int signal)
 
 static void	kill_process(int signal)
 {
+	raw_mode_switch(off);
 	message_exit(GET_KILLED, "", -1);
 	(void)signal;
 }

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/18 20:31:04 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 21:50:23 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_termcap
 typedef enum e_switch
 {
 	on = 0,
+	nocolor_on,
 	off
 }t_switch;
 
@@ -133,7 +134,7 @@ void		no_pipe_command(t_deque *cmd, t_iofd *iofd);
 void		launch_bin(char **args);
 t_token		*init_token(char *str, t_lexer_flag lexer_flag); //deep copy
 void		free_token(void *token);
-void		print_unexpected_eof_message(char *line, int pipefd[2], char *eof);
+void		print_unexpected_eof_message(char *eof);
 void		print_unexpected_eol_message(void);
 void		create_pipe(t_deque *cmd_list);
 void		ft_free_iofd(t_iofd *iofd, int size);
@@ -174,6 +175,8 @@ void		lexer_tilde(t_deque *token_buffer, char *input_string, int *idx);
 char		*get_home(void);
 void		print_fd_error(t_iofd *iofd);
 int			file_exists(const char *filename);
+void		here_document_child_process(char *eof, int *pipefd);
+void		heredoc_ctrl_d(char *eof, int pipefd);
 
 /*____todo____*/
 void		handle_ctrl_a(void);

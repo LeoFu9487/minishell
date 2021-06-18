@@ -6,36 +6,39 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 12:30:24 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/18 20:43:44 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 22:02:26 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	here_document_child_process(char *eof, int pipefd[2])
+void	here_document_child_process(char *eof, int *pipefd)
 {
 	int		len;
 	char	*line;
 
 	close(pipefd[0]);
 	len = ft_strlen(eof) + 1;
+	heredoc_ctrl_d(eof, pipefd[1]);
+	raw_mode_switch(nocolor_on);
 	ft_putstr_fd("> ", 2);
-	while (get_next_line(g_data.stdin_fd, &line) > 0)
+	line = get_input();
+	while (line)
 	{
-		if (ft_strncmp(line, eof, len) != 0)
+		if (strncmp(line, eof, len) != 0)
 		{
 			ft_putstr_fd("> ", 2);
 			ft_putendl_fd(line, pipefd[1]);
+			ft_free(line);
 		}
 		else
 		{
 			close(pipefd[1]);
+			ft_free(line);
 			message_exit(0, "", -1);
 		}
+		line = get_input();
 	}
-	print_unexpected_eof_message(line, pipefd, eof);
-	close(pipefd[1]);
-	message_exit(0, "", -1);
 }
 
 static void	clear_heredoc_fd(void)

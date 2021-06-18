@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:45:34 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 20:05:40 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 21:50:16 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	handle_ctrl_d(void)
 	if ((g_data.buffer_list == NULL || g_data.buffer_list->size == 0)
 		&& g_data.pid == 0)
 	{
+		if (g_data.heredoc_process && g_data.pid == 0)
+			heredoc_ctrl_d(NULL, -1);
 		message_exit(g_data.exit_status, "exit\n", 2);
 	}
 }
