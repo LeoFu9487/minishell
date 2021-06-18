@@ -1,0 +1,4 @@
+mkdir test
+cd test
+rm -rf test
+cd .

@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 09:49:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/14 10:05:22 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 14:38:44 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,38 @@ static int	is_only_digit(char *str)
 }
 
 /*
+** Special case '     1    2  '
+*/
+
+static int	is_sp_case(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isspace(str[i]) || str[i] == '+' || str[i] == '-')
+		i++;
+	while (ft_isdigit(str[i]))
+		i++;
+	while (str[i])
+	{
+		if (!ft_isspace(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+
+static void	exit_255_error(char *str)
+{
+	g_data.exit_status = 255;
+	ft_putendl_fd("exit", 1);
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(str, 2);
+	message_exit(g_data.exit_status, ": numeric argument required\n", 2);
+}
+
+/*
 ** If no arg, exits the whole minishell(exit code = g_data.exit_status).
 ** If argument is not numeric or bigger than long max or smaller than long min, exit(exit code 255).
 ** If >= 2 args, error message and do not exit(g_data.exit_status = 1).
@@ -70,13 +102,9 @@ void	builtin_exit(char **args)
 		|| ((args[1][0] == '-' || args[1][0] == '+') && args[1][1] == '\0') //case only '-' or '+'
 		|| (args[1][0] != '-' && ft_atoi_long(args[1]) < 0) //case args[1] > long max
 		|| (args[1][0] == '-' && ft_atoi_long(args[1]) > 0))) //case args[1] < long min
-	{
-		g_data.exit_status = 255;
-		ft_putendl_fd("exit", 1);
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(args[1], 2);
-		message_exit(g_data.exit_status, ": numeric argument required\n", 2);
-	}
+		exit_255_error(args[1]);
+	else if (is_sp_case(args[1]))
+		exit_255_error(args[1]);
 	else if (args && args[1] && args[2])
 	{
 		g_data.exit_status = 1;

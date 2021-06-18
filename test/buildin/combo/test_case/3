@@ -1,0 +1,4 @@
+export hello
+export hello=
+env | grep hello
+export | grep hello

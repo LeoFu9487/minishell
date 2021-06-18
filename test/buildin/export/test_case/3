@@ -1,0 +1,3 @@
+export hello
+export hello=coucou
+export hello+=&salut

@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 13:56:14 by xli               #+#    #+#             */
-/*   Updated: 2021/06/17 18:08:32 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 10:22:19 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ static void	unset_var(char *var)
 		if (!ft_strncmp(var, var_key, ft_strlen(var))
 			&& (int)ft_strlen(var) == var_key_len(temp->content))
 		{
-			if (ft_strchr(temp->content, '='))
-			{
-				deque_pop_one(g_data.env_list, temp, NULL);
-				break ;
-			}
+			deque_pop_one(g_data.env_list, temp, NULL);
+			break ;
 		}
 		temp = temp->next;
 	}
@@ -51,7 +48,8 @@ void	builtin_unset(char **args)
 	if (args[1] && args[1][0] == '-')
 	{
 		g_data.exit_status = 1;
-		ft_putendl_fd("unset: does not take options\n", 2);
+		ft_putendl_fd("unset: does not take options", 2);
+		return ;
 	}
 	i = 0;
 	while (args[++i])
