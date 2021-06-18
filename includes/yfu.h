@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/18 21:50:23 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 22:21:18 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void		print_fd_error(t_iofd *iofd);
 int			file_exists(const char *filename);
 void		here_document_child_process(char *eof, int *pipefd);
 void		heredoc_ctrl_d(char *eof, int pipefd);
-
+int			integrate_forks_for_pipe(int size, pid_t *pid);
 /*____todo____*/
 void		handle_ctrl_a(void);
 void		handle_ctrl_b(void);

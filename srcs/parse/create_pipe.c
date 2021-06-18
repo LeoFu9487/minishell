@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 23:09:38 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/18 22:13:04 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 22:21:09 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,31 +83,9 @@ t_iofd *iofd)
 
 static void	create_pipe_sub_4(int size, pid_t *pid, int **pipefd, t_iofd *iofd)
 {
-	int	status;
 	int	i;
-	int	sigint;
 
-	i = -1;
-	sigint = 0;
-	while (++i < size - 1)
-	{
-		waitpid(pid[i], &status, 0);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			sigint = 1;
-	}
-	waitpid(pid[size - 1], &status, 0);
-	if (WIFEXITED(status))
-		g_data.exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGQUIT || WTERMSIG(status) == SIGINT)
-			g_data.exit_status = 128 + WTERMSIG(status);
-		if (WTERMSIG(status) == SIGQUIT)
-			ft_putendl_fd("Quit", 2);
-		if (WTERMSIG(status) == SIGINT)
-			sigint = 1;
-	}
-	if (sigint)
+	if (integrate_forks_for_pipe(size, pid))
 		ft_putendl_fd("", 2);
 	i = -1;
 	while (++i < size - 1)
