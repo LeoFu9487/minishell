@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 12:30:24 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 13:45:40 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 20:43:44 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,39 +47,43 @@ static void	clear_heredoc_fd(void)
 	}
 }
 
-int	here_document(char *eof) //error returns 0, ok returns 1
+static int	here_document_parent_process(int pipefd[2])
+{
+	int	status;
+	int	*fd;
+
+	close(pipefd[1]);
+	waitpid(g_data.pid, &status, 0);
+	g_data.heredoc_process = 0;
+	if (WIFEXITED(status) && WEXITSTATUS(status) == GET_KILLED)
+	{
+		close(pipefd[0]);
+		clear_heredoc_fd();
+		g_data.exit_status = 1;
+		ft_putendl_fd("", 2);
+		return (0);
+	}
+	fd = ft_malloc(1, sizeof(int));
+	*fd = pipefd[0];
+	deque_push_back(g_data.heredoc_fd, fd);
+	return (1);
+}
+
+int	here_document(char *eof)
 {
 	int		pipefd[2];
-	int		status;
-	int		*fd;
 
 	pipe(pipefd);
 	g_data.pid = fork();
 	g_data.heredoc_process = 1;
 	if (g_data.pid)
-	{
-		close(pipefd[1]);
-		waitpid(g_data.pid, &status, 0);
-		g_data.heredoc_process = 0;
-		if (WIFEXITED(status) && WEXITSTATUS(status) == GET_KILLED)
-		{
-			close(pipefd[0]);
-			clear_heredoc_fd();
-			g_data.exit_status = 1;
-			ft_putendl_fd("", 2);
-			return (0);
-		}
-		fd = ft_malloc(1, sizeof(int));
-		*fd = pipefd[0];
-		deque_push_back(g_data.heredoc_fd, fd);
-		return (1);
-	}
+		return (here_document_parent_process(pipefd));
 	else
 		here_document_child_process(eof, pipefd);
 	return (0);
 }
 
-int	handle_heredoc(t_deque *tokens) // return 1 if ok, 0 error
+int	handle_heredoc(t_deque *tokens)
 {
 	t_double_list	*iterator[2];
 

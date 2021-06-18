@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 21:23:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/14 21:31:16 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 20:35:08 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,37 @@ void	print_unexpected_eol_message(void)
 		ft_putendl_fd("\'\'", 2);
 	else if (g_data.lexer_error == backslash)
 		ft_putendl_fd("\\\'", 2);
+}
+
+static void	print_stdin_fd_error(t_iofd *iofd)
+{
+	ft_putstr_fd(iofd->in_file, 2);
+	ft_putstr_fd(": ", 2);
+	if (!file_exists(iofd->in_file))
+		ft_putendl_fd("No such file or directory", 2);
+	else if (is_dir(iofd->in_file))
+		ft_putendl_fd("Is a redirectory", 2);
+	else
+		ft_putendl_fd("Permission denied", 2);
+}
+
+static void	print_stdout_fd_error(t_iofd *iofd)
+{
+	ft_putstr_fd(iofd->out_file, 2);
+	ft_putstr_fd(": ", 2);
+	if (!file_exists(iofd->out_file))
+		ft_putendl_fd("No such file or directory", 2);
+	else if (is_dir(iofd->out_file))
+		ft_putendl_fd("Is a redirectory", 2);
+	else
+		ft_putendl_fd("Permission denied", 2);
+}
+
+void	print_fd_error(t_iofd *iofd)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (iofd->stdin_fd < 0)
+		print_stdin_fd_error(iofd);
+	else
+		print_stdout_fd_error(iofd);
 }

@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 23:27:15 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 21:22:39 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 20:16:05 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,9 @@
 
 static int	fd_error(t_iofd *iofd)
 {
-	if (iofd->stdin_fd < 0)
+	if (iofd->stdin_fd < 0 || iofd->stdout_fd < 0)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		if (ft_strncmp(iofd->in_file, "", 1) == 0)
-			ft_putstr_fd(": ", 2);
-		perror(iofd->in_file);
-		g_data.exit_status = 1;
-		return (1);
-	}
-	if (iofd->stdout_fd < 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		if (ft_strncmp(iofd->out_file, "", 1) == 0)
-			ft_putstr_fd(": ", 2);
-		perror(iofd->out_file);
+		print_fd_error(iofd);
 		g_data.exit_status = 1;
 		return (1);
 	}

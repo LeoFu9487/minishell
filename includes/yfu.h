@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/18 01:03:54 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 20:31:04 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@ int			here_document(char *eof);
 int			handle_heredoc(t_deque *tokens);
 void		lexer_tilde(t_deque *token_buffer, char *input_string, int *idx);
 char		*get_home(void);
+void		print_fd_error(t_iofd *iofd);
+int			file_exists(const char *filename);
 
 /*____todo____*/
 void		handle_ctrl_a(void);

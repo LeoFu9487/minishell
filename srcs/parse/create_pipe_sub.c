@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 02:34:39 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/15 03:43:18 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/18 20:13:07 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,7 @@ static void	create_pipe_child_sub(int i, t_iofd *iofd)
 {
 	if (iofd[i].stdin_fd < 0 || iofd[i].stdout_fd < 0)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		if ((iofd[i].stdin_fd < 0 && ft_strncmp(iofd[i].in_file, "", 1) == 0)
-			|| (iofd[i].stdout_fd < 0
-				&& ft_strncmp(iofd[i].out_file, "", 1) == 0))
-			ft_putstr_fd(": ", 2);
-		if (iofd[i].stdin_fd < 0)
-			perror(iofd[i].in_file);
-		else
-			perror(iofd[i].out_file);
+		print_fd_error(&iofd[i]);
 		message_exit(1, "", -1);
 	}
 	if (iofd[i].stdin_fd != STDIN_FILENO)
