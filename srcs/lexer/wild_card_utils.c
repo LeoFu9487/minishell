@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wild_card_sub.c                                    :+:      :+:    :+:   */
+/*   wild_card_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 04:02:56 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 04:05:25 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/19 02:21:06 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,42 @@ void	sort_string(t_deque *deque)
 		cnt[0] = 0;
 		sub(cnt, iterator, deque);
 	}
+}
+
+int	match(char *p, char *s, char *star, char *sptr)
+{
+	while (*s)
+	{
+		if (*s == *p)
+		{
+			++s;
+			++p;
+		}
+		else if (*p == -1)
+		{
+			star = p++;
+			sptr = s;
+		}
+		else if (star)
+		{
+			s = ++sptr;
+			p = star + 1;
+		}
+		else
+			return (0);
+	}
+	while (*p == -1)
+		++p;
+	return (*p == '\0');
+}
+
+int	has_wild_card(char *str)
+{
+	while (*str)
+	{
+		if (*str == -1)
+			return (1);
+		++str;
+	}
+	return (0);
 }

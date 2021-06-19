@@ -6,31 +6,22 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 02:45:09 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 04:03:13 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/19 02:23:50 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	has_wild_card(char *str)
-{
-	while (*str)
-	{
-		if (*str == -1)
-			return (1);
-		++str;
-	}
-	return (0);
-}
-
-t_deque	*get_all_files(void)
+t_deque	*get_files_not_dot(char *path)
 {
 	DIR				*d;
 	struct dirent	*dir;
 	t_deque			*all_files;
 
+	if (ft_strncmp(path, "", 1) == 0)
+		path = ".";
 	all_files = deque_init();
-	d = opendir(".");
+	d = opendir(path);
 	if (d)
 	{
 		while (1)
@@ -47,57 +38,68 @@ t_deque	*get_all_files(void)
 	return (all_files);
 }
 
-int	match(char *p, char *s, char *star, char *sptr)
+t_deque	*get_files_start_from_dot(char *path)
 {
-	while (*s)
+	DIR				*d;
+	struct dirent	*dir;
+	t_deque			*all_files;
+
+	if (ft_strncmp(path, "", 1) == 0)
+		path = ".";
+	all_files = deque_init();
+	d = opendir(path);
+	if (d)
 	{
-		if (*s == *p)
+		while (1)
 		{
-			++s;
-			++p;
+			dir = readdir(d);
+			if (dir == NULL)
+				break ;
+			if (dir->d_name[0] == '.')
+				deque_push_back(all_files, ft_strdup(dir->d_name));
 		}
-		else if (*p == -1)
-		{
-			star = p++;
-			sptr = s;
-		}
-		else if (star)
-		{
-			s = ++sptr;
-			p = star + 1;
-		}
-		else
-			return (0);
+		closedir(d);
 	}
-	while (*p == -1)
-		++p;
-	return (*p == '\0');
+	sort_string(all_files);
+	return (all_files);
 }
 
-void	wild_card(t_deque *tokens, char *str)
+static char	*get_new_pattern(int cnt[2], char *pattern)
 {
-	t_deque			*all_files;
-	t_double_list	*iterator;
-	int				cnt;
+	char	*new_pattern;
 
-	all_files = get_all_files();
-	iterator = all_files->head;
-	cnt = -1;
-	while (iterator)
+	new_pattern = ft_calloc(ft_strlen(pattern) + 1, sizeof(char));
+	cnt[0] = 0;
+	cnt[1] = -1;
+	while (pattern[++cnt[1]])
 	{
-		if (match(str, iterator->content, NULL, NULL))
-		{
-			deque_push_back(tokens, init_token(iterator->content, _undefined));
-			cnt = 1;
-		}
-		iterator = iterator->next;
+		if (cnt[1] != 0 && pattern[cnt[1] - 1] == '/' && pattern[cnt[1]] == '/')
+			continue ;
+		new_pattern[cnt[0]++] = pattern[cnt[1]];
 	}
-	if (cnt == -1)
+	return (new_pattern);
+}
+
+void	wild_card(t_deque *tokens, char *pattern)
+{
+	int		is_matched;
+	int		cnt[2];
+	char	*new_pattern;
+
+	is_matched = 0;
+	new_pattern = get_new_pattern(cnt, pattern);
+	if (new_pattern[0] == '/')
+		wild_card_recursive(ft_strdup("/"), new_pattern + 1,
+			&is_matched, tokens);
+	else
+		wild_card_recursive(ft_strdup(""), new_pattern, &is_matched, tokens);
+	if (is_matched == 0)
 	{
-		while (str[++cnt])
-			if (str[cnt] == -1)
-				str[cnt] = '*';
-		deque_push_back(tokens, init_token(str, _undefined));
+		cnt[0] = -1;
+		while (pattern[++cnt[0]])
+			if (pattern[cnt[0]] == -1)
+				pattern[cnt[0]] = '*';
+		deque_push_back(tokens, init_token(pattern, _undefined));
 	}
-	deque_clear(all_files, ft_free);
+	ft_free(new_pattern);
 }

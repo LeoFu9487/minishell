@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/18 22:30:19 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/19 00:18:24 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void			no_pipe_cd(t_deque *cmd);
 void			no_pipe_export(t_deque *cmd);
 void			no_pipe_unset(t_deque *cmd);
 int				set_color(char *input_string);
-void			wild_card(t_deque *tokens, char *str);
+void			wild_card(t_deque *tokens, char *pattern);
 int				has_wild_card(char *str);
 int				match(char *pattern, char *str, char *star, char *sptr);
 void			sort_string(t_deque *deque);
@@ -184,6 +184,11 @@ int				file_exists(const char *filename);
 void			here_document_child_process(char *eof, int *pipefd);
 void			heredoc_ctrl_d(char *eof, int pipefd);
 int				integrate_forks_for_pipe(int size, pid_t *pid);
+t_deque			*get_files_not_dot(char *path);
+t_deque			*get_files_start_from_dot(char *path);
+void			wild_card_recursive(char *path, char *pattern, int *is_matched,
+					t_deque *tokens);
+
 /*____todo____*/
 void			handle_ctrl_a(void);
 void			handle_ctrl_b(void);
