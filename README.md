@@ -1,34 +1,44 @@
 # minishell
 
-### 檔案
-最終提交檔案
-1. Makefile
-2. srcs/*
-3. includes/*
-開發用
-1. todo.txt
-2. tester/*
+### Keyboard handling
 
-### 工作分配
-1. libft (test it and check norm) xli
-2. Makefile
-3. main.c, minishell.h (這兩個檔案以整合parse, execute為目標，並且只將共用prototype放入minishell.h)
-4. parse (yfu)
-5. execute (xli)
-6. variables ($)
+##### Mandatory
+1. Normal input such as alphabets and numbers 
+2. Arrow up and arrow down for browsing history
+3. Ctrl-D, Ctrl-C, Ctrl-\ send signals as in bash
 
-### 注意事項
-1. 每次進行修改時另開branch，等到所有人+tester都驗證完功能以後再進行merge，詳見參考資料1
-2. 每個功能都盡可能多次commit，並清楚撰寫commit message（中或英文)， 詳見參考資料2
-3. 檔案名稱與函式名稱務必以易理解為原則
-4. 寫註解，讓所有人都能看懂為佳，至少要確保以後的自己仍看得懂並能清楚解釋
-5. norm是最後一步，確定功能完備前不宜為norm而破壞可讀性
+##### Bonus
+1. Backspace and delete work as in bash
+2. Arrow left and arrow right work as in bash (to move the cursor)
+3. Ctrl-L works as in bash
+4. Home and end to move the cursor to the beginning or the back of the line respectively
 
-### 參考資料
-1. git branch
+### Parsing
 
-https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6
+##### Mandatory
+1. Quotes (') and double quotes (") work as in bash except for multiline commands
+2. Pipe ('|') works as in bash
+3. Redirections ('<', '>', '<<'. '>>') work as in bash
+4. Dollar sign ('$') looks for the corresponding environment variable or "$?"
 
-2. git commit message
+##### Bonus
+1. Backslash ('\') works as in bash except for multiline commands
+2. Semicolon (';') works as in bash
+3. Asterisk ('*') works as in bash (not only in current working direcotry)
+4. Tilde ('~') works as in bash except when $HOME is not set (A forbidden function is necessary to simulate this situation).
 
-https://chris.beams.io/posts/git-commit/
+### Builtins (xli 交給你了)
+
+### Other features
+1. Change text color and change prompt color
+##### supported colors : 
+BLACK, WHITE, RED, GREEN, YELLOW, PURPLE, BLUE, CYAN
+##### usage :
+To change text color, simply type one of the "supported colors" in capital letters.
+
+![intro1](https://user-images.githubusercontent.com/70040774/122655992-3535a480-d157-11eb-84db-2228bc7b496d.png)
+
+
+To change prompt color, type P_"supported color" in capital letters.
+
+![intro2](https://user-images.githubusercontent.com/70040774/122655999-4383c080-d157-11eb-8ff9-e01585e36018.png)
