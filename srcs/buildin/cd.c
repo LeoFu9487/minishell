@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 12:05:26 by xli               #+#    #+#             */
-/*   Updated: 2021/06/20 14:27:44 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/20 15:17:12 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static int	update_pwd(char *str)
 		g_data.pwd = ft_strjoin(pwd, "/.");
 		ft_free(pwd);
 	}
-	else if (cwd || !ft_strncmp(str, "~", 2))
+	else if ((cwd || !ft_strncmp(str, "~", 2))
+		&& !chdir(find_env_var("PWD")) && !chdir(find_env_var("OLDPWD")))
 	{
 		update_env_oldpwd();
 		update_env_pwd();
