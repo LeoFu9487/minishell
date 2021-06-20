@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 22:53:33 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/19 02:33:56 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/20 12:07:44 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static void	sub_sub(char *str[4], int *is_matched, t_deque *tokens)
 		if (str[2][1])
 			wild_card_recursive(str[1], str[2] + 1, is_matched, tokens);
 		else
+		{
+			*is_matched = 1;
 			deque_push_back(tokens, init_token(str[1], _undefined));
+		}
 	}
 }
 
