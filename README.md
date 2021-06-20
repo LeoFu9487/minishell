@@ -3,7 +3,7 @@
 ### Keyboard handling
 
 ##### Mandatory
-1. Normal input such as alphabets and numbers 
+1. Normal input such as alphabets and numbers
 2. Arrow up and arrow down for browsing history
 3. Ctrl-D, Ctrl-C, Ctrl-\ send signals as in bash
 
@@ -27,11 +27,24 @@
 3. Asterisk ('*') works as in bash (not only in current working direcotry)
 4. Tilde ('~') works as in bash except when $HOME is not set (A forbidden function is necessary to simulate this situation).
 
-### Builtins (xli 交給你了)
+### Builtins
+
+#### Mandatory
+1. 'cd' with both relative and absolute path work as in bash
+2. 'echo' and with option -n work as in bash
+3. 'env' works as in bash except with options or arguments
+4. 'exit' works as in bash except with options
+5. 'export' works as in bash except with options
+6. 'pwd' works as in bash except with options
+7. 'unset' works as in bash except with options
+
+#### Bonus
+1. 'cd ~' works as in bash except when $HOME is not set (A forbidden function is necessary to simulate this situation).
+2. 'cd -' works as in bash
 
 ### Other features
 1. Change text color and change prompt color
-##### supported colors : 
+##### supported colors :
 BLACK, WHITE, RED, GREEN, YELLOW, PURPLE, BLUE, CYAN
 ##### usage :
 To change text color, simply type one of the "supported colors" in capital letters.
