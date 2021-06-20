@@ -44,7 +44,7 @@
 3. 'cd -' works as in bash
 
 ### Other features
-1. Change text color and change prompt color
+Change text color and change prompt color
 ##### supported colors :
 BLACK, WHITE, RED, GREEN, YELLOW, PURPLE, BLUE, CYAN
 ##### usage :
