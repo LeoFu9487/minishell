@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 12:05:26 by xli               #+#    #+#             */
-/*   Updated: 2021/06/18 01:30:23 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/20 14:27:44 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	update_pwd(char *str)
 	char	*pwd;
 
 	cwd = ft_getcwd(NULL, 0);
-	if (!cwd && str && !ft_strncmp(str, ".", 1))
+	if (!cwd && str && !ft_strncmp(str, ".", 2))
 	{
 		ft_putstr_fd("cd: error retrieving current directory: ", 2);
 		ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
@@ -75,6 +75,34 @@ static int	update_pwd(char *str)
 }
 
 /*
+** Switch between OLDPWD and PWD
+*/
+
+static void	switch_pwd(void)
+{
+	char	*temp;
+	char	*old_pwd;
+	char	*pwd;
+
+	if (chdir(find_env_var("OLDPWD")))
+	{
+		g_data.exit_status = 1;
+		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
+		return ;
+	}
+	temp = find_env_var("PWD");
+	old_pwd = ft_strjoin("OLDPWD=", temp);
+	temp = find_env_var("OLDPWD");
+	pwd = ft_strjoin("PWD=", temp);
+	ft_free(temp);
+	deque_pop_one(g_data.env_list, find_env_var_line("OLDPWD"), ft_free);
+	deque_push_back(g_data.env_list, old_pwd);
+	deque_pop_one(g_data.env_list, find_env_var_line("PWD"), ft_free);
+	deque_push_back(g_data.env_list, pwd);
+	ft_putendl_fd(find_env_var("PWD"), 2);
+}
+
+/*
 ** If no arg, changes the working directory to $HOME if it exists.
 ** Otherwise changes the working directory using first arg.
 ** Handles absolute path, relative path and '~'.
@@ -83,7 +111,8 @@ static int	update_pwd(char *str)
 void	builtin_cd(char **args)
 {
 	g_data.exit_status = 0;
-	if (args && !args[1])
+	if (!args[1] || !ft_strncmp(args[1], "~", 2)
+		|| !ft_strncmp(args[1], "--", 3))
 	{
 		if (chdir(find_env_var("HOME"))) //fail to find HOME
 		{
@@ -92,11 +121,8 @@ void	builtin_cd(char **args)
 			return ;
 		}
 	}
-	else if (args[1] && args[1][0] == '-') //cd does not handle options
-	{
-		g_data.exit_status = 1;
-		ft_putendl_fd("cd: does not take options", 2);
-	}
+	else if (args[1] && !ft_strncmp(args[1], "-", 2))
+		switch_pwd();
 	else if (chdir(args[1]))
 	{
 		g_data.exit_status = 1;

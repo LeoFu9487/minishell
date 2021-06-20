@@ -40,7 +40,8 @@
 
 #### Bonus
 1. 'cd ~' works as in bash except when $HOME is not set (A forbidden function is necessary to simulate this situation).
-2. 'cd -' works as in bash
+2. 'cd --' works as in bash
+3. 'cd -' works as in bash
 
 ### Other features
 1. Change text color and change prompt color
