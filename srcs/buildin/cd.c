@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 12:05:26 by xli               #+#    #+#             */
-/*   Updated: 2021/06/20 15:17:12 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/21 10:44:13 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,20 @@ static void	update_env_oldpwd(void)
 
 	pwd = ft_strjoin("PWD=", g_data.pwd);
 	old_pwd = ft_strjoin("OLD", pwd);
-	ft_free(pwd);
-	if (find_env_var("OLDPWD"))
-	{
+	if (!find_env_var("PWD"))
 		deque_pop_one(g_data.env_list, find_env_var_line("OLDPWD"), ft_free);
-		deque_push_back(g_data.env_list, old_pwd);
-	}
 	else
-		deque_push_back(g_data.env_list, old_pwd);
+	{
+		if (find_env_var("OLDPWD"))
+		{
+			deque_pop_one(g_data.env_list, find_env_var_line("OLDPWD"),
+				ft_free);
+			deque_push_back(g_data.env_list, old_pwd);
+		}
+		else
+			deque_push_back(g_data.env_list, old_pwd);
+	}
+	ft_free(pwd);
 }
 
 static void	update_env_pwd(void)
@@ -41,8 +47,6 @@ static void	update_env_pwd(void)
 		deque_pop_one(g_data.env_list, find_env_var_line("PWD"), ft_free);
 		deque_push_back(g_data.env_list, pwd);
 	}
-	else
-		deque_push_back(g_data.env_list, pwd);
 }
 
 /*
@@ -65,8 +69,7 @@ static int	update_pwd(char *str)
 		g_data.pwd = ft_strjoin(pwd, "/.");
 		ft_free(pwd);
 	}
-	else if ((cwd || !ft_strncmp(str, "~", 2))
-		&& !chdir(find_env_var("PWD")) && !chdir(find_env_var("OLDPWD")))
+	else if (cwd || !ft_strncmp(str, "~", 2))
 	{
 		update_env_oldpwd();
 		update_env_pwd();
