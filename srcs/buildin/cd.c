@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 12:05:26 by xli               #+#    #+#             */
-/*   Updated: 2021/06/21 10:44:13 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 13:33:22 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	builtin_cd(char **args)
 	if (!args[1] || !ft_strncmp(args[1], "~", 2)
 		|| !ft_strncmp(args[1], "--", 3))
 	{
-		if (chdir(find_env_var("HOME"))) //fail to find HOME
+		if (chdir(find_env_var("HOME")))
 		{
 			g_data.exit_status = 1;
 			ft_putendl_fd("minishell: cd: HOME not set", 2);

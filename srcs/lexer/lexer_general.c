@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_general.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 03:52:45 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/20 18:45:22 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 14:19:27 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ static void	sub2_1(t_deque *token_buffer, int idx[1], char *str, char *var[2])
 		while (var[1][cnt] && (ft_isalnum(var[1][cnt]) || var[1][cnt] == '_'))
 			++cnt;
 		var[1][cnt] = 0;
-		if (ft_strncmp(var[1], "PWD", 4) == 0)
-			var[0] = ft_strdup(g_data.pwd);
-		else
-			var[0] = find_env_var(var[1]);
+		var[0] = find_env_var(var[1]);
 		ft_free(var[1]);
 		(*idx) += cnt - 1;
 	}
@@ -94,6 +91,7 @@ static void	sub2(t_deque *token_buffer, int idx[1], char *str, char *var[2])
 {
 	int	cnt;
 
+	g_data.exit_status = 0;
 	if (str[*idx] == '?')
 		var[0] = find_env_var("$?");
 	else if (str[*idx] >= '0' && str[*idx] <= '9')

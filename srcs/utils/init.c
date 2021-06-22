@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 16:42:03 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/17 16:10:54 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 14:11:31 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,21 @@ static void	modify_shlvl(void)
 
 void	init_env(char **env)
 {
-	int		idx[2];
+	int				idx[2];
+	t_double_list	*iterator;
 
 	g_data.env_list = deque_init();
 	idx[0] = -1;
 	while (env[++idx[0]])
 		if (ft_strncmp(env[idx[0]], "OLDPWD=", 7) != 0)
 			deque_push_back(g_data.env_list, env[idx[0]]);
+	iterator = find_env_var_line("PWD");
+	if (iterator)
+	{
+		ft_free(iterator->content);
+		iterator->content = ft_strjoin("PWD=", g_data.pwd);
+	}
+	else
+		deque_push_back(g_data.env_list, ft_strjoin("PWD=", g_data.pwd));
 	modify_shlvl();
 }

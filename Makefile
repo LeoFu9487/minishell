@@ -2,13 +2,13 @@ NAME = minishell
 
 LIBSH = libmsh.a
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 
 CC = gcc
 
 UTILS_FILE = exit.c	init.c	signal.c	find_env_var.c\
 prompt.c	is_redir.c	is_dir.c	free.c	print.c	buildin_util0.c\
-init_all.c	set_color.c	get_home.c	ft_getcwd.c
+init_all.c	set_color.c	get_home.c	ft_getcwd.c	buildin_util1.c
 
 UTILS_PATH = utils/
 
@@ -111,4 +111,4 @@ re : fclean all
 
 .PHONY: all clean fclean re bonus test
 
-#.SILENT :
+.SILENT :

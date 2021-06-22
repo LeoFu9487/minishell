@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 16:22:00 by xli               #+#    #+#             */
-/*   Updated: 2021/06/14 10:11:30 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 13:34:51 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static char	**check_n(char **args, int *option_n)
 {
 	int	i;
 
-	while (*args && !ft_strncmp((*args), "-n", 2)) //check all the '-n'
+	while (*args && !ft_strncmp((*args), "-n", 2))
 	{
-		i = 2; //first two char are '-n'
+		i = 2;
 		while ((*args)[i] == 'n')
 			i++;
-		if ((*args)[i] == '\0') //if '\0' means only 'n' in the string >> n option = 1
+		if ((*args)[i] == '\0')
 			*option_n = 1;
-		else //otherwise n option = 0 >> print out the string
+		else
 			return (args);
 		args++;
 	}
@@ -47,10 +47,10 @@ void	builtin_echo(char **args)
 
 	i = 0;
 	option_n = 0;
-	args++; //args[0] == echo "string"
+	args++;
 	if (!(*args))
 		message_exit(0, "\n", 1);
-	args = check_n(args, &option_n); //search for a n option
+	args = check_n(args, &option_n);
 	while (args[i])
 	{
 		ft_putstr_fd(args[i], 1);

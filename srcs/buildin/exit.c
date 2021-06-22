@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 09:49:31 by xli               #+#    #+#             */
-/*   Updated: 2021/06/18 14:38:44 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 13:35:30 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static int	is_sp_case(char *str)
 	return (0);
 }
 
-
 static void	exit_255_error(char *str)
 {
 	g_data.exit_status = 255;
@@ -87,7 +86,8 @@ static void	exit_255_error(char *str)
 
 /*
 ** If no arg, exits the whole minishell(exit code = g_data.exit_status).
-** If argument is not numeric or bigger than long max or smaller than long min, exit(exit code 255).
+** If argument is not numeric or bigger than long max or smaller than long min,
+** exit(exit code 255).
 ** If >= 2 args, error message and do not exit(g_data.exit_status = 1).
 ** Else exit with atoi(code).
 */
@@ -96,12 +96,12 @@ void	builtin_exit(char **args)
 {
 	if (args && !args[1])
 		message_exit(g_data.exit_status, "exit\n", 1);
-	else if (args[1] && !ft_isspace(args[1][0]) && (ft_strlen(args[1]) > 20 //case len of args[1] > len of long max
+	else if (args[1] && !ft_isspace(args[1][0]) && (ft_strlen(args[1]) > 20
 		|| ((args[1][0] != '-' && args[1][0] != '+' && !ft_isdigit(args[1][0]))
-		|| !is_only_digit(&args[1][1])) //case first char is '-'
-		|| ((args[1][0] == '-' || args[1][0] == '+') && args[1][1] == '\0') //case only '-' or '+'
-		|| (args[1][0] != '-' && ft_atoi_long(args[1]) < 0) //case args[1] > long max
-		|| (args[1][0] == '-' && ft_atoi_long(args[1]) > 0))) //case args[1] < long min
+		|| !is_only_digit(&args[1][1]))
+		|| ((args[1][0] == '-' || args[1][0] == '+') && args[1][1] == '\0')
+		|| (args[1][0] != '-' && ft_atoi_long(args[1]) < 0)
+		|| (args[1][0] == '-' && ft_atoi_long(args[1]) > 0)))
 		exit_255_error(args[1]);
 	else if (is_sp_case(args[1]))
 		exit_255_error(args[1]);

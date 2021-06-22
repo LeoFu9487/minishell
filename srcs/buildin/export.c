@@ -6,7 +6,7 @@
 /*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 11:43:07 by xli               #+#    #+#             */
-/*   Updated: 2021/06/15 17:41:42 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 13:34:12 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	builtin_export(char **args)
 	int	i;
 
 	g_data.exit_status = 0;
-	if (args && !args[1]) //export with no argument
+	if (args && !args[1])
 		print_sorted_env();
-	if (args[1] && args[1][0] == '-') //export does not handle options
+	if (args[1] && args[1][0] == '-')
 	{
 		g_data.exit_status = 1;
 		ft_putendl_fd("export: does not take options", 2);
@@ -65,15 +65,15 @@ void	builtin_export(char **args)
 	i = 0;
 	while (args[++i])
 	{
-		if (!check_var_name(args[i])) //if var's name is not valid >> error
+		if (!check_var_name(args[i]))
 		{
 			ft_putstr_fd("export: `", 2);
 			ft_putstr_fd(args[i], 2);
 			ft_putendl_fd("': not a valid identifier", 2);
 		}
-		else if (is_new_var(args[i])) //if var does not exsit in env list
+		else if (is_new_var(args[i]))
 			deque_push_back(g_data.env_list, args[i]);
-		else if (!is_new_var(args[i])) //if var exsits in env list >> update env list
+		else if (!is_new_var(args[i]))
 			update_var(args[i]);
 	}
 }
