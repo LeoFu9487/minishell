@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   str_is_space.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 17:18:01 by xli               #+#    #+#             */
-/*   Updated: 2021/06/22 17:21:21 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/23 01:15:04 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		str_is_space(char *str)
+int	str_is_space(char *str)
 {
 	while (str && *str)
 		if (!ft_isspace(*str))
