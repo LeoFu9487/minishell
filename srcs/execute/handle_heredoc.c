@@ -25,7 +25,7 @@ void	here_document_child_process(char *eof, int *pipefd)
 	line = get_input();
 	while (line)
 	{
-		if (strncmp(line, eof, len) != 0)
+		if (ft_strncmp(line, eof, len) != 0)
 		{
 			ft_putstr_fd("> ", 2);
 			ft_putendl_fd(line, pipefd[1]);
