@@ -24,7 +24,7 @@
 ##### Bonus
 1. Backslash ('\\') works as in bash except for multiline commands
 2. Semicolon (';') works as in bash
-3. Asterisk ('*') works as in bash (not only in current working direcotry)
+3. Wildcard : Asterisk ('*') and question mark ('?') work as in bash (not only in current working direcotry)
 4. Tilde ('~') works as in bash except when $HOME is not set (A forbidden function is necessary to simulate this situation).
 
 ### Builtins
