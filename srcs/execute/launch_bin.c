@@ -80,6 +80,7 @@ static void	find_path(char **args, char **env)
 			multiple_path(path, ct, args, env);
 		++var;
 	}
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(args[0], 2);
 	if (ct[2])
 		ft_putendl_fd(": Permission denied", 2);

@@ -91,7 +91,6 @@ static void	sub2(t_deque *token_buffer, int idx[1], char *str, char *var[2])
 {
 	int	cnt;
 
-	g_data.exit_status = 0;
 	if (str[*idx] == '?')
 		var[0] = find_env_var("$?");
 	else if (str[*idx] >= '0' && str[*idx] <= '9')
