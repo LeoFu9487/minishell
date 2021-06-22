@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 02:45:09 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/19 02:23:50 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/23 00:47:43 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,12 @@ void	wild_card(t_deque *tokens, char *pattern)
 	{
 		cnt[0] = -1;
 		while (pattern[++cnt[0]])
+		{
 			if (pattern[cnt[0]] == -1)
 				pattern[cnt[0]] = '*';
+			if (pattern[cnt[0]] == -2)
+				pattern[cnt[0]] = '?';
+		}
 		deque_push_back(tokens, init_token(pattern, _undefined));
 	}
 	ft_free(new_pattern);

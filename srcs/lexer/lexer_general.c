@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_general.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 03:52:45 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/22 14:19:27 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/23 00:51:25 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,12 @@ void	lexer_general(t_deque *token_buffer, char *str, int *idx)
 		sub1(token_buffer, idx, str, var);
 	else if (g_data.lexer->last_key == dollar)
 		sub2(token_buffer, idx, str, var);
+	else if (g_data.lexer->last_key != back_slash && str[*idx] == '?')
+	{
+		var[0] = ft_calloc(2, sizeof(char));
+		var[0][0] = -2;
+		deque_push_back(token_buffer, var[0]);
+	}
 	else
 		deque_push_back(token_buffer, ft_substr(str, *idx, 1));
 	g_data.lexer->last_key = others;
