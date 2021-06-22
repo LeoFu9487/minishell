@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
+/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/22 17:22:00 by xli              ###   ########lyon.fr   */
+/*   Updated: 2021/06/23 00:32:06 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,23 @@ static void	no_empty_process(char *input_string, t_deque *tokens)
 	if (ft_strncmp(input_string, g_data.history->tail->content,
 			ft_strlen(input_string) + 1) != 0)
 		deque_push_back(g_data.history, input_string);
-	parse_and_execute(tokens);
+	if (tokens->size > 0)
+		parse_and_execute(tokens);
+	else
+	{
+		if (g_data.lexer_error == NoError)
+			g_data.exit_status = 0;
+		else
+		{
+			g_data.exit_status = 2;
+			print_unexpected_eol_message();
+		}
+	}
 }
 
 static void	empty_process(char *input_string)
 {
-	if (g_data.lexer_error != NoError)
-	{
-		if (ft_strncmp(input_string, g_data.history->tail->content,
-				ft_strlen(input_string) + 1) != 0)
-			deque_push_back(g_data.history, input_string);
-		g_data.exit_status = 2;
-		print_unexpected_eol_message();
-	}
-	else
-	{
-		if (!str_is_space(input_string))
-			g_data.exit_status = 0;
-		ft_free(input_string);
-	}
+	ft_free(input_string);
 }
 
 void	main_loop(void)
@@ -54,10 +52,10 @@ void	main_loop(void)
 		else
 		{
 			tokens = lexer(input_string);
-			if (tokens->size > 0)
-				no_empty_process(input_string, tokens);
-			else
+			if (str_is_space(input_string))
 				empty_process(input_string);
+			else
+				no_empty_process(input_string, tokens);
 			deque_clear(tokens, free_token);
 		}
 	}
