@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 17:18:01 by xli               #+#    #+#             */
-/*   Updated: 2021/06/23 01:15:04 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/23 01:21:40 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	str_is_space(char *str)
 {
 	while (str && *str)
-		if (!ft_isspace(*str))
+		if (!ft_isspace(*(str++)))
 			return (0);
 	return (1);
 }
