@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:54:40 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/16 21:11:08 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 17:22:00 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ static void	empty_process(char *input_string)
 		print_unexpected_eol_message();
 	}
 	else
+	{
+		if (!str_is_space(input_string))
+			g_data.exit_status = 0;
 		ft_free(input_string);
+	}
 }
 
 void	main_loop(void)

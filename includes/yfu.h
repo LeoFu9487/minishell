@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yfu.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: xli <xli@student.42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:44 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/19 00:18:24 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 17:19:29 by xli              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ t_deque			*get_files_not_dot(char *path);
 t_deque			*get_files_start_from_dot(char *path);
 void			wild_card_recursive(char *path, char *pattern, int *is_matched,
 					t_deque *tokens);
+int				str_is_space(char *str);
 
 /*____todo____*/
 void			handle_ctrl_a(void);
