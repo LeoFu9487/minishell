@@ -119,3 +119,10 @@ export HELLO="Bonjour"
 echo $HELLO
 export BYE=\"Au' Revoir"'
 echo $BYE
+export "_OUT='exit'"
+$_OUT
+export "OUT=exit"
+$OUT 9487
+export var='     'var
+env | grep var
+$var
