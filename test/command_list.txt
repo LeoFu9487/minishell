@@ -83,9 +83,39 @@ cd *
 cd ..
 cd .
 cd $PWD
-cd
+cd srcs///////////
+cd ../sr??
+cd ../s*?
 
 unset PATH and check PATH execute order
+relative path test
 
-redirection, pipe, read the subject ... 
-environment variabke, wildcard
+export PATH=$PATH:.
+
+(create file start from #!/bin/sh)
+
+< in_1 > out_1 cat < in_2 > out_2 > out_3
+< in_1 > out_1 cat Makefile < in_2 > out_2 > out_3
+< in_1 > out_1 cat < in_2 > out_2 > out_3 << eof1 | << eof2 wc > out_4 -l > out_5
+
+(test with ctrl-C, \, D)
+cat | grep a
+cat | ls
+cat | grep a | grep b
+cat | grep a | ls
+cat | grep a | wc -l
+cat | grep a | grep b | wc -l
+cat | grep a | wc -l | grep 2
+cat | grep
+cat | aporpoearpew
+cat | rpokoptp | cat
+cat | grep a | wc -l << eof | grep 2
+
+keep pressing enter or spaces doesn't change $?, but $oearjiojoeairj does
+
+echo $PATH
+echo $9487
+export HELLO="Bonjour"
+echo $HELLO
+export BYE=\"Au' Revoir"'
+echo $BYE
