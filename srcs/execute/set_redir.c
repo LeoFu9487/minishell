@@ -6,7 +6,7 @@
 /*   By: yfu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 19:14:19 by yfu               #+#    #+#             */
-/*   Updated: 2021/06/18 20:40:35 by yfu              ###   ########lyon.fr   */
+/*   Updated: 2021/06/23 01:58:22 by yfu              ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ void	set_redir(char *redir, char *file_name, t_iofd *iofd)
 	int	fd;
 
 	if (iofd->stdin_fd < 0 || iofd->stdout_fd < 0)
+	{
+		if (ft_strncmp(redir, "<<", 3) == 0)
+			deque_pop_front(g_data.heredoc_fd, ft_free);
 		return ;
+	}
 	if (ft_strncmp(redir, "<<", 3) == 0)
 		set_redir_in_d(iofd);
 	else if (ft_strncmp(redir, "<", 2) == 0)
