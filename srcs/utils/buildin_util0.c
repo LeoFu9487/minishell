@@ -23,13 +23,17 @@ int	check_var_name(char *var)
 	int	i;
 
 	if (!ft_isalpha(var[0]) && var[0] != '_')
+	{
+		g_data.exit_status = 1;
 		return (0);
+	}
 	i = 0;
 	while (var[i] && var[i] != '=' && var[i] != '+'
 		&& (ft_isalnum(var[i]) || var[i] == '_'))
 		i++;
 	if (var[i] == '\0' || var[i] == '=' || (var[i] == '+' && var[i + 1] == '='))
 		return (1);
+	g_data.exit_status = 1;
 	return (0);
 }
 

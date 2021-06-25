@@ -123,6 +123,4 @@ export "_OUT='exit'"
 $_OUT
 export "OUT=exit"
 $OUT 9487
-export var='     'var
-env | grep var
-$var
+
