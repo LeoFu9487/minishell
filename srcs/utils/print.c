@@ -22,7 +22,7 @@ void	print_unexpected_eof_message(char *eof)
 
 void	print_unexpected_eol_message(void)
 {
-	g_data.exit_status = 2;
+	g_data.exit_status = 258;
 	ft_putstr_fd("minishell: unexpected EOL while looking for matching `",
 		2);
 	if (g_data.lexer_error == dquote)

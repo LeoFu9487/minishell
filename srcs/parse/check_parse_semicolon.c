@@ -30,7 +30,7 @@ t_deque *new_token)
 	if (new_token->size == 0 || result == 1)
 	{
 		deque_clear(new_token, NULL);
-		g_data.exit_status = 2;
+		g_data.exit_status = 258;
 		return (1);
 	}
 	deque_clear(new_token, NULL);

@@ -30,7 +30,7 @@ t_double_list *iterator)
 	if (new_token->size == 0 || result == 1)
 	{
 		deque_clear(new_token, NULL);
-		g_data.exit_status = 2;
+		g_data.exit_status = 258;
 		return (1);
 	}
 	deque_clear(new_token, NULL);
@@ -40,7 +40,7 @@ t_double_list *iterator)
 static void	check_parse_pipe_sub_1(t_deque *new_token)
 {
 	deque_clear(new_token, NULL);
-	g_data.exit_status = 2;
+	g_data.exit_status = 258;
 	ft_putendl_fd("minishell: syntax error near unexpected token `|\'", 2);
 }
 

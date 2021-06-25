@@ -67,7 +67,7 @@ void	builtin_export(char **args)
 	{
 		if (!check_var_name(args[i]))
 		{
-			ft_putstr_fd("export: `", 2);
+			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(args[i], 2);
 			ft_putendl_fd("': not a valid identifier", 2);
 		}
