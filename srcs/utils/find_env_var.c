@@ -25,7 +25,8 @@ t_double_list	*find_env_var_line(char *key)
 	{
 		if (ft_strlen(iterator->content) > key_len)
 			if (ft_strncmp(iterator->content, key, key_len) == 0
-				&& ((char *)iterator->content)[key_len] == '=')
+				&& (((char *)iterator->content)[key_len] == '='
+				|| ((char *)iterator->content)[key_len] == 0))
 				return (iterator);
 		iterator = iterator->next;
 	}

@@ -23,7 +23,7 @@ static void	update_env_oldpwd(void)
 		deque_pop_one(g_data.env_list, find_env_var_line("OLDPWD"), ft_free);
 	else
 	{
-		if (find_env_var("OLDPWD"))
+		if (find_env_var_line("OLDPWD"))
 		{
 			deque_pop_one(g_data.env_list, find_env_var_line("OLDPWD"),
 				ft_free);
@@ -42,7 +42,7 @@ static void	update_env_pwd(void)
 	ft_free(g_data.pwd);
 	g_data.pwd = ft_getcwd(NULL, 0);
 	pwd = ft_strjoin("PWD=", g_data.pwd);
-	if (find_env_var("PWD"))
+	if (find_env_var_line("PWD"))
 	{
 		deque_pop_one(g_data.env_list, find_env_var_line("PWD"), ft_free);
 		deque_push_back(g_data.env_list, pwd);
@@ -69,7 +69,7 @@ static int	update_pwd(char *str)
 		g_data.pwd = ft_strjoin(pwd, "/.");
 		ft_free(pwd);
 	}
-	else if (cwd || !ft_strncmp(str, "~", 2))
+	else if (cwd)
 	{
 		update_env_oldpwd();
 		update_env_pwd();
