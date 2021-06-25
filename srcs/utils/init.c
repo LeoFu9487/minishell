@@ -105,6 +105,7 @@ void	init_env(char **env)
 {
 	int				idx[2];
 	t_double_list	*iterator;
+	char			*args[3];
 
 	g_data.env_list = deque_init();
 	idx[0] = -1;
@@ -112,6 +113,10 @@ void	init_env(char **env)
 		if (ft_strncmp(env[idx[0]], "OLDPWD=", 7) != 0)
 			deque_push_back(g_data.env_list, env[idx[0]]);
 	iterator = find_env_var_line("PWD");
+	args[0] = "export";
+	args[1] = "OLDPWD";
+	args[2] = 0;
+	builtin_export(args);
 	if (iterator)
 	{
 		ft_free(iterator->content);
