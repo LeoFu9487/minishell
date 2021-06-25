@@ -41,7 +41,7 @@ static int	check_parse_redir_sub(int last_key_is_redir, t_deque *tokens,
 {
 	if (last_key_is_redir)
 	{
-		g_data.exit_status = 2;
+		g_data.exit_status = 258;
 		ft_putstr_fd("minishell: syntax error near unexpected token `",
 			2);
 		ft_putstr_fd(((t_token *)(iterator->content))->str, 2);
@@ -50,7 +50,7 @@ static int	check_parse_redir_sub(int last_key_is_redir, t_deque *tokens,
 	}
 	else if (iterator == tokens->tail)
 	{
-		g_data.exit_status = 2;
+		g_data.exit_status = 258;
 		check_parse_redir_sub_sub(eoc);
 		return (1);
 	}

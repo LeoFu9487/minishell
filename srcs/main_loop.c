@@ -25,7 +25,7 @@ static void	no_empty_process(char *input_string, t_deque *tokens)
 			g_data.exit_status = 0;
 		else
 		{
-			g_data.exit_status = 2;
+			g_data.exit_status = 258;
 			print_unexpected_eol_message();
 		}
 	}
