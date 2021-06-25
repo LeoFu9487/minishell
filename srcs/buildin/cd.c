@@ -115,8 +115,7 @@ static void	switch_pwd(void)
 void	builtin_cd(char **args)
 {
 	g_data.exit_status = 0;
-	if (!args[1] || !ft_strncmp(args[1], "~", 2)
-		|| !ft_strncmp(args[1], "--", 3))
+	if (!args[1] || !ft_strncmp(args[1], "--", 3))
 	{
 		if (chdir(find_env_var("HOME")))
 		{
