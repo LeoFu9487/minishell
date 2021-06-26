@@ -124,3 +124,45 @@ $_OUT
 export "OUT=exit"
 $OUT 9487
 
+mkdir aaaaa
+cd aaaaa
+
+(remote : ) rm -rf aaaaa
+
+export PWD=aorjaer
+export OLDPWD=apirjaejre
+cd .
+env | grep PWD
+
+
+
+unset PWD
+export PWD
+cd ..
+env| grep PWD
+
+
+export OLDPWD=aejroejre;r
+cd -
+
+cd ..
+export OLDPWD=a
+unset PWD
+export PWD
+cd ..
+env | grep PWD
+
+cd ..
+export | grep PWD
+export PWD=aaaaa
+export | grep PWD
+
+unset PWD
+export OLDPWD=.
+cd -
+env
+
+1. check norm
+2. check functions
+3. check the subject
+4. run tests
